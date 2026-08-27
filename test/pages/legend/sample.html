@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Geomap Legend Control - Population Map</title>
+
+	<script data-ui5-config type="application/json">
+		{
+			"language": "EN"
+		}
+	</script>
+
+	<script src="../../../bundle.esm.js" type="module"></script>
+	<script src="./main.js" type="module"></script>
+
+	<style>
+		body {
+			font-family: "72", "72full", Arial, Helvetica, sans-serif;
+			margin: 0;
+			padding: 0;
+		}
+
+		#map {
+			margin-top: 10px;
+			width: 100%;
+			height: 900px;
+		}
+
+		header {
+			background: #fafafa;
+			padding: 0.5rem 1rem;
+			border-bottom: 1px solid #d9d9d9;
+			position: sticky;
+			top: 0;
+			z-index: 10;
+		}
+
+		.controls {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			margin-top: 0.5rem;
+			flex-wrap: wrap;
+		}
+
+		.city-circle {
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: #fff;
+			font-size: 0.65rem;
+			font-weight: bold;
+			text-shadow: 0 0 3px rgba(0,0,0,0.6);
+			cursor: pointer;
+			opacity: 0.8;
+			transition: opacity 0.2s;
+		}
+
+		.city-circle:hover {
+			opacity: 1;
+		}
+
+		.popover-content {
+			padding: 1rem;
+		}
+
+		.popover-content_name {
+			font-weight: bold;
+			display: block;
+			margin-bottom: 0.5rem;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<ui5-title level="H3">European Population & Status Map</ui5-title>
+		<div class="controls">
+			<ui5-button id="showPopulationLegend">Hide Population Legend</ui5-button>
+			<ui5-button id="showStatusLegend">Hide Status Legend</ui5-button>
+		</div>
+	</header>
+
+	<ui5-geomap
+		id="map"
+		center-lat="48.5"
+		center-lng="10.0"
+		zoom="5">
+
+		<!-- Provider -->
+		<ui5-geomap-provider
+			slot="mapControls"
+			style-url="https://demotiles.maplibre.org/style.json"
+		></ui5-geomap-provider>
+
+		<!-- Controls -->
+		<ui5-geomap-fullscreen-control slot="mapControls"></ui5-geomap-fullscreen-control>
+		<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+		<ui5-geomap-scale-control slot="mapControls" position="BottomRight"></ui5-geomap-scale-control>
+
+		<!-- Population Legend - Bottom Right -->
+		<ui5-geomap-legend-control
+			id="legendPopulation"
+			slot="mapControls"
+			position="BottomLeft"
+			header-title="Population"
+			expanded
+			draggable
+		></ui5-geomap-legend-control>
+
+		<!-- Status Legend - Top Right -->
+		<ui5-geomap-legend-control
+			id="legendStatus"
+			slot="mapControls"
+			position="TopRight"
+			header-title="Air Quality Status"
+			expanded
+			draggable
+		></ui5-geomap-legend-control>
+
+		<!-- === CITIES - Population circles === -->
+
+		<!-- Paris - 11M -->
+		<ui5-geomap-container lat="48.8566" lng="2.3522">
+			<div class="city-circle" data-population="p1" data-status="s1" style="background: #723122; width: 70px; height: 70px;">Paris</div>
+		</ui5-geomap-container>
+
+		<!-- London - 9M -->
+		<ui5-geomap-container lat="51.5074" lng="-0.1278">
+			<div class="city-circle" data-population="p2" data-status="s2" style="background: #8B4225; width: 62px; height: 62px;">London</div>
+		</ui5-geomap-container>
+
+		<!-- Madrid - 6.7M -->
+		<ui5-geomap-container lat="40.4168" lng="-3.7038">
+			<div class="city-circle" data-population="p3" data-status="s2" style="background: #B86B25; width: 52px; height: 52px;">Madrid</div>
+		</ui5-geomap-container>
+
+		<!-- Berlin - 3.7M -->
+		<ui5-geomap-container lat="52.5200" lng="13.4050">
+			<div class="city-circle" data-population="p5" data-status="s3" style="background: #DA9C20; width: 42px; height: 42px;">Berlin</div>
+		</ui5-geomap-container>
+
+		<!-- Rome - 4.3M -->
+		<ui5-geomap-container lat="41.9028" lng="12.4964">
+			<div class="city-circle" data-population="p4" data-status="s2" style="background: #CA8323; width: 46px; height: 46px;">Rome</div>
+		</ui5-geomap-container>
+
+		<!-- Vienna - 1.9M -->
+		<ui5-geomap-container lat="48.2082" lng="16.3738">
+			<div class="city-circle" data-population="p7" data-status="s3" style="background: #FFF2CC; color: #333; width: 32px; height: 32px;">Vienna</div>
+		</ui5-geomap-container>
+
+		<!-- Munich - 1.5M -->
+		<ui5-geomap-container lat="48.1351" lng="11.5820">
+			<div class="city-circle" data-population="p7" data-status="s3" style="background: #FFF2CC; color: #333; width: 30px; height: 30px;">Munich</div>
+		</ui5-geomap-container>
+
+		<!-- Barcelona - 5.6M -->
+		<ui5-geomap-container lat="41.3874" lng="2.1686">
+			<div class="city-circle" data-population="p3" data-status="s2" style="background: #B86B25; width: 48px; height: 48px;">Barcelona</div>
+		</ui5-geomap-container>
+
+		<!-- Warsaw - 1.8M -->
+		<ui5-geomap-container lat="52.2297" lng="21.0122">
+			<div class="city-circle" data-population="p7" style="background: #FFF2CC; color: #333; width: 30px; height: 30px;">Warsaw</div>
+		</ui5-geomap-container>
+
+		<!-- Hamburg - 1.9M -->
+		<ui5-geomap-container lat="53.5511" lng="9.9937">
+			<div class="city-circle" data-population="p7" data-status="s3" style="background: #FFF2CC; color: #333; width: 32px; height: 32px;">Hamburg</div>
+		</ui5-geomap-container>
+
+		<!-- Amsterdam - 2.5M -->
+		<ui5-geomap-container lat="52.3676" lng="4.9041">
+			<div class="city-circle" data-population="p6" data-status="s4" style="background: #F2F12D; color: #333; width: 36px; height: 36px;">Amsterdam</div>
+		</ui5-geomap-container>
+
+		<!-- Milan - 3.1M -->
+		<ui5-geomap-container lat="45.4642" lng="9.1900">
+			<div class="city-circle" data-population="p5" data-status="s1" style="background: #DA9C20; width: 40px; height: 40px;">Milan</div>
+		</ui5-geomap-container>
+
+		<!-- === STATUS SPOTS - Air quality icons === -->
+
+		<!-- Paris - Critical -->
+		<ui5-geomap-spot lat="49.10" lng="2.45" icon="status-critical" color="var(--sapNegativeTextColor)" width="1.5rem" height="1.5rem"></ui5-geomap-spot>
+
+		<!-- London - Warning -->
+		<ui5-geomap-spot lat="51.73" lng="-0.1" icon="alert" color="var(--sapCriticalTextColor)" width="1.5rem" height="1.5rem"></ui5-geomap-spot>
+
+		<!-- Berlin - Positive -->
+		<ui5-geomap-spot lat="52.78" lng="13.50" icon="status-positive" color="var(--sapPositiveTextColor)" width="1.5rem" height="1.5rem"></ui5-geomap-spot>
+
+		<!-- Munich - Positive -->
+		<ui5-geomap-spot lat="48.38" lng="11.68" icon="status-positive" color="var(--sapPositiveTextColor)" width="1.5rem" height="1.5rem"></ui5-geomap-spot>
+
+		<!-- Milan - Critical -->
+		<ui5-geomap-spot lat="45.72" lng="9.28" icon="status-critical" color="var(--sapNegativeTextColor)" width="1.5rem" height="1.5rem"></ui5-geomap-spot>
+
+		<!-- Madrid - Warning -->
+		<ui5-geomap-spot lat="40.68" lng="-3.60" icon="alert" color="var(--sapCriticalTextColor)" width="1.5rem" height="1.5rem"></ui5-geomap-spot>
+
+		<!-- Vienna - Positive -->
+		<ui5-geomap-spot lat="48.45" lng="16.47" icon="status-positive" color="var(--sapPositiveTextColor)" width="1.5rem" height="1.5rem"></ui5-geomap-spot>
+
+		<!-- Amsterdam - Info -->
+		<ui5-geomap-spot lat="52.62" lng="5.00" icon="information" color="var(--sapInformativeTextColor)" width="1.5rem" height="1.5rem"></ui5-geomap-spot>
+
+		<!-- Rome - Warning -->
+		<ui5-geomap-spot lat="42.15" lng="12.60" icon="alert" color="var(--sapCriticalTextColor)" width="1.5rem" height="1.5rem"></ui5-geomap-spot>
+
+		<!-- Barcelona - Warning -->
+		<ui5-geomap-spot lat="41.65" lng="2.27" icon="alert" color="var(--sapCriticalTextColor)" width="1.5rem" height="1.5rem"></ui5-geomap-spot>
+
+		<!-- Hamburg - Positive -->
+		<ui5-geomap-spot lat="53.80" lng="10.10" icon="status-positive" color="var(--sapPositiveTextColor)" width="1.5rem" height="1.5rem"></ui5-geomap-spot>
+
+	</ui5-geomap>
+
+	<!-- City info popover -->
+	<ui5-popover id="cityInfo" header-text="City Details">
+		<div class="popover-content">
+			<ui5-label id="cityInfoName" class="popover-content_name"></ui5-label>
+			<ui5-label id="cityInfoPop"></ui5-label>
+		</div>
+	</ui5-popover>
+
+</body>
+</html>

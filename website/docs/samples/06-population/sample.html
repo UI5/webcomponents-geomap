@@ -1,0 +1,98 @@
+<!-- playground-fold -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="utf-8" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="utf-8" />
+
+		<script data-ui5-config type="application/json">
+			{
+				"language": "EN"
+			}
+		</script>
+
+		<script src="./main.js" type="module"></script>
+
+		<style>
+			#map {
+				margin-top: 10px;
+				width: 100%;
+				height: 700px;
+			}
+
+			.legend {
+				right: 10px;
+				bottom: 50px;
+				font-family: var(--sapFontFamily);
+				font-size: var(--sapFontSize);
+				background-color: #f6f6f6;
+				padding: 15px;
+				position: absolute;
+
+				z-index: 1;
+			}
+
+			.legend > ui5-title {
+				margin-bottom: 10px;
+			}
+
+			.legend .circle {
+				border-radius: 50%;
+				display: inline-block;
+				height: 10px;
+				margin-right: 5px;
+				width: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<ui5-title>A choropleth map of USA population</ui5-title>
+		<ui5-label>Fill layer with several states used</ui5-label>
+		<br>
+		<br>
+
+		<div style="position: relative;">
+			<div class="legend">
+				<ui5-title>Population</ui5-title>
+				<div><span class="circle" style="background-color: #723122; opacity: 0.5;"></span><ui5-label>25,000,000</ui5-label></div>
+				<div><span class="circle" style="background-color: #8b4225; opacity: 0.5;"></span><ui5-label>10,000,000</ui5-label></div>
+				<div><span class="circle" style="background-color: #a25626; opacity: 0.5;"></span><ui5-label>7,500,000</ui5-label></div>
+				<div><span class="circle" style="background-color: #b86b25; opacity: 0.5;"></span><ui5-label>5,000,000</ui5-label></div>
+				<div><span class="circle" style="background-color: #ca8323; opacity: 0.5;"></span><ui5-label>2,000,000</ui5-label></div>
+				<div><span class="circle" style="background-color: #da9c20; opacity: 0.5;"></span><ui5-label>1,000,000</ui5-label></div>
+				<div><span class="circle" style="background-color: #e6b71e; opacity: 0.5;"></span><ui5-label>750,000</ui5-label></div>
+				<div><span class="circle" style="background-color: #eed322; opacity: 0.5;"></span><ui5-label>500,000</ui5-label></div>
+				<div><span class="circle" style="background-color: #f2f12d; opacity: 0.5;"></span><ui5-label>0</ui5-label></div>
+			</div>
+
+	<!-- playground-fold-end -->
+				<ui5-geomap
+					id="map"
+					center-lng="-87.7292790540713"
+					center-lat="36.79873532444539"
+					zoom="3"
+				>
+					<!-- controls -->
+					<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+
+					<!-- data provider-->
+					<ui5-geomap-provider
+						slot="mapControls"
+						style-url="https://demotiles.maplibre.org/style.json"
+					></ui5-geomap-provider>
+
+					<ui5-geomap-source id="states"></ui5-geomap-source>
+
+					<ui5-geomap-fill-layer id="layer" source="states" opacity="0.5"></ui5-geomap-fill-layer>
+
+				</ui5-geomap>
+	<!-- playground-fold -->
+		</div>
+	</body>
+</html>
+<!-- playground-fold -->

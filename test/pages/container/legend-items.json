@@ -1,0 +1,6 @@
+[
+	{ "id": "good", "label": "Good (0–50)", "color": "var(--sapPositiveTextColor)", "icon": "status-positive" },
+	{ "id": "moderate", "label": "Moderate (51–100)", "color": "var(--sapCriticalTextColor)", "icon": "alert" },
+	{ "id": "usg", "label": "USG (101–150)", "color": "var(--sapNegativeTextColor)", "icon": "status-critical" },
+	{ "id": "unhealthy", "label": "Unhealthy (151+)", "color": "var(--sapNegativeTextColor)", "icon": "status-negative" }
+]

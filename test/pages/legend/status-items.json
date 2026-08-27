@@ -1,0 +1,6 @@
+[
+	{ "id": "s1", "label": "Critical – Unhealthy", "color": "var(--sapNegativeTextColor)", "icon": "status-critical" },
+	{ "id": "s2", "label": "Warning – Moderate", "color": "var(--sapCriticalTextColor)", "icon": "alert" },
+	{ "id": "s3", "label": "Good – Healthy", "color": "var(--sapPositiveTextColor)", "icon": "status-positive" },
+	{ "id": "s4", "label": "No data available", "color": "var(--sapInformativeTextColor)", "icon": "information" }
+]

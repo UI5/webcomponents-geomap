@@ -1,0 +1,52 @@
+<!-- playground-fold -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sample</title>
+</head>
+
+<body style="background-color: var(--sapBackgroundColor); height: 300px;">
+<!-- playground-fold-end -->
+<ui5-geomap
+	id="myMap"
+	center-lat="50.1109"
+	center-lng="11.0767"
+	zoom="6"
+>
+
+	<!-- data provider-->
+	<ui5-geomap-provider
+		slot="mapControls"
+		style-url="https://demotiles.maplibre.org/style.json"
+	></ui5-geomap-provider>
+
+	<ui5-geomap-spot id="spot" lat="49.4" lng="8.5" icon="map-fill" color="red"></ui5-geomap-spot>
+
+
+</ui5-geomap>
+
+<ui5-popover id="spotInfo">
+	<ui5-label for="spotId">Spot Name:</ui5-label>
+	<ui5-text id="spotId" ></ui5-text>
+	<ui5-label for="spotLng" >Spot Lang:</ui5-label>
+	<ui5-text id="spotLng" ></ui5-text>
+	<ui5-label for="spotLat" >Spot Lat:</ui5-label>
+	<ui5-text id="spotLat" ></ui5-text>
+</ui5-popover>
+
+<ui5-menu id="menuBasic">
+	<ui5-menu-item text="New Location"></ui5-menu-item>
+	<ui5-menu-item text="Move to..." disabled></ui5-menu-item>
+	<ui5-menu-item text="Details"></ui5-menu-item>
+	<ui5-menu-item text="Exit"></ui5-menu-item>
+</ui5-menu>
+
+<!-- playground-fold -->
+<script type="module" src="main.js"></script>
+</body>
+
+</html>
+<!-- playground-fold-end -->

@@ -1,0 +1,9 @@
+# Note: Changes to this file also must be applied to the top level .eslintignore file.
+dist
+test
+config
+cypress.config.js
+package-scripts.js
+node_modules/
+src/generated
+website

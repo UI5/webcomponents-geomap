@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta charset="utf-8">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta charset="utf-8">
+
+		<script data-ui5-config type="application/json">
+			{
+				"language": "EN"
+			}
+		</script>
+		<script src="../../../bundle.esm.js" type="module"></script>
+		<script src="./main.js" type="module"></script>
+
+		<style>
+			#map {
+				margin-top: 10px;
+				width: 100%;
+				height: 700px;
+			}
+
+			header {
+				background: #fafafa;
+				position: sticky;
+				top: 0;
+				width: 100%;
+				z-index: 10;
+			}
+
+			.group {
+				display: flex;
+				margin: 10px 0;
+				align-items: center;
+				justify-content: flex-start;
+			}
+
+			.group > * {
+				margin: 0 10px;
+			}
+
+		</style>
+	</head>
+
+	<body>
+
+		<header>
+			<ui5-title>The map can be restricted to visualize a certain area, with certain zoom and tilt</ui5-title>
+			<ui5-label>You must provide the coordinates of the bottom-left (west-south) and top-right (east-north) bounding rectangle</ui5-label>
+			<br>
+		</header>
+
+
+		<div class="group">
+			<ui5-checkbox id="restrict" checked text="Restricted area:"></ui5-checkbox>
+			<ui5-label>West-South (bottom-left) Point Lng/Lat:</ui5-label>
+			<ui5-input id="wslng" value="-4.858335400281931"></ui5-input>
+			<ui5-input id="wslat" value="54.03992269937953"></ui5-input>
+			<ui5-label>East-North (top-left) Point Lng/Lat:</ui5-label>
+			<ui5-input id="enlng" value="-4.285830446034993"></ui5-input>
+			<ui5-input id="enlat" value="54.422363512365536"></ui5-input>
+		</div>
+
+		<div style="display: flex; justify-content: flex-start;">
+			<div>
+				<div class="group">
+					<ui5-label>Min zoom:</ui5-label>
+					<ui5-slider id="minZoomSlider" style="width: 500px; height: 44px;" min="0" max="24" value="0" step="0.5" show-tickmarks label-interval="2" show-tooltip></ui5-slider>
+				</div>
+				<div class="group">
+					<ui5-label>Max zoom:</ui5-label>
+					<ui5-slider id="maxZoomSlider" style="width: 500px; height: 44px;" min="0" max="24" value="24" step="0.5" show-tickmarks label-interval="2" show-tooltip></ui5-slider>
+				</div>
+			</div>
+
+			<div style="margin: 0 0 0 10px;">
+				<div class="group">
+					<ui5-label>Min tilt:</ui5-label>
+					<ui5-slider id="minTiltSlider" style="width: 500px; height: 44px;" min="0" max="60" value="0" step="1" show-tickmarks label-interval="2" show-tooltip></ui5-slider>
+				</div>
+				<div class="group">
+					<ui5-label>Max tilt:</ui5-label>
+					<ui5-slider id="maxTiltSlider" style="width: 500px; height: 44px;" min="0" max="60" value="60" step="1" show-tickmarks label-interval="2" show-tooltip></ui5-slider>
+				</div>
+			</div>
+		</div>
+
+
+		<ui5-geomap
+			id="map"
+			restricted-area-west-south-point-lng="-4.858335400281931"
+			restricted-area-west-south-point-lat="54.03992269937953"
+			restricted-area-east-north-point-lng="-4.285830446034993"
+			restricted-area-east-north-point-lat="54.422363512365536"
+		>
+			<!-- controls -->
+			<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+
+			<!-- data provider-->
+			<ui5-geomap-provider
+					slot="mapControls"
+					style-url="https://demotiles.maplibre.org/style.json"
+			></ui5-geomap-provider>
+
+		</ui5-geomap>
+
+	</body>
+
+</html>

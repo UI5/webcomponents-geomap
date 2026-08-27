@@ -1,0 +1,41 @@
+<!-- playground-fold -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sample</title>
+</head>
+
+<body style="background-color: var(--sapBackgroundColor); height: 300px;">
+	<header>
+		<ui5-button id="startAnimation">Fly from New York to Paris</ui5-button>
+		<ui5-label>Animation frames:</ui5-label>
+		<ui5-input id="totalFrames" value="500"></ui5-input>
+		<ui5-label>Travelled:</ui5-label>
+		<ui5-input id="display" value="" readonly></ui5-input>
+	</header>
+
+	<!-- playground-fold-end -->
+	<ui5-geomap
+		id="map"
+		center-lat="40.72607712159058"
+		center-lng="-73.98270540162157"
+		zoom="2"
+	>
+		<!-- data provider-->
+		<ui5-geomap-provider
+			slot="mapControls"
+			style-url="https://demotiles.maplibre.org/style.json"
+		></ui5-geomap-provider>
+
+		<ui5-geomap-circle id="circle" lng="-73.98270540162157" lat="40.72607712159058" radius="15" fill-color="blue" outline-color="white" outline-width="2"></ui5-geomap-circle>
+
+	</ui5-geomap>
+	<!-- playground-fold -->
+	<script type="module" src="main.js"></script>
+</body>
+
+</html>
+<!-- playground-fold-end -->

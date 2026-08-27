@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>European Air Quality Monitoring Dashboard</title>
+
+	<script data-ui5-config type="application/json">
+		{
+			"language": "EN"
+		}
+	</script>
+
+	<script src="../../../bundle.esm.js" type="module"></script>
+	<script src="./main.js" type="module"></script>
+
+	<style>
+		body {
+			font-family: "72override", var(--sapFontFamily);
+			margin: 0;
+			padding: 0;
+		}
+
+		header {
+			background: var(--sapPageHeader_Background);
+			padding: 0.5rem 1rem;
+			border-bottom: 0.0625rem solid var(--sapPageHeader_BorderColor);
+			position: sticky;
+			top: 0;
+			z-index: 10;
+		}
+
+		.controls {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			margin-top: 0.5rem;
+			flex-wrap: wrap;
+		}
+
+		#map {
+			width: 100%;
+			height: 43.75rem;
+		}
+
+		.comic-balloon {
+			position: relative;
+			background: var(--sapGroup_ContentBackground);
+			border: 0.0625rem solid var(--sapContent_ForegroundBorderColor);
+			border-radius: 1.25rem;
+			padding: 0.625rem 0.875rem;
+			font-size: 0.8125rem;
+			min-width: 7.5rem;
+			max-width: 14rem;
+			pointer-events: auto;
+			cursor: pointer;
+			box-shadow: 0.0625rem 0.0625rem 0 var(--sapContent_ShadowColor);
+			transition: transform 0.15s ease, box-shadow 0.15s ease;
+		}
+
+		.comic-balloon:hover {
+			transform: translateY(-0.125rem);
+			box-shadow: 0.125rem 0.125rem 0.25rem var(--sapContent_ShadowColor);
+		}
+
+		.comic-balloon::after {
+			content: "";
+			position: absolute;
+			bottom: -0.5rem;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 0;
+			height: 0;
+			border-left: 0.4375rem solid transparent;
+			border-right: 0.4375rem solid transparent;
+			border-top: 0.5rem solid var(--sapGroup_ContentBackground);
+			filter: drop-shadow(0 0.0625rem 0 var(--sapContent_ForegroundBorderColor));
+		}
+
+		.comic-balloon::before {
+			content: "";
+			position: absolute;
+			bottom: -0.625rem;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 0;
+			height: 0;
+			border-left: 0.5rem solid transparent;
+			border-right: 0.5rem solid transparent;
+			border-top: 0.625rem solid var(--sapContent_ForegroundBorderColor);
+		}
+
+		.comic-balloon__city {
+			font-weight: bold;
+			font-size: 0.9375rem;
+			margin-bottom: 0.25rem;
+			color: var(--sapTextColor);
+			letter-spacing: 0.03em;
+		}
+
+		.comic-balloon__aqi {
+			display: flex;
+			align-items: center;
+			gap: 0.375rem;
+			margin-bottom: 0.25rem;
+		}
+
+		.comic-balloon__aqi-value {
+			font-size: 1.5rem;
+			font-weight: 900;
+			line-height: 1;
+		}
+
+		.comic-balloon__aqi-label {
+			font-size: 0.6875rem;
+			text-transform: uppercase;
+			letter-spacing: 0.05em;
+			color: var(--sapContent_LabelColor);
+		}
+
+		.comic-balloon__status {
+			display: inline-block;
+			padding: 0.125rem 0.5rem;
+			border-radius: 0.75rem;
+			font-size: 0.6875rem;
+			font-weight: bold;
+			color: var(--sapContent_ContrastTextColor);
+			letter-spacing: 0.02em;
+		}
+
+		.comic-balloon__detail {
+			font-size: 0.6875rem;
+			color: var(--sapContent_LabelColor);
+			margin-top: 0.25rem;
+		}
+
+		.aqi-good { color: var(--sapPositiveColor); }
+		.aqi-moderate { color: var(--sapCriticalColor); }
+		.aqi-unhealthy-sg { color: var(--sapNegativeColor); }
+		.aqi-unhealthy { color: var(--sapNegativeColor); }
+
+		.status-good { background: var(--sapPositiveColor); }
+		.status-moderate { background: var(--sapCriticalColor); }
+		.status-unhealthy-sg { background: var(--sapNegativeColor); }
+		.status-unhealthy { background: var(--sapNegativeColor); }
+
+		/* === Mini AQI chart === */
+
+		.chart-container {
+			position: relative;
+			background: var(--sapGroup_ContentBackground);
+			border: 0.0625rem solid var(--sapContent_ForegroundBorderColor);
+			border-radius: 1.25rem;
+			padding: 0.75rem;
+			box-shadow: 0.0625rem 0.0625rem 0 var(--sapContent_ShadowColor);
+			width: 11rem;
+			pointer-events: auto;
+		}
+
+		.chart-container::after {
+			content: "";
+			position: absolute;
+			bottom: -0.5rem;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 0;
+			height: 0;
+			border-left: 0.4375rem solid transparent;
+			border-right: 0.4375rem solid transparent;
+			border-top: 0.5rem solid var(--sapGroup_ContentBackground);
+			filter: drop-shadow(0 0.0625rem 0 var(--sapContent_ForegroundBorderColor));
+		}
+
+		.chart-container::before {
+			content: "";
+			position: absolute;
+			bottom: -0.625rem;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 0;
+			height: 0;
+			border-left: 0.5rem solid transparent;
+			border-right: 0.5rem solid transparent;
+			border-top: 0.625rem solid var(--sapContent_ForegroundBorderColor);
+		}
+
+		.chart-container__title {
+			font-size: 0.8125rem;
+			font-weight: bold;
+			margin-bottom: 0.5rem;
+			color: var(--sapTextColor);
+		}
+
+		.chart-bar {
+			display: flex;
+			align-items: center;
+			gap: 0.375rem;
+			margin-bottom: 0.25rem;
+			font-size: 0.6875rem;
+		}
+
+		.chart-bar__label {
+			width: 2.5rem;
+			text-align: right;
+			flex-shrink: 0;
+			color: var(--sapContent_LabelColor);
+			font-weight: bold;
+		}
+
+		.chart-bar__fill {
+			height: 0.75rem;
+			border-radius: 0.375rem;
+			border: 0.0625rem solid var(--sapContent_ForegroundBorderColor);
+			transition: width 0.3s ease;
+		}
+
+		.chart-bar__value {
+			font-size: 0.625rem;
+			font-weight: bold;
+			color: var(--sapTextColor);
+			min-width: 1.5rem;
+		}
+
+		/* === Report form balloon === */
+
+		.form-balloon {
+			position: relative;
+			background: var(--sapGroup_ContentBackground);
+			border: 0.0625rem solid var(--sapInformativeColor);
+			border-radius: 1.25rem;
+			padding: 0.75rem;
+			box-shadow: 0.0625rem 0.0625rem 0 var(--sapInformativeColor);
+			pointer-events: auto;
+			min-width: 13rem;
+		}
+
+		.form-balloon::after {
+			content: "";
+			position: absolute;
+			bottom: -0.5rem;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 0;
+			height: 0;
+			border-left: 0.4375rem solid transparent;
+			border-right: 0.4375rem solid transparent;
+			border-top: 0.5rem solid var(--sapGroup_ContentBackground);
+			filter: drop-shadow(0 0.0625rem 0 var(--sapInformativeColor));
+		}
+
+		.form-balloon::before {
+			content: "";
+			position: absolute;
+			bottom: -0.625rem;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 0;
+			height: 0;
+			border-left: 0.5rem solid transparent;
+			border-right: 0.5rem solid transparent;
+			border-top: 0.625rem solid var(--sapInformativeColor);
+		}
+
+		.form-balloon__title {
+			font-size: 0.8125rem;
+			font-weight: bold;
+			margin-bottom: 0.5rem;
+			color: var(--sapInformativeColor);
+		}
+
+		.form-balloon ui5-input {
+			width: 100%;
+			margin-bottom: 0.5rem;
+		}
+
+		/* === Popover === */
+
+		.popover-content {
+			padding: 1rem;
+		}
+
+		.popover-content__city {
+			font-weight: bold;
+			display: block;
+			margin-bottom: 0.25rem;
+			font-size: 1rem;
+		}
+
+		.popover-content__aqi {
+			display: block;
+			margin-bottom: 0.5rem;
+			font-size: 0.875rem;
+		}
+
+		.popover-content__info {
+			display: block;
+			color: var(--sapContent_LabelColor);
+			font-size: 0.8125rem;
+		}
+
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<ui5-title level="H3">European Air Quality Index (AQI)</ui5-title>
+		<div class="controls">
+			<ui5-button id="btnToggleBadges">Toggle AQI Balloons</ui5-button>
+		</div>
+	</header>
+
+	<ui5-geomap id="map" center-lat="48.5" center-lng="10.0" zoom="5">
+
+		<!-- Provider -->
+		<ui5-geomap-provider slot="mapControls"
+			style-url="https://demotiles.maplibre.org/style.json"></ui5-geomap-provider>
+
+		<!-- Navigation -->
+		<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+		<ui5-geomap-scale-control slot="mapControls" position="BottomLeft"></ui5-geomap-scale-control>
+
+		<ui5-geomap-legend-control id="legendAqi" slot="mapControls" position="TopRight"
+			header-title="AQI Levels" expanded draggable></ui5-geomap-legend-control>
+
+		<ui5-geomap-container id="balloonParis" lat="48.8566" lng="2.3522">
+			<div class="comic-balloon" data-city="Paris" data-aqi-level="moderate">
+				<div class="comic-balloon__city">🗼 Paris</div>
+				<div class="comic-balloon__aqi">
+					<span class="comic-balloon__aqi-value aqi-moderate">64</span>
+					<span class="comic-balloon__aqi-label">AQI</span>
+				</div>
+				<span class="comic-balloon__status status-moderate">⚠ Moderate</span>
+				<div class="comic-balloon__detail">PM2.5: 18 µg/m³ · NO₂: 32 µg/m³</div>
+			</div>
+		</ui5-geomap-container>
+
+
+		<ui5-geomap-container id="balloonBerlin" lat="52.5200" lng="13.4050">
+			<div class="comic-balloon" data-city="Berlin" data-aqi-level="good">
+				<div class="comic-balloon__city">🏛️ Berlin</div>
+				<div class="comic-balloon__aqi">
+					<span class="comic-balloon__aqi-value aqi-good">33</span>
+					<span class="comic-balloon__aqi-label">AQI</span>
+				</div>
+				<span class="comic-balloon__status status-good">✓ Good</span>
+				<div class="comic-balloon__detail">PM2.5: 8 µg/m³ · NO₂: 16 µg/m³</div>
+			</div>
+		</ui5-geomap-container>
+
+
+		<ui5-geomap-container id="balloonLondon" lat="51.5074" lng="-0.1278">
+			<div class="comic-balloon" data-city="London" data-aqi-level="moderate">
+				<div class="comic-balloon__city">🎡 London</div>
+				<div class="comic-balloon__aqi">
+					<span class="comic-balloon__aqi-value aqi-moderate">58</span>
+					<span class="comic-balloon__aqi-label">AQI</span>
+				</div>
+				<span class="comic-balloon__status status-moderate">⚠ Moderate</span>
+				<div class="comic-balloon__detail">PM2.5: 15 µg/m³ · NO₂: 40 µg/m³</div>
+			</div>
+		</ui5-geomap-container>
+
+
+		<ui5-geomap-container id="balloonMadrid" lat="40.4168" lng="-3.7038">
+			<div class="comic-balloon" data-city="Madrid" data-aqi-level="unhealthy">
+				<div class="comic-balloon__city">☀️ Madrid</div>
+				<div class="comic-balloon__aqi">
+					<span class="comic-balloon__aqi-value aqi-unhealthy">155</span>
+					<span class="comic-balloon__aqi-label">AQI</span>
+				</div>
+				<span class="comic-balloon__status status-unhealthy">✕ Unhealthy</span>
+				<div class="comic-balloon__detail">PM2.5: 40 µg/m³ · O₃: 105 µg/m³</div>
+			</div>
+		</ui5-geomap-container>
+
+
+		<ui5-geomap-container id="balloonVienna" lat="48.2082" lng="16.3738">
+			<div class="comic-balloon" data-city="Vienna" data-aqi-level="good">
+				<div class="comic-balloon__city">🎵 Vienna</div>
+				<div class="comic-balloon__aqi">
+					<span class="comic-balloon__aqi-value aqi-good">42</span>
+					<span class="comic-balloon__aqi-label">AQI</span>
+				</div>
+				<span class="comic-balloon__status status-good">✓ Good</span>
+				<div class="comic-balloon__detail">PM2.5: 10 µg/m³ · NO₂: 20 µg/m³</div>
+			</div>
+		</ui5-geomap-container>
+
+
+		<ui5-geomap-container id="balloonMilan" lat="45.4642" lng="9.1900">
+			<div class="comic-balloon" data-city="Milan" data-aqi-level="moderate">
+				<div class="comic-balloon__city">👗 Milan</div>
+				<div class="comic-balloon__aqi">
+					<span class="comic-balloon__aqi-value aqi-moderate">85</span>
+					<span class="comic-balloon__aqi-label">AQI</span>
+				</div>
+				<span class="comic-balloon__status status-moderate">⚠ Moderate</span>
+				<div class="comic-balloon__detail">PM2.5: 28 µg/m³ · NO₂: 38 µg/m³</div>
+			</div>
+		</ui5-geomap-container>
+
+		<ui5-geomap-container id="balloonWarsaw" lat="52.2297" lng="21.0122">
+			<div class="comic-balloon" data-city="Warsaw" data-aqi-level="usg">
+				<div class="comic-balloon__city">🏰 Warsaw</div>
+				<div class="comic-balloon__aqi">
+					<span class="comic-balloon__aqi-value aqi-unhealthy-sg">120</span>
+					<span class="comic-balloon__aqi-label">AQI</span>
+				</div>
+				<span class="comic-balloon__status status-unhealthy-sg">⚠ Unhealthy (SG)</span>
+				<div class="comic-balloon__detail">PM2.5: 35 µg/m³ · NO₂: 44 µg/m³</div>
+			</div>
+		</ui5-geomap-container>
+
+
+		<ui5-geomap-container id="balloonPrague" lat="50.0755" lng="14.4378">
+			<div class="comic-balloon" data-city="Prague" data-aqi-level="unhealthy">
+				<div class="comic-balloon__city">🏰 Prague</div>
+				<div class="comic-balloon__aqi">
+					<span class="comic-balloon__aqi-value aqi-unhealthy">162</span>
+					<span class="comic-balloon__aqi-label">AQI</span>
+				</div>
+				<span class="comic-balloon__status status-unhealthy">✕ Unhealthy</span>
+				<div class="comic-balloon__detail">PM2.5: 42 µg/m³ · O₃: 88 µg/m³</div>
+			</div>
+		</ui5-geomap-container>
+
+		<ui5-geomap-container id="chartMunich" lat="48.1351" lng="11.5820">
+			<div class="chart-container" data-city="Munich" data-aqi-level="moderate">
+				<div class="chart-container__title">🍺 Munich — AQI 72</div>
+				<div class="chart-bar">
+					<span class="chart-bar__label">PM2.5</span>
+			<div class="chart-bar__fill" style="width: 45%; background: var(--sapCriticalColor);"></div>
+					<span class="chart-bar__value">22</span>
+				</div>
+				<div class="chart-bar">
+					<span class="chart-bar__label">NO₂</span>
+					<div class="chart-bar__fill" style="width: 30%; background: var(--sapPositiveColor);"></div>
+					<span class="chart-bar__value">14</span>
+				</div>
+				<div class="chart-bar">
+					<span class="chart-bar__label">O₃</span>
+					<div class="chart-bar__fill" style="width: 65%; background: var(--sapNegativeColor);"></div>
+					<span class="chart-bar__value">58</span>
+				</div>
+				<div class="chart-bar">
+					<span class="chart-bar__label">SO₂</span>
+					<div class="chart-bar__fill" style="width: 10%; background: var(--sapInformativeColor);"></div>
+					<span class="chart-bar__value">4</span>
+				</div>
+			</div>
+		</ui5-geomap-container>
+
+
+		<ui5-geomap-container id="chartLisbon" lat="38.7223" lng="-9.1393">
+			<div class="chart-container" data-city="Lisbon">
+				<div class="chart-container__title">🌊 Lisbon — AQI 45</div>
+				<div class="chart-bar">
+					<span class="chart-bar__label">PM2.5</span>
+					<div class="chart-bar__fill" style="width: 30%; background: var(--sapPositiveColor);"></div>
+					<span class="chart-bar__value">12</span>
+				</div>
+				<div class="chart-bar">
+					<span class="chart-bar__label">NO₂</span>
+					<div class="chart-bar__fill" style="width: 25%; background: var(--sapPositiveColor);"></div>
+					<span class="chart-bar__value">10</span>
+				</div>
+				<div class="chart-bar">
+					<span class="chart-bar__label">O₃</span>
+					<div class="chart-bar__fill" style="width: 50%; background: var(--sapCriticalColor);"></div>
+					<span class="chart-bar__value">45</span>
+				</div>
+				<div class="chart-bar">
+					<span class="chart-bar__label">SO₂</span>
+					<div class="chart-bar__fill" style="width: 10%; background: var(--sapInformativeColor);"></div>
+					<span class="chart-bar__value">3</span>
+				</div>
+			</div>
+		</ui5-geomap-container>
+
+
+		<ui5-geomap-container id="formBrussels" lat="50.8503" lng="4.3517">
+			<div class="form-balloon">
+				<div class="form-balloon__title">📋 Report AQI Incident — Brussels</div>
+				<ui5-input id="issueInput" placeholder="Describe air quality observation..."></ui5-input>
+				<ui5-button id="issueSubmit" design="Emphasized">Submit Report</ui5-button>
+			</div>
+		</ui5-geomap-container>
+
+	</ui5-geomap>
+
+
+	<ui5-popover id="cityPopover" header-text="AQI Station Details" placement="Bottom">
+		<div class="popover-content">
+			<ui5-label id="popoverCity" class="popover-content__city"></ui5-label>
+			<ui5-label id="popoverAqi" class="popover-content__aqi"></ui5-label>
+			<ui5-label id="popoverInfo" class="popover-content__info"></ui5-label>
+		</div>
+	</ui5-popover>
+
+</body>
+
+</html>

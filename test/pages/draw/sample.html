@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+
+	<script data-ui5-config type="application/json">
+		{
+			"language": "EN"
+		}
+	</script>
+
+	<script src="../../../bundle.esm.js" type="module"></script>
+	<script src="./main.js" type="module"></script>
+
+	<style>
+		#map {
+			margin-top: 10px;
+			width: 100%;
+			height: 700px;
+		}
+	</style>
+</head>
+
+<body>
+
+	<ui5-title>Click the map to create points, click the first point to finish the polygon.</ui5-title>
+	<ui5-label>Also, drag corners to resize the polygon</ui5-label>
+	<br>
+	<br>
+
+
+	<ui5-geomap
+		id="map"
+		center-lat="40"
+		center-lng="-3"
+		zoom="6"
+	>
+		<!-- controls -->
+		<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+
+		<!-- data provider-->
+		<ui5-geomap-provider
+			slot="mapControls"
+			style-url="https://demotiles.maplibre.org/style.json"
+		></ui5-geomap-provider>
+
+		<ui5-geomap-polygon id="poly" fill-color="orange" opacity="0.5"></ui5-geomap-polygon>
+		<ui5-geomap-line id="line" color="red" width="2"></ui5-geomap-line>
+
+		<ui5-geomap-line id="tempLine" color="pink" width="2"></ui5-geomap-line>
+	</ui5-geomap>
+
+	<ui5-toast id="toast" placement="MiddleCenter">Click the first point to close the polygon.</ui5-toast>
+
+</body>
+
+</html>
