@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script data-ui5-config type="application/json">
+		{
+			"language": "EN"
+		}
+	</script>
+
+	<script src="../../../bundle.esm.js" type="module"></script>
+	<script src="./main.js" type="module"></script>
+
+	<style>
+		#map {
+			margin-top: 10px;
+			width: 100%;
+			height: 700px;
+		}
+		.circle {
+			opacity: 0.5;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.icon {
+			color: red;
+		}
+		.controls {
+			display: flex;
+			align-items: center;
+		}
+
+		.controls > * {
+			margin: 5px;
+		}
+		.copyright {
+			background-color: #F6F6F6;
+			display: flex;
+			align-items: center;
+			gap: 0.25rem;
+		}
+		header {
+			background: #fafafa;
+			position: sticky;
+			top: 0;
+			width: 100%;
+			z-index: 10;
+		}
+
+		</style>
+	</head>
+
+	<body>
+
+	<header>
+
+		<br/>
+
+		<ui5-title>This sample showcases geofencing on a geo map</ui5-title>
+
+		<br/><ui5-title>Features:</ui5-title><br/>
+
+		Geofence features are represented as geocircles, polygons, and lines on the map.<br/>
+		All can be edited directly on the map and support drag-and-drop.<br/>
+
+		<br/><ui5-title>Hover behavior:</ui5-title><br/>
+
+		Hovering over any feature highlights it by changing its color based on a configurable setting.<br/>
+
+		<br/><ui5-title>Selection behavior:</ui5-title><br/>
+
+		To drag-and-drop and edit, you need to click and select a feature.<br/>
+
+	</header>
+
+	<ui5-geomap
+		id="map"
+		center-lat="48.28502626198329"
+		center-lng="7.8010607347927134"
+		zoom="6"
+	>
+		<!-- controls -->
+		<ui5-geomap-fullscreen-control slot="mapControls"></ui5-geomap-fullscreen-control>
+		<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+		<ui5-geomap-scale-control slot="mapControls" position="BottomLeft"></ui5-geomap-scale-control>
+		<ui5-geomap-selection-control slot="mapControls" id="selCtrl" selection-type="freehand" position="TopRight"></ui5-geomap-selection-control>
+		<ui5-geomap-copyright-control slot="mapControls" id="crCtrl" position="BottomRight">
+			<div class="copyright">
+				<ui5-text>Copyright</ui5-text>
+				<ui5-icon name="arobase"></ui5-icon>
+			</div>
+		</ui5-geomap-copyright-control>
+
+		<!-- data provider-->
+		<ui5-geomap-provider
+			slot="mapControls"
+			style-url="https://demotiles.maplibre.org/style.json"
+		></ui5-geomap-provider>
+
+		<!-- Geo Circles -->
+		<ui5-geomap-geocircle class="clickable-layer" lat="48.816639675119994" lng="2.38683272" radius="42.29631329609801" units="kilometers" fill-color="green" opacity="0.7" outline-color="black" draggable dragndrop></ui5-geomap-geocircle>
+
+		<!-- Polygons, lines -->
+		<ui5-geomap-polygon id="poly"  fill-color="orange" opacity="0.5" dragndrop >
+			<ui5-geomap-point lng="11.337320488" lat="48.714717028"></ui5-geomap-point>
+			<ui5-geomap-point lng="11.694372489" lat="48.690345074"></ui5-geomap-point>
+			<ui5-geomap-point lng="11.841901906" lat="48.783807089"></ui5-geomap-point>
+			<ui5-geomap-point lng="12.004591822" lat="48.868182596"></ui5-geomap-point>
+			<ui5-geomap-point lng="12.215511201" lat="48.917913336"></ui5-geomap-point>
+			<ui5-geomap-point lng="12.42635142" lat="48.931184141"></ui5-geomap-point>
+			<ui5-geomap-point lng="12.643115403" lat="48.933856615"></ui5-geomap-point>
+			<ui5-geomap-point lng="12.833635169" lat="48.883952998"></ui5-geomap-point>
+			<ui5-geomap-point lng="12.947988362" lat="48.775935509"></ui5-geomap-point>
+			<ui5-geomap-point lng="13.113810869" lat="48.707133099"></ui5-geomap-point>
+			<ui5-geomap-point lng="13.342520879" lat="48.572212344"></ui5-geomap-point>
+			<ui5-geomap-point lng="13.410549603" lat="48.44904014"></ui5-geomap-point>
+			<ui5-geomap-point lng="13.336454504" lat="48.331750749"></ui5-geomap-point>
+			<ui5-geomap-point lng="13.168074076" lat="48.253847172"></ui5-geomap-point>
+			<ui5-geomap-point lng="12.986826093" lat="48.195879075"></ui5-geomap-point>
+			<ui5-geomap-point lng="12.800550795" lat="48.051211916"></ui5-geomap-point>
+			<ui5-geomap-point lng="12.877842842" lat="47.795728311"></ui5-geomap-point>
+			<ui5-geomap-point lng="12.724442837" lat="47.648692898"></ui5-geomap-point>
+			<ui5-geomap-point lng="12.331283849" lat="47.67430816"></ui5-geomap-point>
+			<ui5-geomap-point lng="12.037336892" lat="47.626930091"></ui5-geomap-point>
+			<ui5-geomap-point lng="11.74185899" lat="47.563704975"></ui5-geomap-point>
+			<ui5-geomap-point lng="11.462985817" lat="47.478972842"></ui5-geomap-point>
+			<ui5-geomap-point lng="11.160600078" lat="47.430832192"></ui5-geomap-point>
+			<ui5-geomap-point lng="10.984475187" lat="47.490748634"></ui5-geomap-point>
+			<ui5-geomap-point lng="10.774027751" lat="48.579553233"></ui5-geomap-point>
+			<ui5-geomap-point lng="10.965885999" lat="48.654675924"></ui5-geomap-point>
+		</ui5-geomap-polygon>
+
+	</ui5-geomap>
+
+	<ui5-popover id="spotInfo">
+		<ui5-label for="spotId">Spot Name:</ui5-label>
+		<ui5-text id="spotId" ></ui5-text>
+		<ui5-label for="spotLng" >Spot Lang:</ui5-label>
+		<ui5-text id="spotLng" ></ui5-text>
+		<ui5-label for="spotLat" >Spot Lat:</ui5-label>
+		<ui5-text id="spotLat" ></ui5-text>
+	</ui5-popover>
+
+	<ui5-menu id="menuBasic">
+		<ui5-menu-item text="New Location"></ui5-menu-item>
+		<ui5-menu-item text="Move to..." disabled></ui5-menu-item>
+		<ui5-menu-item text="Details"></ui5-menu-item>
+		<ui5-menu-item text="Exit"></ui5-menu-item>
+	</ui5-menu>
+
+	<footer>
+	</footer>
+
+</body>
+
+</html>

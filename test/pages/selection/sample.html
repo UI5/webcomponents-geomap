@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta charset="utf-8">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta charset="utf-8">
+
+		<script data-ui5-config type="application/json">
+			{
+				"language": "EN"
+			}
+		</script>
+
+		<script src="../../../bundle.esm.js" type="module"></script>
+		<script src="./main.js" type="module"></script>
+
+		<style>
+			.container {
+				display: grid;
+				grid-template-columns: 3fr 1fr;
+				align-items: stretch;
+				height: 750px;
+			}
+			#myMap {
+				height: 730px;
+			}
+			#selectionArea {
+				flex: 1;
+				z-index: 10;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<ui5-title>Usage of the low-level APIs of the map with selection feature & styling</ui5-title>
+		<ui5-label>Vector source, zoom-based content</ui5-label>
+		<br>
+		<br>
+		<div class="container">
+
+			<!--center-lng="-120"
+			center-lat="50"-->
+			<ui5-geomap
+				id="myMap"
+				center-lng="8.642764"
+				center-lat="49.303150999"
+				zoom="2"
+			>
+				<!-- controls -->
+				<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+				<ui5-geomap-scale-control slot="mapControls" position="BottomLeft"></ui5-geomap-scale-control>
+				<ui5-geomap-selection-control slot="mapControls" id="selCtrl" selection-type="freehand" position="TopRight"></ui5-geomap-selection-control>
+
+				<!-- data provider-->
+				<ui5-geomap-provider
+					slot="mapControls"
+					style-url="https://demotiles.maplibre.org/style.json"
+				></ui5-geomap-provider>
+
+				<ui5-geomap-circle class="clickable-layer" lat="49.303150999" lng="8.642764" radius="40" units="kilometers" fill-color="blue" opacity="0.5" outline-color="black"></ui5-geomap-circle>
+
+				<ui5-geomap-source id="earthquakes" geojson-url="https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"></ui5-geomap-source>
+
+
+				<ui5-geomap-spot id="spot1" lat="49.4" lng="8.5" icon="map-fill" color="red"></ui5-geomap-spot>
+				<ui5-geomap-spot id="spot2" lat="49.3988" lng="8.6724" draggable opacity="0.7" color="blue"></ui5-geomap-spot>
+				<ui5-geomap-spot id="spot3" lat="49.55" lng="8.9" draggable width="3rem" height="3rem">
+
+				</ui5-geomap-spot>
+
+			</ui5-geomap>
+
+			<div id="selectionArea">
+				<ui5-tabcontainer>
+					<ui5-tab text="Selection" selected>
+						<ui5-button id="validatorButton" data-ui5-mode="1" design="Positive" tooltip="Once enabled, the validator prevents polygons from self-intersecting.">Enable Validator</ui5-button>
+						<ui5-textarea id="selectionTextArea" placeholder="Selected bound coordinates..." growing="true" rows="30" growing-max-rows="40"></ui5-textarea>
+					</ui5-tab>
+					<ui5-tab text="Elements">
+						<ui5-textarea id="selectionItemsTextArea" placeholder="Selected items in area..." growing="true" rows="30" growing-max-rows="80"></ui5-textarea>
+					</ui5-tab>
+					<ui5-tab text="Outline">
+						<ui5-color-picker id="outlinePicker" value="rgba(220, 208, 255, 1)">Picker</ui5-color-picker>
+					</ui5-tab>
+
+					<ui5-tab text="Fill">
+						<ui5-color-picker id="fillPicker" value="rgba(220, 208, 1, 1)">Picker</ui5-color-picker>
+					</ui5-tab>
+
+					<ui5-tab text="Perfect Zoom">
+						<ui5-button id="zoomButton" >Perfect Zoom</ui5-button>
+						<ui5-textarea id="boundsArea" placeholder="Zoom area..." growing="true" rows="30" growing-max-rows="80"></ui5-textarea>
+					</ui5-tab>
+
+				</ui5-tabcontainer>
+			</div>
+		</div>
+
+	</body>
+
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+
+	<script data-ui5-config type="application/json">
+		{
+			"language": "EN"
+		}
+	</script>
+
+	<script src="../../../bundle.esm.js" type="module"></script>
+	<script src="./main.js" type="module"></script>
+
+	<style>
+		#map {
+			margin-top: 10px;
+			width: 100%;
+			height: 700px;
+		}
+		.circle {
+			opacity: 0.5;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.icon {
+			color: red;
+		}
+		.controls {
+			display: flex;
+			align-items: center;
+		}
+
+		.controls > * {
+			margin: 5px;
+		}
+		.copyright {
+			background-color: #F6F6F6;
+			display: flex;
+			align-items: center;
+			gap: 0.25rem;
+		}
+		header {
+			background: #fafafa;
+			position: sticky;
+			top: 0;
+			width: 100%;
+			z-index: 10;
+		}
+		ui5-geomap-spot {
+				color: orange;
+		}
+		ui5-geomap-spot:hover {
+			color: darkred;
+			}
+
+		</style>
+	</head>
+
+	<body>
+
+	<header>
+		<ui5-title>Use the controls to test the basic features of the map</ui5-title>
+		<br>
+
+		<div style="display: flex; align-items: center;">
+
+			<ui5-label>Change map style: </ui5-label>
+			<ui5-segmented-button id="chooseStyle">
+				<ui5-segmented-button-item data-url="ArcGIS:Streets" pressed>Street (Vector)</ui5-segmented-button-item>
+				<ui5-segmented-button-item data-url="ArcGIS:DarkGray">Dark (Vector)</ui5-segmented-button-item>
+				<ui5-segmented-button-item data-url="ArcGIS:LightGray">Light (Vector)</ui5-segmented-button-item>
+				<ui5-segmented-button-item data-url="ArcGIS:Imagery:Standard">Satellite (Raster)</ui5-segmented-button-item>
+				<ui5-segmented-button-item id="customRaster" data-custom="isCustom">Custom (Raster small tiles)</ui5-segmented-button-item>
+			</ui5-segmented-button>
+
+			<div style="display: flex; align-items: center;">
+				<ui5-checkbox id="overlayMap" text="Overlay raster map with opacity:"></ui5-checkbox>
+				<ui5-slider id="overlaySlider" style="width: 200px; height: 44px;" min="0" max="100" value="30"></ui5-slider>
+			</div>
+		</div>
+
+		<br><br>
+
+		<div class="controls">
+			<ui5-button id="increase1">Increase Circles</ui5-button>
+			<ui5-button id="insert1">Add Saarbruecken to the polygon</ui5-button>
+			<ui5-checkbox id="markers1" text="Add a marker wherever you click"></ui5-checkbox>
+			<ui5-button id="newyork">Fly to New York</ui5-button>
+			<ui5-button id="heidl">Fly to Heidelberg</ui5-button>
+		</div>
+
+	</header>
+
+	<ui5-geomap
+		id="map"
+		center-lat="49.3988"
+		center-lng="8.6724"
+		zoom="7.5"
+	>
+		<!-- controls -->
+		<ui5-geomap-fullscreen-control slot="mapControls"></ui5-geomap-fullscreen-control>
+		<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+		<ui5-geomap-scale-control slot="mapControls" position="BottomLeft"></ui5-geomap-scale-control>
+		<ui5-geomap-selection-control slot="mapControls" id="selCtrl" selection-type="freehand" position="TopRight"></ui5-geomap-selection-control>
+		<ui5-geomap-copyright-control slot="mapControls" id="crCtrl" position="BottomRight">
+			<div class="copyright">
+				<ui5-text>Copyright</ui5-text>
+				<ui5-icon name="arobase"></ui5-icon>
+			</div>
+		</ui5-geomap-copyright-control>
+
+		<!-- data provider-->
+		<ui5-geomap-provider
+			slot="mapControls"
+			style-url="https://demotiles.maplibre.org/style.json"
+		></ui5-geomap-provider>
+
+		<!-- Raster map overlay -->
+		<ui5-geomap-raster-tiles id="rasterTiles" opacity="0.3"></ui5-geomap-raster-tiles>
+
+		<!-- Map markers -->
+
+		<ui5-geomap-spot id="spot1" lat="49.4" lng="8.5" icon="map-fill" color="red"></ui5-geomap-spot>
+		<ui5-geomap-spot id="spot2" lat="49.3988" lng="8.6724" draggable opacity="0.7" color="blue"></ui5-geomap-spot>
+		<ui5-geomap-spot id="spot3" lat="49.55" lng="8.9" draggable width="3rem" height="3rem">
+
+		</ui5-geomap-spot>
+
+		<!-- HTML Circles -->
+		<ui5-geomap-container lat="51.00" lng="8.6">
+			<div class="circle" style="background: red; width: 50px; height: 50px;" role="img" aria-label="Circle on the map">15%</div>
+		</ui5-geomap-container>
+		<ui5-geomap-container lat="51.5" lng="8.75">
+			<div class="circle" style="background: orange; width: 70px; height: 70px;" role="img" aria-label="Circle on the map">33%</div>
+		</ui5-geomap-container>
+		<ui5-geomap-container lat="49.7" lng="8.3">
+			<div class="circle opens-popup" style="background: yellow; width: 120px; height: 120px; cursor: pointer" role="button" aria-label="Clickable circle on the map"><b>98%</b></div>
+		</ui5-geomap-container>
+
+		<ui5-geomap-container lat="0" lng="0" id="context">
+			<div class="circle opens-popup" style="background: white; width: 120px; height: 120px; cursor: pointer" role="button" aria-label="Clickable circle on the map"></div>
+		</ui5-geomap-container>
+
+		<ui5-geomap-container lat="49.7" lng="7.3" id="imgConteiner">
+			<div> <img src="https://picsum.photos/40/40" style="width: 3rem; height: 3rem; display: block; cursor: pointer; border-radius: 50%; padding: 0;"/></div>
+		</ui5-geomap-container>
+
+		<!-- Icons -->
+		<ui5-geomap-container lat="49.878708" lng="8.646927">
+			<ui5-icon class="icon opens-popup" name="alert" interactive accessible-name="Clickable icon on the map" role="button"></ui5-icon>
+		</ui5-geomap-container>
+		<ui5-geomap-container lat="49.4401" lng="7.7491">
+			<ui5-button icon="alert" class="opens-popup" accessible-role="button">Take action</ui5-button>
+		</ui5-geomap-container>
+
+		<!-- Geo Circles -->
+		<ui5-geomap-geocircle class="clickable-layer" lat="49.0069" lng="8.4037" radius="10" units="kilometers" fill-color="green" opacity="0.7" outline-color="black"></ui5-geomap-geocircle>
+		<ui5-geomap-geocircle lat="48.7758" lng="9.1829" radius="10" units="miles" fill-color="blue" opacity="0.3" outline-color="black" dragndrop ></ui5-geomap-geocircle>
+
+		<!-- Circles -->
+		<ui5-geomap-circle lat="45" lng="8" radius="50" fill-color="magenta" opacity="0.7" outline-color="black" outline-width="5" dragndrop ></ui5-geomap-circle>
+
+		<!-- Polygons, lines -->
+		<ui5-geomap-polygon id="poly"  fill-color="orange" opacity="0.5" dragndrop >
+			<ui5-geomap-point lng="6.1757" lat="49.1193"></ui5-geomap-point>
+			<ui5-geomap-point lng="6.1844" lat="48.6921"></ui5-geomap-point>
+			<ui5-geomap-point lng="7.7521" lat="48.5734"></ui5-geomap-point>
+		</ui5-geomap-polygon>
+
+		<ui5-geomap-line  color="green" width="7" opacity="0.3" dragndrop >
+			<ui5-geomap-point lng="8.6821" lat="50.1109"></ui5-geomap-point>
+			<ui5-geomap-point lng="11.0767" lat="49.4521"></ui5-geomap-point>
+			<ui5-geomap-point lng="10.90067" lat="49.89873"></ui5-geomap-point>
+			<ui5-geomap-point lng="11.57878" lat="49.93589"></ui5-geomap-point>
+		</ui5-geomap-line>
+
+		<ui5-geomap-image id="sapGeomapImage" opacity="0.2">
+			<ui5-geomap-point lng="11" lat="51"></ui5-geomap-point>
+			<ui5-geomap-point lng="13.75" lat="51"></ui5-geomap-point>
+			<ui5-geomap-point lng="12.86" lat="50.2"></ui5-geomap-point>
+			<ui5-geomap-point lng="11" lat="50"></ui5-geomap-point>
+		</ui5-geomap-image>
+
+	</ui5-geomap>
+
+	<ui5-popover id="info">
+		<ui5-list>
+			<ui5-li>Option 1</ui5-li>
+			<ui5-li>Option 2</ui5-li>
+			<ui5-li>Option 3</ui5-li>
+			<ui5-li>Option 4</ui5-li>
+		</ui5-list>
+	</ui5-popover>
+
+	<ui5-popover id="spotInfo">
+		<ui5-label for="spotId">Spot Name:</ui5-label>
+		<ui5-text id="spotId" ></ui5-text>
+		<ui5-label for="spotLng" >Spot Lang:</ui5-label>
+		<ui5-text id="spotLng" ></ui5-text>
+		<ui5-label for="spotLat" >Spot Lat:</ui5-label>
+		<ui5-text id="spotLat" ></ui5-text>
+	</ui5-popover>
+
+	<ui5-popover id="dblclickInfo">
+		<ui5-label for="dblclickLng">Longitude:</ui5-label>
+		<ui5-text id="dblclickLng"></ui5-text>
+		<ui5-label for="dblclickLat">Latitude:</ui5-label>
+		<ui5-text id="dblclickLat"></ui5-text>
+	</ui5-popover>
+
+	<ui5-menu id="menuBasic">
+		<ui5-menu-item text="New Location"></ui5-menu-item>
+		<ui5-menu-item text="Move to..." disabled></ui5-menu-item>
+		<ui5-menu-item text="Details"></ui5-menu-item>
+		<ui5-menu-item text="Exit"></ui5-menu-item>
+	</ui5-menu>
+
+</body>
+
+</html>

@@ -1,0 +1,8 @@
+{
+	"version": 8,
+	"type": "raster",
+	"tiles": [
+		"https://tiles.stadiamaps.com/tiles/stamen_watercolor/{z}/{x}/{y}.jpg"
+	],
+	"tileSize": 128
+}

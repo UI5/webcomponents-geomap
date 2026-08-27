@@ -1,0 +1,32 @@
+<!-- playground-fold -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sample</title>
+</head>
+
+<body style="background-color: var(--sapBackgroundColor); height: 300px;">
+	<!-- playground-fold-end -->
+	<ui5-geomap
+		id="myMap"
+		center-lat="50.1109"
+		center-lng="11.0767"
+		zoom="6"
+	>
+
+		<!-- data provider-->
+		<ui5-geomap-provider
+			slot="mapControls"
+			style-url="https://demotiles.maplibre.org/style.json"
+		></ui5-geomap-provider>
+
+	</ui5-geomap>
+	<!-- playground-fold -->
+	<script type="module" src="main.js"></script>
+</body>
+
+</html>
+<!-- playground-fold-end -->

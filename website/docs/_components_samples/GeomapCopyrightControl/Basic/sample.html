@@ -1,0 +1,48 @@
+<!-- playground-fold -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sample</title>
+	<style>
+		.copyright {
+			background-color: #F6F6F6;
+			display: flex;
+			align-items: center;
+			gap: 0.25rem;
+		}
+
+	</style>
+</head>
+
+<body style="background-color: var(--sapBackgroundColor); height: 300px;">
+	<!-- playground-fold-end -->
+	<ui5-geomap
+		id="map"
+		center-lat="39.726271610784835"
+		center-lng="-34.429825568362276"
+		zoom="2"
+	>
+		<!-- controls -->
+		<ui5-geomap-copyright-control slot="mapControls" id="crCtrl" position="BottomRight">
+			<div class="copyright">
+				<ui5-text>Copyright</ui5-text>
+				<ui5-icon name="arobase"></ui5-icon>
+			</div>
+		</ui5-geomap-copyright-control>
+
+		<!-- data provider-->
+		<ui5-geomap-provider
+			slot="mapControls"
+			style-url="https://demotiles.maplibre.org/style.json"
+		></ui5-geomap-provider>
+
+	</ui5-geomap>
+	<!-- playground-fold -->
+	<script type="module" src="main.js"></script>
+</body>
+
+</html>
+<!-- playground-fold-end -->

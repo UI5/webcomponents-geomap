@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script data-ui5-config type="application/json">{ "language": "EN" }</script>
+	<script src="../../../bundle.esm.js" type="module"></script>
+	<script src="./main.js" type="module"></script>
+
+	<style>
+		body { font-family: var(--sapFontFamily, sans-serif); padding: 1rem; margin: 0; }
+		#map { height: 600px; }
+		.toolbar { display: flex; gap: 0.5rem; padding: 0.5rem 0; flex-wrap: wrap; align-items: center; }
+		.section-label { font-weight: bold; margin-right: 0.25rem; color: var(--sapTextColor); }
+		#status { font-family: monospace; padding: 0.25rem 0.5rem; min-height: 1.5rem; color: var(--sapTextColor); }
+	</style>
+</head>
+
+<body>
+
+<ui5-title>Programmatic Selection</ui5-title>
+<br>
+<ui5-label>Use the country buttons to highlight borders, or the shape buttons to set a specific geometry via the JavaScript API.</ui5-label>
+<br><br>
+
+<div class="toolbar">
+	<span class="section-label">Countries:</span>
+	<ui5-toggle-button id="btn-germany">Germany</ui5-toggle-button>
+	<ui5-toggle-button id="btn-france">France</ui5-toggle-button>
+	<ui5-toggle-button id="btn-spain">Spain</ui5-toggle-button>
+	<ui5-toggle-button id="btn-poland">Poland</ui5-toggle-button>
+	<ui5-toggle-button id="btn-italy">Italy</ui5-toggle-button>
+</div>
+<div class="toolbar">
+	<span class="section-label">Shapes:</span>
+	<ui5-button id="btnRect">Rectangle</ui5-button>
+	<ui5-button id="btnPoly">Polygon</ui5-button>
+	<ui5-button id="btnLine">LineString</ui5-button>
+	<ui5-button id="btnPoint">Point at Berlin</ui5-button>
+	<ui5-button id="btnCircle">Circle</ui5-button>
+	<ui5-button id="btnClear" design="Negative">Clear All</ui5-button>
+</div>
+<div id="status"></div>
+
+<ui5-geomap id="map" center-lat="50.0" center-lng="12.0" zoom="4">
+	<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+	<ui5-geomap-selection-control
+		id="selCtrl"
+		slot="mapControls"
+		selection-type="polygon"
+		position="TopRight"
+	></ui5-geomap-selection-control>
+	<ui5-geomap-provider
+		slot="mapControls"
+		style-url="https://demotiles.maplibre.org/style.json"
+	></ui5-geomap-provider>
+</ui5-geomap>
+
+</body>
+</html>

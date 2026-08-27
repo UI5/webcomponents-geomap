@@ -1,0 +1,17 @@
+{
+  "extends": "@ui5/webcomponents-tools/tsconfig.json",
+  "include": ["src/**/*", "global.d.ts", "src/Geomap.ts"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "experimentalDecorators": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "jsx": "react-jsx",
+    "jsxImportSource": "@ui5/webcomponents-base",
+    "paths" : {
+      "maplibre-gl/dist/maplibre-gl-csp.js": ["./node_modules/maplibre-gl/dist/maplibre-gl.d.ts"],
+      "terra-draw/dist/common": ["./node_modules/terra-draw/dist/common.d.ts"],
+      "terra-draw/dist/store/store": ["./node_modules/terra-draw/dist/store/store.d.ts"],
+    }
+  }
+}

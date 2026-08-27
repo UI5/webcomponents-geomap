@@ -1,0 +1,216 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+.heroBanner {
+	padding: 4rem 0;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+}
+
+.heroTitle,
+.heroSubtitle  {
+	word-wrap: normal;
+	color: var(--ifm-font-color-base);
+}
+
+.heroTitle__UI5 {
+	font-weight: bold;
+}
+
+.buttons {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 2rem;
+}
+
+.buttonSecondary {
+	margin-inline-start: 1rem;
+}
+
+.logoMain {
+	width: 9rem;
+	height: 9rem;
+}
+
+@media (max-width: 996px) {
+	.heroBanner {
+		padding: 2rem;
+	}
+}
+
+@media (min-width: 600px) {
+	.heroTitle {
+		font-weight: normal;
+		font-size: 5.5rem;
+	}
+}
+
+.features {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+[data-theme='light'] .features {
+	background-color: #f3f3f3;
+	color: #242526;
+}
+
+.features__container {
+	display: grid;
+	align-items: start;
+	grid-template-columns: 1fr 1fr 1fr;
+	column-gap: 4rem;
+	margin-top: 2rem;
+}
+
+.feature__image {
+	height: 12rem;
+}
+
+.feature__image.feature__image_frame {
+	width: 18rem;
+}
+
+.feature {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.feature__heading {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.feature__title {
+	font-weight: 700;
+	font-style: normal;
+	text-align: center;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	text-wrap: wrap;
+}
+
+.feature__desc {
+	font-style: normal;
+	font-weight: 300;
+	text-wrap: wrap;
+	text-align: center;
+	max-width: 26rem;
+}
+
+@media (max-width: 900px) {
+	.features__container {
+		grid-template-columns: 1fr;
+	}
+
+	.features__container {
+		margin: 1rem 5rem 1rem 5rem;
+	}
+}
+
+.demo_apps {
+	white-space: nowrap;
+	margin-bottom: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+[data-theme='dark'] .demo_apps {
+	background-color: var(--ifm-navbar-background-color);
+}
+
+
+.demo_apps__heading {
+	margin-top: 5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.demo_apps__title {
+	font-weight: 700;
+	font-size: 2.25rem;
+	text-align: center;
+	margin-bottom: 1rem;
+	overflow-wrap: break-word;
+	white-space: normal;
+}
+
+.demo_apps__desc {
+	font-size: 1.25rem;
+	margin-bottom: 4rem;
+	overflow-wrap: break-word;
+	white-space: normal;
+	text-align: center;
+	width: 50%;
+}
+
+.demo_apps__frameworks {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	column-gap: 6rem;
+	margin: 0 5rem;
+}
+
+.demo_apps__framework {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 2rem;
+}
+
+.demo_apps__framework:last-child {
+	margin-inline-end: 0;
+	margin-bottom:  10rem;
+}
+
+.demo_apps__logo {
+	width:  5.625rem;
+	height:  5.625rem;
+	margin-bottom: 1.125rem;
+}
+
+.demo_apps__link {
+	text-align: center;
+	font-size: 0.875rem;
+	display: inline-block;
+	text-align: center;
+	white-space: nowrap;
+	margin-bottom: 0.5rem;
+}
+
+.demo_apps__link:last-child {
+	margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+	.demo_apps__frameworks {
+		grid-template-columns: 1fr;
+	}
+
+	.demo_apps__desc {
+		width: 80%;
+	}
+}
+
+@media (min-width: 900px) and (max-width: 1100px) {
+	.demo_apps__frameworks {
+		grid-template-columns: 1fr 1fr;
+	}
+}
+
+@media (min-width: 1400px) {
+	.demo_apps__desc {
+		width: 100%;
+	}
+}
+
