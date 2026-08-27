@@ -1,0 +1,158 @@
+{
+  "demos": [
+    {
+      "id": "sampleApp",
+      "heading": "Sample Application",
+      "subheading": "Sample Application using Geomap Web Component in React",
+      "image": "screenshots/sampleApp.png",
+      "url": "https://github.com/UI5/webcomponents-geomap"
+    },
+    {
+      "id": "circles",
+      "heading": "Types of circles",
+      "subheading": "HTML circles vs geo circles vs circles",
+      "image": "screenshots/circles.png",
+      "url": "circles/sample.html"
+    },
+    {
+      "id": "flight",
+      "heading": "Flight path",
+      "subheading": "Animate plane position over a flight path",
+      "image": "screenshots/flight.png",
+      "url": "flight/sample.html"
+    },
+    {
+      "id": "draw",
+      "heading": "Draw a polygon",
+      "subheading": "Create a polygon by clicking on the map",
+      "image": "screenshots/draw.png",
+      "url": "draw/sample.html"
+    },
+    {
+      "id": "drive",
+      "heading": "Drive on a map",
+      "subheading": "Car position on a city map",
+      "image": "screenshots/drive.png",
+      "url": "drive/sample.html"
+    },
+    {
+      "id": "custom",
+      "heading": "Custom GeoJSON with live filtering",
+      "subheading": "Display arbitrary GeoJSON and filter it on user input",
+      "image": "screenshots/custom.png",
+      "url": "custom/sample.html"
+    },
+    {
+      "id": "pop",
+      "heading": "Show a choropleth map",
+      "subheading": "USA states by population",
+      "image": "screenshots/pop.png",
+      "url": "population/sample.html"
+    },
+    {
+      "id": "userlocation",
+      "heading": "Ask the user for their location",
+      "subheading": "Zoom and center the map where the user is",
+      "image": "screenshots/userlocation.png",
+      "url": "userlocation/sample.html"
+    },
+    {
+      "id": "restrictions",
+      "heading": "Restrict the map to a certain area",
+      "subheading": "Zoom and tilt can also be restricted",
+      "image": "screenshots/restrictions.png",
+      "url": "restrictions/sample.html"
+    },
+    {
+      "id": "controls",
+      "heading": "Choose which map controls are displayed",
+      "subheading": "Navigation, scale and fullscreen are available",
+      "image": "screenshots/controls.png",
+      "url": "controls/sample.html"
+    },
+    {
+      "id": "lowlevel",
+      "heading": "Use low-level APIs of Maplibre",
+      "subheading": "You can mix these with semantic layers freely",
+      "image": "screenshots/lowlevel.png",
+      "url": "lowlevel/sample.html"
+    },
+    {
+      "id": "zoom",
+      "heading": "Zoom-level-based content",
+      "subheading": "Show different layers based on zoom level",
+      "image": "screenshots/zoom.png",
+      "url": "zoom/sample.html"
+    },
+    {
+      "id": "heatmap",
+      "heading": "Show a heatmap",
+      "subheading": "Demonstrates using maplibre interpolation",
+      "image": "screenshots/heatmap.png",
+      "url": "heatmap/sample.html"
+    },
+    {
+      "id": "clustering",
+      "heading": "Use clustering",
+      "subheading": "Points merge as the user zooms out",
+      "image": "screenshots/clustering.png",
+      "url": "clustering/sample.html"
+    },
+    {
+      "id": "dynamic",
+      "heading": "Show dynamic data",
+      "subheading": "Data updated from server every 1 second",
+      "image": "screenshots/dynamic.png",
+      "url": "dynamic-data/sample.html"
+    },
+    {
+      "id": "bounds",
+      "heading": "Use map bounds",
+      "subheading": "Fetch data from the server depending on map bounds",
+      "image": "screenshots/bounds.png",
+      "url": "bounds/sample.html"
+    },
+    {
+      "id": "trailheads",
+      "heading": "Use map trailheads",
+      "subheading": "Fetch data from the server for trailheads",
+      "image": "screenshots/trailheads.png",
+      "url": "trailheads/sample.html"
+    },
+    {
+      "id": "multiple",
+      "heading": "Multiple instances of the Geomap",
+      "subheading": "Multiple instances of the Geomap with different styles",
+      "image": "screenshots/multiple.png",
+      "url": "multiple/sample.html"
+    },
+    {
+      "id": "dragndrop",
+      "heading": "Drag-and-drop",
+      "subheading": "Demonstrates drag-and-drop and editing functionality",
+      "image": "screenshots/dragndrop.png",
+      "url": "dragndrop/sample.html"
+    },
+    {
+      "id": "selection-modes",
+      "heading": "Customize selection controls",
+      "subheading": "Show or hide selection mode buttons via the modes API",
+      "image": "screenshots/selection.png",
+      "url": "selection-modes/sample.html"
+    },
+    {
+      "id": "country-selection",
+      "heading": "Programmatic Selection",
+      "subheading": "Set selections by country border or by shape via the JavaScript API",
+      "image": "screenshots/selectionAPI.png",
+      "url": "country-selection/sample.html"
+    },
+	{
+	"id": "screenshot",
+	"heading": "Take a screenshot",
+	"subheading": "Capture the current map view as a PNG image",
+	"image": "screenshots/screenshot.png",
+	"url": "screenshot/sample.html"
+	}
+  ]
+}

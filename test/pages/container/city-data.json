@@ -1,0 +1,11 @@
+{
+	"Paris":  { "aqi": 64,  "status": "Moderate", "color": "var(--sapCriticalTextColor)", "detail": "Traffic emissions along major boulevards elevate PM2.5. Occasional smog episodes during low-wind periods." },
+	"Berlin": { "aqi": 33,  "status": "Good", "color": "var(--sapPositiveTextColor)", "detail": "Air quality is satisfactory. North Sea winds and urban green spaces keep pollutant levels low." },
+	"London": { "aqi": 58,  "status": "Moderate", "color": "var(--sapCriticalTextColor)", "detail": "Dense traffic corridors produce elevated NO₂. Low Emission Zone helps but congestion persists." },
+	"Madrid": { "aqi": 155, "status": "Unhealthy", "color": "var(--sapNegativeTextColor)", "detail": "Summer heatwave triggers severe ozone spike. Stagnant air mass traps pollutants — health advisory issued." },
+	"Vienna": { "aqi": 42,  "status": "Good", "color": "var(--sapPositiveTextColor)", "detail": "Excellent air quality supported by extensive public transit and green urban infrastructure." },
+	"Milan":  { "aqi": 85,  "status": "Moderate", "color": "var(--sapCriticalTextColor)", "detail": "Po Valley geography limits air circulation. Industrial activity and traffic contribute to elevated PM2.5." },
+	"Warsaw": { "aqi": 120, "status": "Unhealthy for Sensitive", "color": "var(--sapNegativeTextColor)", "detail": "Coal-based heating in winter months drives PM2.5 spikes. Sensitive groups should limit outdoor exposure." },
+	"Prague": { "aqi": 162, "status": "Unhealthy", "color": "var(--sapNegativeTextColor)", "detail": "Thermal inversion traps coal heating and vehicle emissions in river valley. Traffic restrictions under review." },
+	"Munich": { "aqi": 72,  "status": "Moderate", "color": "var(--sapCriticalTextColor)", "detail": "Alpine föhn winds occasionally trap ozone. PM2.5 moderate from regional traffic and industry." }
+}

@@ -1,0 +1,9 @@
+[
+	{ "id": "p1", "label": "> 10 million", "color": "#723122" },
+	{ "id": "p2", "label": "7M – 10M", "color": "#8B4225" },
+	{ "id": "p3", "label": "5M – 7M", "color": "#B86B25" },
+	{ "id": "p4", "label": "4M – 5M", "color": "#CA8323" },
+	{ "id": "p5", "label": "3M – 4M", "color": "#DA9C20" },
+	{ "id": "p6", "label": "2M – 3M", "color": "#F2F12D" },
+	{ "id": "p7", "label": "1M – 2M", "color": "#FFF2CC" }
+]

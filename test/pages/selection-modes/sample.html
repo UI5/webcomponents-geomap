@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<script data-ui5-config type="application/json">
+			{
+				"language": "EN"
+			}
+		</script>
+
+		<script src="../../../bundle.esm.js" type="module"></script>
+		<script src="./main.js" type="module"></script>
+
+		<style>
+			body {
+				font-family: var(--sapFontFamily);
+				margin: 1rem;
+			}
+			.toolbar {
+				display: flex;
+				gap: .5rem;
+				flex-wrap: wrap;
+				margin: .75rem 0;
+			}
+			#myMap,
+			#myMapB {
+				height: 600px;
+				width: 100%;
+			}
+			.hint {
+				display: block;
+				margin: .25rem 0 .75rem 0;
+				color: var(--sapTextColor);
+			}
+			code {
+				background: var(--sapNeutralBackground);
+				padding: 0 .25rem;
+				border-radius: .25rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<ui5-title level="H2">Customizing the available selection controls</ui5-title>
+		<ui5-label class="hint">
+			The <code>modes</code> property of <code>ui5-geomap-selection-control</code> picks which mode buttons are visible.
+			Empty array (default) renders all five. Changing it at runtime re-renders the toolbar.
+			<br />
+			<strong>Map A</strong> below uses the <em>imperative</em> API (buttons mutate <code>selCtrl.modes</code> at runtime).
+			<strong>Map B</strong> uses the <em>declarative</em> attribute path:
+			<code>&lt;ui5-geomap-selection-control modes='[&quot;polygon&quot;,&quot;circle&quot;]'&gt;</code>.
+		</ui5-label>
+
+		<ui5-title level="H3">Map A — imperative <code>ctrl.modes = […]</code></ui5-title>
+
+		<div class="toolbar">
+			<ui5-button id="btnAll" design="Emphasized">All modes (default)</ui5-button>
+			<ui5-button id="btnRectOnly">Rectangle only</ui5-button>
+			<ui5-button id="btnPolySelect">Polygon + Select</ui5-button>
+			<ui5-button id="btnDrawingOnly">Drawing tools only</ui5-button>
+			<ui5-button id="btnSelectOnly">Select only (read-only)</ui5-button>
+		</div>
+
+		<ui5-label id="currentLabel">Current modes: <code id="currentModes">[] (all)</code></ui5-label>
+
+		<ui5-geomap
+			id="myMap"
+			center-lng="8.642764"
+			center-lat="49.303"
+			zoom="4"
+		>
+			<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+			<ui5-geomap-selection-control
+				id="selCtrl"
+				slot="mapControls"
+				selection-type="rectangle"
+				position="TopRight">
+			</ui5-geomap-selection-control>
+
+			<ui5-geomap-provider
+				slot="mapControls"
+				style-url="https://demotiles.maplibre.org/style.json"
+			></ui5-geomap-provider>
+		</ui5-geomap>
+
+		<ui5-title level="H3">Map B — declarative attribute</ui5-title>
+		<ui5-label class="hint">
+			Set once on the element; no JavaScript wiring required.
+		</ui5-label>
+
+		<ui5-geomap
+			id="myMapB"
+			center-lng="8.642764"
+			center-lat="49.303"
+			zoom="4"
+		>
+			<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+			<ui5-geomap-selection-control
+				slot="mapControls"
+				position="TopRight"
+				selection-type="polygon"
+				modes='["polygon","circle"]'>
+			</ui5-geomap-selection-control>
+
+			<ui5-geomap-provider
+				slot="mapControls"
+				style-url="https://demotiles.maplibre.org/style.json"
+			></ui5-geomap-provider>
+		</ui5-geomap>
+	</body>
+
+</html>

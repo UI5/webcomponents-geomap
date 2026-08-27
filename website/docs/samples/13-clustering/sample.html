@@ -1,0 +1,69 @@
+<!-- playground-fold -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="utf-8" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="utf-8" />
+
+		<script data-ui5-config type="application/json">
+			{
+				"language": "EN"
+			}
+		</script>
+
+		<script src="./main.js" type="module"></script>
+
+		<style>
+			#map {
+				margin-top: 10px;
+				width: 100%;
+				height: 700px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<ui5-title>Clustering - advanced</ui5-title>
+		<ui5-label>Make clusters dynamic, click clusters to view or expand</ui5-label>
+		<br><br>
+<!-- playground-fold-end -->
+		<ui5-geomap
+			id="map"
+			center-lat="49.15390360888017"
+			center-lng="6.305814829020733"
+			zoom="11"
+		>
+			<!-- controls -->
+			<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+
+			<!-- data provider-->
+			<ui5-geomap-provider
+				slot="mapControls"
+				style-url="https://demotiles.maplibre.org/style.json"
+			></ui5-geomap-provider>
+
+			<ui5-geomap-cluster-source id="data1" cluster-min-points="2" cluster-radius="50"></ui5-geomap-cluster-source>
+
+			<!-- Unclustered points -->
+			<ui5-geomap-circle-layer id="points_unclustered" source="data1" displayed-features="NotClustered" radius="20" fill-color="green" opacity="0.5"></ui5-geomap-circle-layer>
+
+			<!-- clustes and their labels -->
+			<ui5-geomap-circle-layer id="points_clustered" source="data1" displayed-features="Clustered" fill-color="yellow" opacity="0.5"></ui5-geomap-circle-layer>
+			<ui5-geomap-symbol-layer id="points_clustered_labels" source="data1" displayed-features="Clustered"></ui5-geomap-symbol-layer>
+
+		</ui5-geomap>
+<!-- playground-fold -->
+
+
+		<ui5-popover id="info">
+			<ui5-list id="leaves" header-text="Stores in this area"></ui5-list>
+			<br><br>
+			<ui5-button id="zoom">Expand</ui5-button>
+		</ui5-popover>
+	</body>
+</html>
+<!-- playground-fold -->

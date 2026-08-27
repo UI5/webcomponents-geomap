@@ -1,0 +1,44 @@
+<!-- playground-fold -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sample</title>
+</head>
+
+<body style="background-color: var(--sapBackgroundColor); height: 300px;">
+	<!-- playground-fold-end -->
+	<ui5-geomap
+		id="map"
+		center-lat="49.3988"
+		center-lng="8.6724"
+		zoom="6"
+	>
+		<!-- data provider-->
+		<ui5-geomap-provider
+			slot="mapControls"
+			style-url="https://demotiles.maplibre.org/style.json"
+		></ui5-geomap-provider>
+
+		<!-- Geo Circles -->
+		<ui5-geomap-geocircle class="clickable-layer" lat="49.0069" lng="8.4037" radius="10" units="kilometers" fill-color="green" opacity="0.7" outline-color="black"></ui5-geomap-geocircle>
+		<ui5-geomap-geocircle class="clickable-layer" lat="48.7758" lng="9.1829" radius="10" units="miles" fill-color="blue" opacity="0.3" outline-color="black"></ui5-geomap-geocircle>
+
+
+	</ui5-geomap>
+	<!-- playground-fold -->
+	<ui5-popover id="info">
+		<ui5-list>
+			<ui5-li>Option 1</ui5-li>
+			<ui5-li>Option 2</ui5-li>
+			<ui5-li>Option 3</ui5-li>
+			<ui5-li>Option 4</ui5-li>
+		</ui5-list>
+	</ui5-popover>
+<script type="module" src="main.js"></script>
+</body>
+
+</html>
+<!-- playground-fold-end -->

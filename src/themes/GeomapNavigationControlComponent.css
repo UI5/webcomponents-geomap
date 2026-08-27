@@ -1,0 +1,11 @@
+.ui5-geomap-navigation-control-component {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.125rem;
+}
+
+.compass::part(icon) {
+	transform: var(--transform-var);
+}

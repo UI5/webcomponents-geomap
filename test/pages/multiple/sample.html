@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta charset="utf-8">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta charset="utf-8">
+
+		<script data-ui5-config type="application/json">
+			{
+				"language": "EN"
+			}
+		</script>
+
+		<script src="../../../bundle.esm.js" type="module"></script>
+	</head>
+
+	<body>
+
+		<div style="display: flex; align-items: center; justify-content: space-around">
+
+			<ui5-card heading="Map with streets-v11 view">
+				<ui5-geomap
+					style="height: 400px;"
+					center-lat="49.3988"
+					center-lng="8.6724"
+					zoom="1"
+				>
+					<!-- data provider-->
+					<ui5-geomap-provider
+						slot="mapControls"
+						style-url="https://demotiles.maplibre.org/style.json"
+					></ui5-geomap-provider>
+
+					<!-- Map markers -->
+					<ui5-geomap-spot lng="49.3988" lat="8.6724"></ui5-geomap-spot>
+					<ui5-geomap-spot lng="49.55" lat="8.9"></ui5-geomap-spot>
+				</ui5-geomap>
+			</ui5-card>
+
+			<ui5-card heading="Map with LightGray view">
+				<ui5-geomap
+						style="height: 400px;"
+						center-lat="49.3988"
+						center-lng="8.6724"
+						zoom="1"
+				>
+					<!-- data provider-->
+					<ui5-geomap-provider
+							slot="mapControls"
+							style-url="https://demotiles.maplibre.org/style.json"
+					></ui5-geomap-provider>
+
+					<!-- Map markers -->
+					<ui5-geomap-spot lng="49.3988" lat="8.6724"></ui5-geomap-spot>
+				</ui5-geomap>
+			</ui5-card>
+
+			<ui5-card heading="Map with DarkGray view">
+				<ui5-geomap
+						style="height: 400px;"
+						center-lat="49.3988"
+						center-lng="8.6724"
+						zoom="1"
+				>
+					<!-- data provider-->
+					<ui5-geomap-provider
+						slot="mapControls"
+						style-url="https://demotiles.maplibre.org/style.json"
+					></ui5-geomap-provider>
+
+					<!-- Map markers -->
+					<ui5-geomap-spot lng="49.3988" lat="8.6724" color="white"></ui5-geomap-spot>
+				</ui5-geomap>
+			</ui5-card>
+		</div>
+
+		<div  style="display: flex; align-items: center; justify-content: space-around">
+			<ui5-card heading="Map with Satelite view">
+				<ui5-geomap
+						style="height: 400px;"
+						center-lat="49.3988"
+						center-lng="8.6724"
+						zoom="1"
+				>
+					<!-- data provider-->
+					<ui5-geomap-provider
+						slot="mapControls"
+						style-url="https://demotiles.maplibre.org/style.json"
+					></ui5-geomap-provider>
+
+					<!-- Map markers -->
+					<ui5-geomap-spot lng="49.3988" lat="8.6724" color="red"></ui5-geomap-spot>
+				</ui5-geomap>
+			</ui5-card>
+		</div>
+
+
+	</body>
+
+</html>
