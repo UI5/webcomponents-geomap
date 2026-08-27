@@ -1,0 +1,20 @@
+node_modules
+junit/*
+!junit/.gitkeep
+reports/*
+!reports/.gitkeep
+.scannerwork/
+.nyc_output/
+coverage/
+cypress/downloads/
+cypress/reports/
+dist/
+.port
+.idea
+yarn-error.log
+.DS_Store
+src/generated
+.dev-server-port
+# Re-include the docs/dist folder
+!docs/
+!docs/dist/

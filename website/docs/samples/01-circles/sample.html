@@ -1,0 +1,195 @@
+<!-- playground-fold -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="utf-8" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="utf-8" />
+
+		<script data-ui5-config type="application/json">
+			{
+				"language": "EN"
+			}
+		</script>
+
+		<script src="./main.js" type="module"></script>
+
+		<style>
+			#map {
+				margin-top: 10px;
+				width: 100%;
+				height: 700px;
+			}
+			.circle {
+				opacity: 0.9;
+				border-radius: 50%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			.cirle-text {
+				font-family: "72override", var(--sapFontFamily);
+				font-size: var(--sapFontSize);
+				color: var(--sapContent_LabelColor);
+			}
+			.circle.highlighted {
+				border: 5px solid black;
+			}
+		</style>
+	</head>
+
+	<body>
+		<ui5-title>3 types of circles</ui5-title>
+		<ui5-label
+			>Interact the list below to highlight the circles of a given
+			type</ui5-label
+		>
+		<br />
+		<ui5-list
+			id="list"
+			style="width: 800px"
+			mode="SingleSelect"
+			header-text="Click list items to highlight the objects on the map."
+		>
+			<ui5-li
+				id="html"
+				icon="message-information"
+				info="Click for HTML Circles"
+				info-state="Information"
+				description="Just div elements, styled as circles. Can have arbitrary content (text, icons, etc...)"
+				>HTML-based Circles</ui5-li
+			>
+			<ui5-li
+				id="geo"
+				icon="message-information"
+				info="Click for Geo Circles"
+				info-state="Information"
+				description="Circles, defined in real-world units (km, miles, etc...). Rendered on the map as layers."
+				>Geo circles</ui5-li
+			>
+			<ui5-li
+				id="normal"
+				icon="message-information"
+				info="Click for Circles"
+				info-state="Information"
+				description="Circles, defined in screen units (pixels). Rendered on the map as layers."
+				>Circles</ui5-li
+			>
+		</ui5-list>
+		<!-- playground-fold-end -->
+		<ui5-geomap
+			id="map"
+			center-lat="49.3988"
+			center-lng="8.6724"
+			zoom="7.5"
+		>
+			<!-- controls -->
+			<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+
+			<!-- data provider -->
+			<ui5-geomap-provider
+				slot="mapControls"
+				style-url="https://demotiles.maplibre.org/style.json"
+			></ui5-geomap-provider>
+
+			<!-- HTML Circles -->
+			<ui5-geomap-container
+				class="html-circle"
+				lng="8.894910722628595"
+				lat="49.9439246970683"
+			>
+				<div
+					class="circle"
+					style="
+						background: var(--sapNegativeColor);
+						width: 50px;
+						height: 50px;
+					"
+				>
+					<span class="cirle-text" style="color: white">15%</span>
+				</div>
+			</ui5-geomap-container>
+			<ui5-geomap-container
+				class="html-circle"
+				lng="8.886033945730844"
+				lat="49.7313412095894"
+			>
+				<div
+					class="circle"
+					style="background: #ffab1d; width: 70px; height: 70px"
+				>
+					<span class="cirle-text" style="color: white">33%</span>
+				</div>
+			</ui5-geomap-container>
+			<ui5-geomap-container class="html-circle" lat="49.7" lng="8.3">
+				<div
+					class="circle opens-popup"
+					style="
+						background: #ffdf72;
+						width: 120px;
+						height: 120px;
+						cursor: pointer;
+					"
+				>
+					<b><span class="cirle-text">98%</span></b>
+				</div>
+			</ui5-geomap-container>
+
+			<!-- Geo Circles -->
+			<ui5-geomap-geocircle
+				class="clickable-layer"
+				lat="49.0069"
+				lng="8.4037"
+				radius="10"
+				units="kilometers"
+				fill-color="#97DD40"
+				opacity="0.7"
+				outline-color="black"
+			></ui5-geomap-geocircle>
+			<ui5-geomap-geocircle
+				class="clickable-layer"
+				lat="48.7758"
+				lng="9.1829"
+				radius="10"
+				units="miles"
+				fill-color="blue"
+				opacity="0.3"
+				outline-color="black"
+			></ui5-geomap-geocircle>
+
+			<!-- Circles -->
+			<ui5-geomap-circle
+				class="clickable-layer"
+				lng="6.539944796237393"
+				lat="49.59557537568381"
+				radius="40"
+				fill-color="#FA6161"
+				opacity="0.4"
+				outline-color="black"
+				outline-width="5"
+			></ui5-geomap-circle>
+			<ui5-geomap-circle
+				class="clickable-layer"
+				lng="6.178709215272448"
+				lat="49.11486612786396"
+				radius="20"
+				fill-color="#E1F4FF"
+				opacity="0.8"
+			></ui5-geomap-circle>
+		</ui5-geomap>
+
+		<!-- playground-fold -->
+		<ui5-popover id="info">
+			<ui5-list>
+				<ui5-li>Option 1</ui5-li>
+				<ui5-li>Option 2</ui5-li>
+				<ui5-li>Option 3</ui5-li>
+				<ui5-li>Option 4</ui5-li>
+			</ui5-list>
+		</ui5-popover>
+	</body>
+</html>
+<!-- playground-fold-end -->

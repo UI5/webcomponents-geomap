@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+
+	<script data-ui5-config type="application/json">
+		{
+			"language": "EN"
+		}
+	</script>
+
+	<script src="../../bundle.esm.js" type="module"></script>
+
+	<style>
+		header {
+			text-align: center;
+		}
+
+		#card-container {
+			margin-top: 3rem;
+		}
+
+        #card-container > ui5-card {
+            width: 440px;
+			margin: 2rem;
+        }
+
+		.center {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-wrap: wrap;
+			margin: 1.5rem;
+		}
+
+		img:hover {
+			cursor: pointer;
+		}
+	</style>
+</head>
+
+<body>
+
+	<header>
+		<ui5-title level="H1">Geomap Demo Samples</ui5-title>
+	</header>
+
+	<section id="card-container"><!-- To add demos, change demos.json --></section>
+
+	<script type="module">
+		import demosJson from './demos.json?url'; //?raw => as string
+		const screenshots = import.meta.glob('./screenshots/*.png')
+		let oScreenshots = {};
+
+		const oScreenshotPromise = new Promise((resolveOuter) => {
+			const oPromises = [];
+			for (const path in screenshots) {
+				oPromises.push(screenshots[path]().then((mod) => {
+					oScreenshots[path] = mod.default;
+				}))
+			}
+			Promise.all(oPromises).then(() => {
+				resolveOuter(oScreenshots);
+			})
+		});
+
+		oScreenshotPromise.then(() => {
+			(async () => {
+				const model = await (await fetch(`${demosJson}?nocache=${performance.now()}`)).json();
+
+				document.getElementById("card-container").innerHTML = model.demos.reduce( (acc, current) => {
+					return acc + `
+					<ui5-card data-url="${current.url}" id="${current.id}" heading="${current.heading}" subheading="${current.subheading}" header-interactive>
+						<ui5-card-header slot="header" title-text="${current.heading}"
+							subtitle-text="${current.subheading}" interactive>
+							<ui5-icon name="journey-arrive" slot="avatar"></ui5-icon>
+						</ui5-card-header>
+						<div class="center">
+							<img alt="${current.heading}" width="360" height="230" src="${oScreenshots["./" + current.image]}">
+						</div>
+					</ui5-card>`;
+				}, "");
+
+				const fnLocationHandler = (sLocation) => {
+					// Resolve against the current document so relative sample URLs work,
+					// then guard against unexpected schemes (e.g. javascript:) before
+					// either opening a new tab or navigating the current page.
+					let oUrl;
+					try {
+						oUrl = new URL(sLocation, document.baseURI);
+					} catch (e) {
+						return;
+					}
+					if (oUrl.protocol !== "http:" && oUrl.protocol !== "https:") {
+						return;
+					}
+					if (oUrl.origin !== window.location.origin) {
+						window.open(oUrl.href, "_blank");
+					} else {
+						window.location.assign(oUrl.href);
+					}
+				};
+
+				[...document.querySelectorAll("ui5-card")].forEach(card => {
+					const sLocation = card.getAttribute("data-url");
+
+					card.addEventListener("click", () => {
+						fnLocationHandler(sLocation);
+					});
+					card.addEventListener("header-click", () => {
+						fnLocationHandler(sLocation);
+					});
+					card.querySelector("img").addEventListener("click", () => {
+						fnLocationHandler(sLocation);
+					});
+				});
+
+			})();
+		});
+
+	</script>
+</body>
+
+</html>

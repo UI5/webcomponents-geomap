@@ -1,0 +1,89 @@
+<!-- playground-fold -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sample</title>
+	<style>
+		#map {
+			margin-top: 10px;
+			width: 100%;
+			height: 700px;
+		}
+		.circle {
+			opacity: 0.5;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.controls > * {
+			margin: 5px;
+		}
+		header {
+			background: #fafafa;
+			position: sticky;
+			top: 0;
+			width: 100%;
+			z-index: 10;
+		}
+		ui5-geomap-spot {
+			color: orange;
+		}
+		ui5-geomap-spot:hover {
+			color: darkred;
+		}
+
+	</style>
+</head>
+
+<body style="background-color: var(--sapBackgroundColor); height: 300px;">
+	<!-- playground-fold-end -->
+	<ui5-geomap
+		id="map"
+		center-lat="49.3988"
+		center-lng="8.6724"
+		zoom="5.5"
+	>
+		<!-- data provider-->
+		<ui5-geomap-provider
+			slot="mapControls"
+			style-url="https://demotiles.maplibre.org/style.json"
+		></ui5-geomap-provider>
+
+		<!-- HTML Circles -->
+		<ui5-geomap-container lat="51.00" lng="8.6">
+			<div class="circle" style="background: red; width: 50px; height: 50px;" role="img" aria-label="Circle on the map">15%</div>
+		</ui5-geomap-container>
+		<ui5-geomap-container lat="51.5" lng="8.75">
+			<div class="circle" style="background: orange; width: 70px; height: 70px;" role="img" aria-label="Circle on the map">33%</div>
+		</ui5-geomap-container>
+		<ui5-geomap-container lat="49.7" lng="8.3">
+			<div class="circle opens-popup" style="background: yellow; width: 120px; height: 120px; cursor: pointer" role="button" aria-label="Clickable circle on the map"><b>98%</b></div>
+		</ui5-geomap-container>
+
+		<ui5-geomap-container lat="0" lng="0" id="context">
+			<div class="circle opens-popup" style="background: white; width: 120px; height: 120px; cursor: pointer" role="button" aria-label="Clickable circle on the map"></div>
+		</ui5-geomap-container>
+
+
+	</ui5-geomap>
+	<!-- playground-fold -->
+
+	<ui5-popover id="info">
+		<ui5-list>
+			<ui5-li>Option 1</ui5-li>
+			<ui5-li>Option 2</ui5-li>
+			<ui5-li>Option 3</ui5-li>
+			<ui5-li>Option 4</ui5-li>
+		</ui5-list>
+	</ui5-popover>
+
+	<script type="module" src="main.js"></script>
+</body>
+
+</html>
+<!-- playground-fold-end -->

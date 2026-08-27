@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+
+	<script data-ui5-config type="application/json">
+		{
+			"language": "EN"
+		}
+	</script>
+	<script src="../../../bundle.esm.js" type="module"></script>
+	<script src="./main.js" type="module"></script>
+
+	<style>
+		#myMap {
+			margin-top: 10px;
+			width: 100%;
+			height: 700px;
+		}
+	</style>
+</head>
+
+<body>
+
+	<ui5-title>Shows a heatmap</ui5-title>
+	<ui5-label>Start zooming out</ui5-label>
+	<br><br>
+
+	<ui5-geomap
+		id="myMap"
+		center-lat="49.15390360888017"
+		center-lng="6.305814829020733"
+		zoom="10"
+	>
+		<!-- controls -->
+		<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+
+		<!-- data provider-->
+		<ui5-geomap-provider
+			slot="mapControls"
+			style-url="https://demotiles.maplibre.org/style.json"
+		></ui5-geomap-provider>
+
+		<ui5-geomap-source id="data1"></ui5-geomap-source>
+
+		<ui5-geomap-heatmap-layer max-zoom="11" id="hm" source="data1" opacity="0.5"></ui5-geomap-heatmap-layer>
+		<ui5-geomap-circle-layer min-zoom="10" id="circles" source="data1" outline-color="black" outline-width="1" fill-color="#0070F2"></ui5-geomap-circle-layer>
+		<ui5-geomap-symbol-layer min-zoom="10" id="labels" source="data1" text-size="16" text-color="black"></ui5-geomap-symbol-layer>
+
+	</ui5-geomap>
+
+</body>
+
+</html>

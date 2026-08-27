@@ -1,0 +1,65 @@
+<!-- playground-fold -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="utf-8" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="utf-8" />
+
+		<script data-ui5-config type="application/json">
+			{
+				"language": "EN"
+			}
+		</script>
+
+		<script src="./main.js" type="module"></script>
+
+		<style>
+			#map {
+				margin-top: 10px;
+				width: 100%;
+				height: 700px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<ui5-title>Use the different types of controls</ui5-title>
+		<ui5-label>You can have multiple controls of the same type with different configuration</ui5-label>
+		<br>
+		<br>
+		<ui5-label><b>Navigation control</b> is located in Top-Left corner of the map.</ui5-label><br/>
+		<ui5-label><b>Fullscreen control</b> is located in Top-Right corner of the map.</ui5-label><br/>
+		<ui5-label><b>Scale control</b> is located in Bottm-Right corner of the map. Three instances with different measure units are displayed as an example.</ui5-label>
+
+	<!-- playground-fold-end -->
+		<ui5-geomap
+			id="map"
+			center-lat="49.3988"
+			center-lng="8.6724"
+			zoom="7.5"
+		>
+			<!-- data provider-->
+			<ui5-geomap-provider
+				slot="mapControls"
+				style-url="https://demotiles.maplibre.org/style.json"
+			></ui5-geomap-provider>
+
+			<ui5-geomap-navigation-control no-compass></ui5-geomap-navigation-control>
+			<ui5-geomap-navigation-control no-zoom></ui5-geomap-navigation-control>
+
+			<ui5-geomap-fullscreen-control position="TopRight"></ui5-geomap-fullscreen-control>
+
+			<ui5-geomap-scale-control units="Imperial" position="BottomRight"></ui5-geomap-scale-control>
+			<ui5-geomap-scale-control units="Metric" position="BottomRight"></ui5-geomap-scale-control>
+			<ui5-geomap-scale-control units="Nautical" position="BottomRight"></ui5-geomap-scale-control>
+
+		</ui5-geomap>
+<!-- playground-fold -->
+	</body>
+</html>
+<!-- playground-fold -->

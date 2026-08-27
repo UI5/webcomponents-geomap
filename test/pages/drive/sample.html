@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+
+	<script data-ui5-config type="application/json">
+		{
+			"language": "EN"
+		}
+	</script>
+	<script src="../../../bundle.esm.js" type="module"></script>
+	<script src="./main.js" type="module"></script>
+
+	<style>
+		#map {
+			margin-top: 10px;
+			width: 100%;
+			height: 700px;
+		}
+
+		header {
+			display: flex;
+			align-items: center;
+		}
+
+		header > * {
+			margin: 0 10px 0 0;
+		}
+
+		#destination {
+			width: 28px;
+			height: 28px;
+			background: lightseagreen;
+			opacity: 1;
+			border-radius: 20%;
+			cursor: pointer;
+			color: pink;
+		}
+
+		#info {
+			font-family: "72override", var(--sapFontFamily);
+			font-size: var(--sapFontSize);
+			color: var(--sapContent_LabelColor);
+		}
+	</style>
+</head>
+
+<body>
+
+	<ui5-title>Play the animation to drive from Heidelberg to Waldorf.</ui5-title>
+	<ui5-label>Choose the travel speed</ui5-label>
+	<br>
+	<br>
+
+	<header>
+		<ui5-button id="startAnimation">Drive now!</ui5-button>
+		<ui5-label>Choose your speed (km/h):</ui5-label>
+		<ui5-step-input id="speed" style="width: 150px;" step="10" value="80"></ui5-step-input>
+		<ui5-label>Travelled:</ui5-label>
+		<ui5-input id="display" value="" readonly></ui5-input>
+		<ui5-label>Travel time:</ui5-label>
+		<ui5-input id="displayTime" value="" readonly></ui5-input>
+	</header>
+
+	<ui5-geomap
+		id="map"
+		center-lng="8.655243637778995"
+		center-lat="49.35223172425867"
+		zoom="10.674114221202869"
+	>
+		<!-- controls -->
+		<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+
+		<!-- data provider-->
+		<ui5-geomap-provider
+			slot="mapControls"
+			style-url="https://demotiles.maplibre.org/style.json"
+		></ui5-geomap-provider>
+
+
+
+		<ui5-geomap-line id="route" color="rgb(255 0 255)" width="4">
+			<ui5-geomap-point lng="8.670950768079507" lat="49.394402020060994"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.673532762101104" lat="49.39972327291761"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.668368774057882" lat="49.3937018122904"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.663635118350356" lat="49.39062077951618"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.65588913628386" lat="49.38529854045461"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.650294815902441" lat="49.37969556065721"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.6472824895435" lat="49.376053281189854"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.655028471609967" lat="49.373811744273326"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.659331794980176" lat="49.371009679374794"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.665786780035404" lat="49.368767912452"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.671381100416824" lat="49.355034859379"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.67267209742809" lat="49.35195140196092"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.676545088460898" lat="49.34774637579784"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.677836085472137" lat="49.34129797091424"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.679127082483319" lat="49.33344659824158"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.679987747157156" lat="49.32503302332262"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.683000073516155" lat="49.31409322625436"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.679557414820692" lat="49.3076404118643"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.675254091450483" lat="49.300344908220836"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.671381100416824" lat="49.293328982224324"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.669659771069092" lat="49.288838265465046"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.658471130306282" lat="49.28968030601769"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.650294815902441" lat="49.29473224731936"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.64427016318453" lat="49.29641611270151"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.636093848780689" lat="49.29725802382103"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.625765872692568" lat="49.300344908220836"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.627917534377673" lat="49.30876270116988"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.630069196062777" lat="49.31156831258815"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.63136019307396" lat="49.30707925762462"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.633511854759064" lat="49.303712197967684"></ui5-geomap-point>
+			<ui5-geomap-point lng="8.642548833835946" lat="49.30427339055538"></ui5-geomap-point>
+
+		</ui5-geomap-line>
+
+		<ui5-geomap-line id="routeTravelled" color="rgb(83, 83, 83)" width="4"></ui5-geomap-line>
+		<ui5-geomap-spot lng="8.67275058386528" lat="49.40027640637996"></ui5-geomap-spot>
+
+		<ui5-geomap-container lng="8.642764" lat="49.303150999">
+			<ui5-icon id="destination" name="home"></ui5-icon>
+		</ui5-geomap-container>
+
+		<ui5-geomap-circle id="car" lng="8.67275058386528" lat="49.40027640637996" radius="5" fill-color="red" outline-color="white" outline-width="2"></ui5-geomap-circle>
+
+	</ui5-geomap>
+
+	<ui5-popover id="info">
+		<div style="width: 500px">
+			<ui5-messagestrip type="information">Waldorf</ui5-messagestrip>
+			<br>
+			<br>
+			Waldorf is a town in the Rhein-Neckar-Kreis district in the state of Baden-Württemberg in Germany.
+			<br>
+			In the eighteenth century, Walldorf was the birthplace of John Jacob Astor,[3] who emigrated and became a prominent fur trader in the newly independent United States, establishing a monopoly in North America. Concentrating on real estate acquisition and investment, and based in New York City, he grew even wealthier and was the patriarch of the wealthy and influential Astor family.
+			<br>
+			Walldorf is home to the world's fifth largest software company, SAP.<br>
+		</div>
+	</ui5-popover>
+
+	<ui5-toast id="toast" placement="MiddleCenter">Destination reached!</ui5-toast>
+
+</body>
+
+</html>

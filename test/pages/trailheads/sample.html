@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta charset="utf-8">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta charset="utf-8">
+
+		<script data-ui5-config type="application/json">
+			{
+				"language": "EN"
+			}
+		</script>
+
+		<script src="../../../bundle.esm.js" type="module"></script>
+		<script src="./main.js" type="module"></script>
+
+		<style>
+			#myMap {
+				position: absolute;
+				top: 100px;
+				bottom: 0;
+				width: 100%;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<ui5-title>Usage of the low-level APIs of the map, mixed with semantic layers</ui5-title>
+		<ui5-label>Vector source, zoom-based content</ui5-label>
+		<br>
+		<br>
+
+		<ui5-geomap
+				id="myMap"
+				center-lng="-118.63222426896374"
+				center-lat="33.85400824901102"
+				zoom="9"
+		>
+			<!-- controls -->
+			<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+			<ui5-geomap-scale-control slot="mapControls" position="BottomLeft"></ui5-geomap-scale-control>
+
+			<!-- data provider-->
+			<ui5-geomap-provider
+					slot="mapControls"
+					style-url="https://demotiles.maplibre.org/style.json"
+			></ui5-geomap-provider>
+
+			<ui5-geomap-source id="trailheads" geojson-url="https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trailheads/FeatureServer/0/query?f=pgeojson&where=1=1"></ui5-geomap-source>
+		</ui5-geomap>
+
+	</body>
+
+</html>

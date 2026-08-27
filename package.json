@@ -1,0 +1,74 @@
+{
+  "name": "@ui5/webcomponents-geomap",
+  "version": "0.1.0",
+  "description": "Geomap Web Component for visualizing geospatial data based on UI5 Web Components.",
+  "author": "SAP SE (https://www.sap.com)",
+  "license": "Apache-2.0",
+  "keywords": ["open-source", "web-component", "ui5", "geomap", "ui5-webcomponents", "webcomponent", "geospatial", "map"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/UI5/webcomponents-geomap.git"
+  },
+  "main": "index.js",
+  "type": "module",
+  "dependencies": {
+    "@ui5/webcomponents": "2.22.0",
+    "@ui5/webcomponents-base": "2.22.0",
+    "@ui5/webcomponents-icons": "2.22.0",
+    "@ui5/webcomponents-icons-business-suite": "2.22.0",
+    "@ui5/webcomponents-theming": "2.22.0",
+    "maplibre-gl": "5.24.0",
+    "terra-draw": "^1.31.0",
+    "terra-draw-maplibre-gl-adapter": "^1.4.1"
+  },
+  "devDependencies": {
+    "@cypress/code-coverage": "^3.13.10",
+    "@maplibre/maplibre-gl-style-spec": "^24.8.5",
+    "@types/geojson": "^7946.0.14",
+    "@ui5/webcomponents-tools": "2.6.2",
+    "cypress": "^13.9.0",
+    "cypress-ct-lit": "^0.4.1",
+    "eslint-plugin-cypress": "^3.3.0",
+    "junit-report-merger": "^7.0.0",
+    "lit": "^3.2.1",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^6.0.1",
+    "typescript": "5.6.2",
+    "vite-plugin-checker": "^0.8.0",
+    "vite-plugin-istanbul": "^6.0.2"
+  },
+  "scripts": {
+    "clean": "wc-dev clean",
+    "lint": "wc-dev lint",
+    "lintfix": "wc-dev lintfix",
+    "prelint:ci": "rimraf reports/*.json",
+    "lint:ci": "wc-dev lint:ci",
+    "start": "wc-dev start",
+    "watch": "wc-dev watch",
+    "serve": "wc-dev serve",
+    "build": "wc-dev build",
+    "build:ci": "sh -c 'NODE_OPTIONS=\"--max-old-space-size=4096\" yarn build'",
+    "test": "wc-dev test",
+    "combine:reports": "jrm junit/TEST-results.xml \"cypress/reports/*.xml\"",
+    "pretest:cypress": "rimraf .nyc_output coverage cypress/reports",
+    "test:cypress": "CYPRESS_COVERAGE=true wc-dev test-cy",
+    "posttest:cypress": "npm run combine:reports",
+    "pretest:cypress:ci": "rimraf .nyc_output coverage cypress/reports",
+    "test:cypress:ci": "CYPRESS_COVERAGE=true wc-dev test-cy-ci",
+    "posttest:cypress:ci": "npm run combine:reports",
+    "test:cypress:open": "CYPRESS_COVERAGE=true wc-dev test-cy-open",
+    "create-ui5-element": "wc-create-ui5-element",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build",
+    "docs": "rm -rf docs/* && ASSET_URL='UI5/webcomponents-geomap/dist/' wc-dev build && cp -r dist/ docs/dist/ && echo '<script>window.location.replace(\"/UI5/webcomponents-geomap/dist/test/pages/\");</script>' > docs/index.html",
+    "generate": "nps generate",
+    "generateAPI": "nps generateAPI"
+  },
+  "overrides": {
+    "lit-html": "3.3.1"
+  },
+  "ui5": {
+    "webComponentsPackage": true
+  },
+  "customElements": "dist/custom-elements.json"
+}
