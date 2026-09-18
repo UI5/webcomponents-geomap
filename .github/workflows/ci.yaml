@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - 'main'
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint:ci
+
+      - name: Build
+        run: npm run build:ci
+
+      - name: Test
+        run: npm run test:cypress:ci
+
+      - name: Upload JUnit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junit
+          path: junit/TEST-results.xml
+          if-no-files-found: ignore
+
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/
+          if-no-files-found: ignore
+
+      - name: Upload lint report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eslint-report
+          path: reports/eslint.json
+          if-no-files-found: ignore

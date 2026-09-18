@@ -1,0 +1,71 @@
+name: Deploy Website
+
+on:
+  push:
+    branches:
+      - 'main'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Serialise deploys; never cancel one mid-write.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install root deps
+        run: npm ci
+        env:
+          NODE_OPTIONS: --max_old_space_size=4096
+
+      - name: Install website deps
+        working-directory: website
+        run: npm ci
+
+      - name: Write version.md
+        run: |
+          mkdir -p website/static
+          {
+            echo "Commit: $(git rev-parse HEAD)"
+            echo
+            git log -1
+          } > website/static/version.md
+
+      - name: Build website
+        working-directory: website
+        run: npm run build:website
+        env:
+          NODE_OPTIONS: --max_old_space_size=4096
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: website/build
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
