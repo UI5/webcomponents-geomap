@@ -4,7 +4,7 @@ export default function GitHubNavBarItem() {
     return (
         <>
             <a 
-                href="https://github.com/sap-webcomponents/ui5-geomap"
+                href="https://github.com/UI5/webcomponents-geomap"
                 target="_blank" rel="noopener noreferrer" 
                 className="navbar__item navbar__link header-github-link"
                 aria-label="GitHub repository"
