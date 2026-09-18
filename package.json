@@ -60,7 +60,7 @@
     "create-ui5-element": "wc-create-ui5-element",
     "prepare": "npm run build",
     "prepublishOnly": "npm run build",
-    "docs": "rm -rf docs/* && ASSET_URL='UI5/webcomponents-geomap/dist/' wc-dev build && cp -r dist/ docs/dist/ && echo '<script>window.location.replace(\"/UI5/webcomponents-geomap/dist/test/pages/\");</script>' > docs/index.html",
+    "build:website": "cd website && npm ci && npm run build:website",
     "generate": "nps generate",
     "generateAPI": "nps generateAPI"
   },
