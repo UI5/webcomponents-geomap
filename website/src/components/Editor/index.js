@@ -244,9 +244,7 @@ export default function Editor({html, js, css, mainFile = "main.js", canShare = 
   useEffect(() => {
     projectRef.current = getProjectFromPool();
 
-    if (process.env.NODE_ENV === 'development') {
-      projectRef.current.sandboxBaseUrl = `${location.origin}${baseUrl}playground-elements/`;
-    }
+    projectRef.current.sandboxBaseUrl = `${location.origin}${baseUrl}playground-elements/`;
 
     const activeExample = getActiveExampleContent();
     let _html = activeExample.html || html;
