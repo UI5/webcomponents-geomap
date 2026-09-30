@@ -5,11 +5,11 @@ sidebar_position: 0
 
 # SAP-GEOMAP (`ui5-geomap`)
 
-`ui5-geomap` is an SAP Web Component leveraging the UI5 Web Components framework. It is built on top of [UI5 Web Components](https://github.com/SAP/ui5-webcomponents/) and is meant to serve as a tool for visualizing a map with vector tiles and geospatial data.
+`ui5-geomap` is a SAP Web Component leveraging the UI5 Web Components framework. It is built on top of [UI5 Web Components](https://github.com/SAP/ui5-webcomponents/) and is meant to serve as a tool for visualizing a map with vector tiles and geospatial data.
 
-The SAP Geomap component can be used with any HTML-based web UI framework.
+The UI5 Geomap component can be used with any HTML-based web UI framework.
 
-SAP Geomap is a web component that can visualize GeoJSON data from various map/tile providers like ESRI, MapBox, Azure maps, SAP HSS, etc.
+UI5 Geomap is a web component that can visualize GeoJSON data from various map/tile providers like ESRI, MapBox, Azure maps, SAP HSS, etc.
 
 It can mix the tiles provided by the map provider and GeoJSON describing features ad layers
 coming from another source(s) and visualize the different layers to represent these features.

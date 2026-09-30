@@ -63,7 +63,7 @@ function HomepageContent() {
 
 				<Logo colorMode={colorMode}/>
 				<Heading as="h1" className={clsx('hero__title', styles.heroTitle)}>
-					<span className={styles.heroTitle__UI5}>SAP Geomap</span>
+					<span className={styles.heroTitle__UI5}>UI5 Geomap</span>
 				</Heading>
 
 				<p className={clsx('hero__subtitle', styles.heroSubtitle)}>
