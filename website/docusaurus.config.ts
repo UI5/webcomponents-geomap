@@ -1,3 +1,4 @@
+import path from 'path';
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
@@ -5,6 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const isDev = process.env.NODE_ENV === 'development';
+const baseUrl = isDev ? "/" : "/webcomponents-geomap/";
 
 const config: Config = {
   title: "UI5 Geomap",
@@ -12,7 +14,7 @@ const config: Config = {
 	favicon: "img/favicon.ico",
 
 	url: isDev ? "http://localhost:3000" : "https://ui5.github.io",
-	baseUrl: isDev ? "/" : "/webcomponents-geomap/",
+	baseUrl,
 
 	// GitHub pages deployment config.
 	organizationName: "UI5",
@@ -30,6 +32,34 @@ const config: Config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+
+  plugins: [
+    function playgroundWebpackFix(): import('@docusaurus/types').Plugin {
+      return {
+        name: 'playground-elements-webpack-fix',
+        configureWebpack() {
+          return {
+            module: {
+              rules: [
+                {
+                  test: /node_modules[\\/]playground-elements/,
+                  parser: { url: false },
+                },
+                {
+                  test: /playground-project\.js$/,
+                  include: /node_modules[\\/]playground-elements/,
+                  use: [{
+                    loader: path.resolve(__dirname, 'build-scripts/playground-import-meta-loader.cjs'),
+                    options: { baseUrl },
+                  }],
+                },
+              ],
+            },
+          };
+        },
+      };
+    },
+  ],
 
   presets: [
     [
