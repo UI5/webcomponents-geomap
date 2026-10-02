@@ -26,7 +26,7 @@
     "clsx": "^2.0.0",
     "playground-elements": "0.18.1",
     "prism-react-renderer": "^2.3.0",
-    "react": "^18.0.0",
+    "react": "^19.3.0",
     "react-dom": "^18.0.0",
     "react-splitter-light": "^1.0.3",
     "tarts": "^2.0.1"
