@@ -1,0 +1,355 @@
+<!-- playground-fold -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<script data-ui5-config type="application/json">
+			{
+				"language": "EN"
+			}
+		</script>
+
+		<script src="./main.js" type="module"></script>
+
+		<style>
+			html, body {
+				margin: 0;
+			}
+			.content-header {
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				padding: 0.75rem 1rem;
+				border-bottom: 1px solid var(--sapList_BorderColor, #e5e5e5);
+				background: var(--sapBaseColor, #fff);
+			}
+			.filters-bar {
+				display: flex;
+				align-items: center;
+				flex-wrap: wrap;
+				gap: 6px;
+				padding: 6px 1rem;
+				background: var(--sapGroup_ContentBackground, #f5f6f7);
+				border-bottom: 1px solid var(--sapList_BorderColor, #e5e5e5);
+			}
+			.filters-bar ui5-input,
+			.filters-bar ui5-combobox {
+				width: 8rem;
+			}
+			.map-toolbar {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				padding: 4px 8px;
+				border-bottom: 1px solid var(--sapList_BorderColor, #e5e5e5);
+			}
+			.map-toolbar ui5-title {
+				white-space: nowrap;
+				flex-shrink: 0;
+			}
+			#myMap {
+				height: 700px;
+				width: 100%;
+				display: block;
+			}
+			.page-footer {
+				display: flex;
+				justify-content: flex-end;
+				padding: 0.5rem 1rem;
+				border-top: 1px solid var(--sapList_BorderColor, #e5e5e5);
+				background: var(--sapBaseColor, #fff);
+			}
+			.copyright-content {
+				display: flex;
+				align-items: center;
+				gap: 4px;
+				font-family: var(--sapFontFamily);
+				font-size: var(--sapFontSize);
+			}
+			ui5-geomap-spot:hover {
+				color: darkred;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="app">
+			<!-- Shell Bar -->
+			<ui5-shellbar id="shellbar" primary-title="Geomap demo application">
+				<ui5-avatar slot="profile" icon="customer"></ui5-avatar>
+				<img slot="logo" src="https://ui5.github.io/webcomponents/img/footer/sap-1920-1440.svg" alt="SAP" style="height:1.5rem;" />
+			</ui5-shellbar>
+
+			<!-- Content header: title + count -->
+			<div class="content-header">
+				<ui5-title level="H3">Airports</ui5-title>
+				<ui5-tag id="counter" color-scheme="7" design="Information" wrapping-type="None">0</ui5-tag>
+			</div>
+
+			<!-- Filters bar -->
+			<div class="filters-bar">
+				<ui5-label>Scale Rank:</ui5-label>
+				<ui5-input id="scaleRankFilter" placeholder="scale rank..."></ui5-input>
+				<ui5-label>Type:</ui5-label>
+				<ui5-combobox id="typeFilter" placeholder="type...">
+					<ui5-cb-item text="military"></ui5-cb-item>
+					<ui5-cb-item text="small"></ui5-cb-item>
+					<ui5-cb-item text="military small"></ui5-cb-item>
+					<ui5-cb-item text="mid"></ui5-cb-item>
+					<ui5-cb-item text="major"></ui5-cb-item>
+					<ui5-cb-item text="spaceport"></ui5-cb-item>
+				</ui5-combobox>
+				<ui5-label>Location:</ui5-label>
+				<ui5-combobox id="locationFilter" placeholder="location...">
+					<ui5-cb-item text="terminal"></ui5-cb-item>
+					<ui5-cb-item text="runway"></ui5-cb-item>
+					<ui5-cb-item text="ramp"></ui5-cb-item>
+				</ui5-combobox>
+				<ui5-label>Natlscale:</ui5-label>
+				<ui5-input id="natlScaleFilter" placeholder="natlscale..."></ui5-input>
+				<ui5-button id="filterBtn" icon="search">Filter</ui5-button>
+			</div>
+
+			<!-- Map toolbar -->
+			<div class="map-toolbar">
+				<ui5-title level="H4">Airports around the globe</ui5-title>
+				<ui5-toolbar>
+					<ui5-toolbar-button id="settingsBtn" icon="action-settings" tooltip="Settings"></ui5-toolbar-button>
+					<ui5-toolbar-button id="addLocationBtn" icon="add" tooltip="Add location"></ui5-toolbar-button>
+					<ui5-toolbar-button id="zoomBtn" icon="zoom-in" tooltip="Perfect Zoom"></ui5-toolbar-button>
+					<ui5-toolbar-button id="flyToBtn" icon="paper-plane" tooltip="Go to a destination"></ui5-toolbar-button>
+				</ui5-toolbar>
+			</div>
+
+			<!-- Map -->
+			<ui5-geomap
+				id="myMap"
+				center-lng="8.642764"
+				center-lat="49.303150999"
+				zoom="2"
+			>
+				<ui5-geomap-navigation-control slot="mapControls"></ui5-geomap-navigation-control>
+				<ui5-geomap-scale-control slot="mapControls" position="BottomLeft"></ui5-geomap-scale-control>
+				<ui5-geomap-selection-control
+					slot="mapControls"
+					id="selCtrl"
+					selection-type="freehand"
+					fill-color="e5def7"
+					outline-color="181811"
+					position="TopRight"
+				></ui5-geomap-selection-control>
+				<ui5-geomap-copyright-control slot="mapControls" id="crCtrl" position="BottomRight">
+					<div class="copyright-content">
+						<ui5-text>@SAP</ui5-text>
+						<ui5-icon name="arobase"></ui5-icon>
+					</div>
+				</ui5-geomap-copyright-control>
+
+				<ui5-geomap-provider
+					slot="mapControls"
+					style-url="https://demotiles.maplibre.org/style.json"
+				></ui5-geomap-provider>
+
+				<!-- Helper containers for popover anchoring -->
+				<ui5-geomap-container id="infoContainer">
+					<div style="background: red; width: 1px; height: 1px;"></div>
+				</ui5-geomap-container>
+				<ui5-geomap-container id="spotContainer">
+					<div style="background: red; width: 1px; height: 1px;"></div>
+				</ui5-geomap-container>
+				<ui5-geomap-container id="spotInfoContainer">
+					<div style="background: red; width: 1px; height: 1px;"></div>
+				</ui5-geomap-container>
+				<ui5-geomap-container id="genericInfoContainer">
+					<div style="background: red; width: 1px; height: 1px;"></div>
+				</ui5-geomap-container>
+
+				<!-- Distance measurement lines -->
+				<ui5-geomap-line id="distanceLine">
+					<ui5-geomap-point></ui5-geomap-point>
+					<ui5-geomap-point></ui5-geomap-point>
+				</ui5-geomap-line>
+				<ui5-geomap-line id="measureLine"></ui5-geomap-line>
+
+				<!-- Distance endpoint circles -->
+				<ui5-geomap-circle id="distFromCircle" radius="0" fill-color="blue" lng="1" lat="1"></ui5-geomap-circle>
+				<ui5-geomap-circle id="distToCircle" radius="0" fill-color="blue" lng="1" lat="1"></ui5-geomap-circle>
+			</ui5-geomap>
+
+			<!-- Footer -->
+			<div class="page-footer">
+				<ui5-button design="Emphasized" icon="information" id="guideBtn">Guide</ui5-button>
+			</div>
+		</div>
+		<!-- playground-fold-end -->
+
+		<!-- Add / Edit Location Dialog -->
+		<ui5-dialog id="addLocationDialog">
+			<ui5-bar slot="header" design="Header">
+				<ui5-title level="H5" slot="startContent" id="addDialogTitle">Add new location</ui5-title>
+				<ui5-button design="Transparent" slot="endContent" icon="decline" id="closeAddDialog"></ui5-button>
+			</ui5-bar>
+			<div style="padding: 1rem; display: grid; gap: 12px; width: 420px;">
+				<ui5-label>Latitude:</ui5-label>
+				<ui5-input id="newLatInput" placeholder="latitude..."></ui5-input>
+				<ui5-label>Longitude:</ui5-label>
+				<ui5-input id="newLonInput" placeholder="longitude..."></ui5-input>
+				<ui5-label>Scale Rank:</ui5-label>
+				<ui5-input id="newScalerankInput" placeholder="scale rank..."></ui5-input>
+				<ui5-label>Type:</ui5-label>
+				<ui5-input id="newLocTypeInput" placeholder="type..."></ui5-input>
+				<ui5-label>Location:</ui5-label>
+				<ui5-input id="newLocInput" placeholder="location..."></ui5-input>
+				<ui5-label>Natlscale:</ui5-label>
+				<ui5-input id="newNatlscaleInput" placeholder="natlscale..."></ui5-input>
+				<ui5-label>Name:</ui5-label>
+				<ui5-input id="newNameInput" placeholder="name..."></ui5-input>
+			</div>
+			<ui5-bar slot="footer" design="Footer">
+				<ui5-button id="confirmLocationBtn" design="Emphasized" slot="endContent">ADD</ui5-button>
+			</ui5-bar>
+		</ui5-dialog>
+
+		<!-- Fly-to Dialog -->
+		<ui5-dialog id="flyToDialog">
+			<ui5-bar slot="header" design="Header">
+				<ui5-title level="H5" slot="startContent">Select destination</ui5-title>
+				<ui5-button design="Transparent" slot="endContent" icon="decline" id="closeFlyToDialog"></ui5-button>
+			</ui5-bar>
+			<div style="padding: 1rem; width: 420px;">
+				<ui5-label>Destination:</ui5-label>
+				<ui5-combobox id="flyToDest" placeholder="where to...">
+					<ui5-cb-item text="New York" data-ui5-coordinates="-74.0060, 40.7128"></ui5-cb-item>
+					<ui5-cb-item text="Heidelberg" data-ui5-coordinates="8.6724, 49.3988"></ui5-cb-item>
+					<ui5-cb-item text="Sofia" data-ui5-coordinates="23.402452, 42.689184"></ui5-cb-item>
+				</ui5-combobox>
+				<p id="restrictedAreaMsg" style="color: var(--sapNegativeTextColor); display: none;"></p>
+			</div>
+			<ui5-bar slot="footer" design="Footer">
+				<ui5-button id="goToBtn" icon="paper-plane" design="Emphasized" slot="endContent">GO TO</ui5-button>
+			</ui5-bar>
+		</ui5-dialog>
+
+		<!-- Settings / Personalization Dialog -->
+		<ui5-dialog id="persoDialog" draggable>
+			<ui5-bar slot="header" design="Header">
+				<ui5-title level="H5" slot="startContent">Geomap personalization settings</ui5-title>
+				<ui5-button design="Transparent" slot="endContent" icon="decline" id="closePersoDialog"></ui5-button>
+			</ui5-bar>
+			<ui5-tabcontainer style="width: 500px;">
+				<ui5-tab text="Selection">
+					<ui5-button id="validatorButton" data-mode="1" design="Positive"
+						tooltip="Once enabled, the validator prevents polygons from self-intersecting.">
+						Enable Validator
+					</ui5-button>
+					<br /><br />
+					<ui5-textarea id="selectionTextArea" placeholder="Selected bound coordinates..." rows="10" growing-max-rows="20"></ui5-textarea>
+				</ui5-tab>
+				<ui5-tab text="Elements">
+					<ui5-textarea id="selectionItemsTextArea" placeholder="Selected items in area..." rows="10" growing-max-rows="20"></ui5-textarea>
+				</ui5-tab>
+				<ui5-tab text="Outline">
+					<ui5-color-picker id="outlinePicker" value="rgba(24, 24, 17, 1)"></ui5-color-picker>
+				</ui5-tab>
+				<ui5-tab text="Fill">
+					<ui5-color-picker id="fillPicker" value="rgba(229, 222, 247, 1)"></ui5-color-picker>
+				</ui5-tab>
+				<ui5-tab text="Perfect Zoom">
+					<ui5-textarea id="boundsArea" rows="10" growing-max-rows="20"></ui5-textarea>
+				</ui5-tab>
+				<ui5-tab text="Restricted Area">
+					<ui5-textarea id="restrictedBoundsArea" rows="10" growing-max-rows="20"></ui5-textarea>
+				</ui5-tab>
+			</ui5-tabcontainer>
+			<ui5-bar slot="footer" design="Footer">
+				<ui5-button design="Emphasized" slot="endContent" id="closePersoOkBtn">OK</ui5-button>
+			</ui5-bar>
+		</ui5-dialog>
+
+		<!-- Guide Dialog -->
+		<ui5-dialog id="guideDialog" style="width: 600px;">
+			<ui5-bar slot="header" design="Header">
+				<ui5-title level="H5" slot="startContent">Your geomap guide tour</ui5-title>
+				<ui5-button design="Transparent" slot="endContent" icon="decline" id="closeGuideDialog"></ui5-button>
+			</ui5-bar>
+			<div style="padding: 1rem;">
+				<ui5-panel collapsed>
+					<div slot="header"><ui5-title level="H4">Restricted area</ui5-title></div>
+					<ui5-label>The <b>restricted area</b> is a zone where the fly-to feature is blocked (a polygon around New York in this demo).</ui5-label>
+				</ui5-panel>
+				<ui5-panel collapsed>
+					<div slot="header"><ui5-title level="H4">Perfect zoom</ui5-title></div>
+					<ui5-label>The <b>perfect zoom</b> fits the map to a specified bounding box. Use the <ui5-icon name="zoom-in"></ui5-icon> button in the toolbar.</ui5-label>
+				</ui5-panel>
+				<ui5-panel collapsed>
+					<div slot="header"><ui5-title level="H4">Markers</ui5-title></div>
+					<ui5-label>
+						Markers differ by airport type:<br />
+						<ui5-icon name="map" style="color: blue;"></ui5-icon> civil airport &nbsp;
+						<ui5-icon name="favorite" style="color: blue;"></ui5-icon> spaceport &nbsp;
+						<ui5-icon name="map" style="color: teal;"></ui5-icon> military<br />
+						Size reflects the airport scale (major, mid, small).
+					</ui5-label>
+				</ui5-panel>
+				<ui5-panel collapsed>
+					<div slot="header"><ui5-title level="H4">Distance</ui5-title></div>
+					<ui5-label>
+						Right-click the map → <b>Measure distance to point</b> to set a start point, then left-click to set the endpoint and see the distance in km.
+					</ui5-label>
+				</ui5-panel>
+				<ui5-panel collapsed>
+					<div slot="header"><ui5-title level="H4">Add / Edit locations</ui5-title></div>
+					<ui5-label>Right-click the map → <b>Create location</b>, or use the <ui5-icon name="add"></ui5-icon> toolbar button. Click a marker to edit it.</ui5-label>
+				</ui5-panel>
+			</div>
+			<ui5-bar slot="footer" design="Footer">
+				<ui5-button design="Emphasized" slot="endContent" id="closeGuideBtn">Close</ui5-button>
+			</ui5-bar>
+		</ui5-dialog>
+
+		<!-- Context menu -->
+		<ui5-menu id="contextMenu">
+			<ui5-menu-item id="createLocationItem" text="Create Location"></ui5-menu-item>
+			<ui5-menu-item id="measureDistanceItem" text="Measure distance to point"></ui5-menu-item>
+			<ui5-menu-item id="clearDistanceItem" text="Clear distance" style="display:none;"></ui5-menu-item>
+		</ui5-menu>
+
+		<!-- Spot context menu -->
+		<ui5-popover id="spotMenu">
+			<ui5-list id="spotMenuList">
+				<ui5-li id="editSpotItem">Edit</ui5-li>
+				<ui5-li id="measureToLocationItem">Measure distance to location</ui5-li>
+				<ui5-li id="distanceToHereItem" style="display:none;">Distance to here</ui5-li>
+			</ui5-list>
+		</ui5-popover>
+
+		<!-- Spot info popover -->
+		<ui5-popover id="spotInfo">
+			<div style="padding: 0.5rem; display: grid; gap: 4px;">
+				<ui5-label>Name:</ui5-label><ui5-text id="spotId"></ui5-text>
+				<ui5-label>Longitude:</ui5-label><ui5-text id="spotLng"></ui5-text>
+				<ui5-label>Latitude:</ui5-label><ui5-text id="spotLat"></ui5-text>
+				<ui5-label>Airport size:</ui5-label><ui5-text id="spotSize"></ui5-text>
+				<ui5-label>Abbreviation:</ui5-label><ui5-text id="spotAbbrev"></ui5-text>
+				<ui5-label>IATA Code:</ui5-label><ui5-text id="spotIata"></ui5-text>
+				<ui5-label>Natlscale:</ui5-label><ui5-text id="spotNatlscale"></ui5-text>
+				<ui5-label>Scalerank:</ui5-label><ui5-text id="spotScalerank"></ui5-text>
+				<ui5-label>Location:</ui5-label><ui5-text id="spotLocation"></ui5-text>
+				<ui5-label>Wikipedia:</ui5-label><ui5-text id="spotWiki"></ui5-text>
+			</div>
+		</ui5-popover>
+
+		<!-- Distance popover -->
+		<ui5-popover id="distancePopover">
+			<div style="padding: 0.5rem;">
+				<ui5-text id="distanceText">Distance: 0 km</ui5-text>
+			</div>
+		</ui5-popover>
+
+		<!-- playground-fold -->
+	</body>
+</html>
+<!-- playground-fold-end -->
