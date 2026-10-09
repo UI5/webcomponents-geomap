@@ -1,0 +1,77 @@
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (compute next version & notes, publish nothing)"
+        type: boolean
+        default: true
+      branch:
+        description: "Release channel"
+        type: choice
+        default: main
+        options:
+          - main
+          - next
+
+concurrency:
+  group: release-${{ inputs.branch }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write        # tag + commit CHANGELOG + create GitHub Release
+      issues: write          # @semantic-release/github issue/PR comments
+      pull-requests: write
+      id-token: write        # npm OIDC trusted publishing + provenance
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch }}
+          fetch-depth: 0      # semantic-release needs full history + all tags
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      # Node 22 ships npm 10.x; we need >=11 for both lockfile parity with the
+      # repo (which was generated under npm 11) and npm trusted publishers,
+      # which require npm >= 11.5.1.
+      - name: Upgrade npm
+        run: npm install -g npm@11
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint:ci
+
+      - name: Build
+        run: npm run build:ci
+
+      - name: Test
+        run: npm run test:cypress:ci
+
+      - name: Verify auth (dry-run only)
+        if: ${{ inputs.dry_run }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release --dry-run --no-ci
+
+      - name: Release
+        if: ${{ !inputs.dry_run }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # NO NPM_TOKEN: npm OIDC trusted publisher is configured on
+          # npmjs.com for this repo + this workflow. Provenance is on
+          # via publishConfig.provenance=true in package.json.
+        run: npx semantic-release --no-ci

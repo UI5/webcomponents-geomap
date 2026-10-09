@@ -20,6 +20,10 @@ jobs:
           node-version: 22
           cache: 'npm'
 
+      # Lockfile is generated under npm 11; Node 22 ships 10.x.
+      - name: Upgrade npm
+        run: npm install -g npm@11
+
       - name: Install
         run: npm ci
 
