@@ -4,13 +4,47 @@
   "description": "Geomap Web Component for visualizing geospatial data based on UI5 Web Components.",
   "author": "SAP SE (https://www.sap.com)",
   "license": "Apache-2.0",
-  "keywords": ["open-source", "web-component", "ui5", "geomap", "ui5-webcomponents", "webcomponent", "geospatial", "map"],
+  "keywords": [
+    "open-source",
+    "web-component",
+    "ui5",
+    "geomap",
+    "ui5-webcomponents",
+    "webcomponent",
+    "geospatial",
+    "map"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/UI5/webcomponents-geomap.git"
   },
-  "main": "index.js",
   "type": "module",
+  "main": "dist/Geomap.js",
+  "module": "dist/Geomap.js",
+  "types": "dist/Geomap.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/Geomap.d.ts",
+      "import": "./dist/Geomap.js"
+    },
+    "./dist/*": "./dist/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "LICENSES",
+    "REUSE.toml",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "dependencies": {
     "@ui5/webcomponents": "2.22.0",
     "@ui5/webcomponents-base": "2.22.0",
@@ -22,6 +56,8 @@
     "terra-draw-maplibre-gl-adapter": "^1.4.1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@cypress/code-coverage": "^3.13.10",
     "@maplibre/maplibre-gl-style-spec": "^24.8.5",
     "@types/geojson": "^7946.0.14",
@@ -29,6 +65,7 @@
     "cypress": "^13.9.0",
     "cypress-ct-lit": "^0.4.1",
     "eslint-plugin-cypress": "^3.3.0",
+    "husky": "^9.1.7",
     "junit-report-merger": "^9.0.4",
     "lit": "^3.2.1",
     "npm-run-all": "^4.1.5",
@@ -58,8 +95,9 @@
     "posttest:cypress:ci": "npm run combine:reports",
     "test:cypress:open": "CYPRESS_COVERAGE=true wc-dev test-cy-open",
     "create-ui5-element": "wc-create-ui5-element",
-    "prepare": "npm run build",
+    "prepack": "npm run build",
     "prepublishOnly": "npm run build",
+    "prepare": "husky",
     "build:website": "cd website && npm ci && npm run build:website",
     "generate": "nps generate",
     "generateAPI": "nps generateAPI"
