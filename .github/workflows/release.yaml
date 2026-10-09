@@ -43,6 +43,12 @@ jobs:
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
 
+      # Node 22 ships npm 10.x; we need >=11 for both lockfile parity with the
+      # repo (which was generated under npm 11) and npm trusted publishers,
+      # which require npm >= 11.5.1.
+      - name: Upgrade npm
+        run: npm install -g npm@11
+
       - name: Install
         run: npm ci
 
