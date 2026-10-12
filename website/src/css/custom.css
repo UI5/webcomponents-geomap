@@ -177,6 +177,17 @@ code {
   margin: 0 auto;
 }
 
+/* Expand layout for pages with .sampleapp-wide content */
+@media (min-width: 997px) {
+  .main-wrapper:has(.sampleapp-wide) .container {
+    max-width: 100%;
+  }
+
+  .main-wrapper:has(.sampleapp-wide) [class*='docItemCol'] {
+    max-width: 100% !important;
+  }
+}
+
 /* Make top level menu items bold (main,fiori,etc.) */
 .theme-doc-sidebar-item-category-level-1.menu__list-item>.menu__list-item-collapsible>a[href*="\/components"] {
   font-weight: bold;

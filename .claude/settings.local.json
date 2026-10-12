@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs cat)",
+      "Bash(xargs basename -a)",
+      "Bash(xargs ls -la)",
+      "Bash(curl -s http://localhost:3000/samples/20-sampleapp)",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -s http://localhost:3000/styles.css)"
+    ]
+  }
+}
