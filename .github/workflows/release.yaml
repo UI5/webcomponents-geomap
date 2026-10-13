@@ -23,18 +23,45 @@ jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
-      contents: write        # tag + commit CHANGELOG + create GitHub Release
-      issues: write          # @semantic-release/github issue/PR comments
+      # NB: contents/issues/pull-requests permissions below apply to the
+      # default GITHUB_TOKEN. The real release push + tag + GitHub Release
+      # are made with the UI5 release GitHub App token (see steps below),
+      # which carries its own installation-scoped permissions.
+      contents: write
+      issues: write
       pull-requests: write
       id-token: write        # npm OIDC trusted publishing + provenance
 
     steps:
+      # Mint a short-lived installation token from the UI5 release GitHub App.
+      # This is the same mechanism UI5/webcomponents uses. The App is granted
+      # repository-level write + is on the main-branch ruleset bypass list,
+      # so semantic-release's `chore(release): …` commit + tag can land on
+      # main despite the "require PR + 1 review" rule.
+      #
+      # Required repo secrets:
+      #   - RELEASE_APP_ID       GitHub App ID
+      #   - RELEASE_APP_KEY      GitHub App private key (PEM)
+      #
+      # Optional (purely cosmetic — controls the release commit author):
+      #   - UI5_WEBCOMP_BOT_NAME
+      #   - UI5_WEBCOMP_BOT_EMAIL
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_KEY }}
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
           ref: ${{ inputs.branch }}
           fetch-depth: 0      # semantic-release needs full history + all tags
-          persist-credentials: false
+          # Wire the App token into git so semantic-release can push the
+          # release commit + tag back to the branch.
+          token: ${{ steps.app-token.outputs.token }}
+          persist-credentials: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -64,13 +91,19 @@ jobs:
       - name: Verify auth (dry-run only)
         if: ${{ inputs.dry_run }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: npx semantic-release --dry-run --no-ci
 
       - name: Release
         if: ${{ !inputs.dry_run }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          # Author the release commit as the UI5 bot (optional — falls back
+          # to the GitHub App bot identity if these secrets are unset).
+          GIT_AUTHOR_NAME:     ${{ secrets.UI5_WEBCOMP_BOT_NAME }}
+          GIT_AUTHOR_EMAIL:    ${{ secrets.UI5_WEBCOMP_BOT_EMAIL }}
+          GIT_COMMITTER_NAME:  ${{ secrets.UI5_WEBCOMP_BOT_NAME }}
+          GIT_COMMITTER_EMAIL: ${{ secrets.UI5_WEBCOMP_BOT_EMAIL }}
           # NO NPM_TOKEN: npm OIDC trusted publisher is configured on
           # npmjs.com for this repo + this workflow. Provenance is on
           # via publishConfig.provenance=true in package.json.
