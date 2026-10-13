@@ -5,14 +5,14 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
-const baseUrl = process.env.BASE_URL || "/";
+const baseUrl = process.env.BASE_URL || "/webcomponents-geomap/";
 
 const config: Config = {
   title: "UI5 Geomap",
 	tagline: "",
 	favicon: "img/favicon.ico",
 
-	url: process.env.SITE_URL || "https://miniature-doodle-38rm8k4.pages.github.io",
+	url: process.env.SITE_URL || "https://ui5.github.io",
 	baseUrl,
 
 	// GitHub pages deployment config.
