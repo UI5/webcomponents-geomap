@@ -80,7 +80,7 @@
     "semantic-release": "^24.2.9",
     "typescript": "5.6.2",
     "vite-plugin-checker": "^0.8.0",
-    "vite-plugin-istanbul": "^6.0.2"
+    "vite-plugin-istanbul": "^9.0.1"
   },
   "scripts": {
     "clean": "wc-dev clean",
