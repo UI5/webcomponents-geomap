@@ -111,7 +111,10 @@
     "generateAPI": "nps generateAPI"
   },
   "overrides": {
-    "lit-html": "3.3.1"
+    "lit-html": "3.3.1",
+    "semantic-release": {
+      "@semantic-release/npm": "$@semantic-release/npm"
+    }
   },
   "ui5": {
     "webComponentsPackage": true
