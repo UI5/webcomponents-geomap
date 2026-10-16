@@ -50,7 +50,7 @@
     "@ui5/webcomponents-base": "2.22.0",
     "@ui5/webcomponents-icons": "2.22.0",
     "@ui5/webcomponents-icons-business-suite": "2.22.0",
-    "@ui5/webcomponents-theming": "2.22.0",
+    "@ui5/webcomponents-theming": "2.27.2",
     "maplibre-gl": "5.24.0",
     "terra-draw": "^1.31.0",
     "terra-draw-maplibre-gl-adapter": "^1.4.1"
