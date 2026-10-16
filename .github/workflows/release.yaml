@@ -59,7 +59,7 @@ jobs:
           private-key: ${{ secrets.RELEASE_APP_KEY }}
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ inputs.branch }}
           fetch-depth: 0      # semantic-release needs full history + all tags
