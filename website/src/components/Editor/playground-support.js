@@ -159,6 +159,16 @@ const loadAndCheck2 = async (themeName) => {
 ["sap_fiori_3", "sap_fiori_3_dark", "sap_fiori_3_hcb", "sap_fiori_3_hcw", "sap_horizon", "sap_horizon_dark", "sap_horizon_dark_exp", "sap_horizon_exp", "sap_horizon_hcb", "sap_horizon_hcb_exp", "sap_horizon_hcw", "sap_horizon_hcw_exp"]
     .forEach(themeName => registerThemePropertiesLoader("@ui5/webcomponents-theming", themeName, loadAndCheck2));
 
+import { registerIconLoader } from "@ui5/webcomponents-base/dist/asset-registries/Icons.js";
+const loadIconsBundle = async (collection) => {
+    const url = collection === "SAP-icons-v5"
+        ? "https://cdn.jsdelivr.net/npm/@ui5/webcomponents-icons@2.22.0/dist/generated/assets/v5/SAP-icons.json"
+        : "https://cdn.jsdelivr.net/npm/@ui5/webcomponents-icons@2.22.0/dist/generated/assets/v4/SAP-icons.json";
+    return await (await fetch(url)).json();
+};
+registerIconLoader("SAP-icons-v4", loadIconsBundle);
+registerIconLoader("SAP-icons-v5", loadIconsBundle);
+
 import { setTheme } from "@ui5/webcomponents-base/dist/config/Theme.js";
 import applyDirection from "@ui5/webcomponents-base/dist/locale/applyDirection.js";
 
