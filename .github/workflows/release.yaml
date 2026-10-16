@@ -22,6 +22,11 @@ concurrency:
 jobs:
   release:
     runs-on: ubuntu-latest
+    # The npm trusted publisher is pinned to this GitHub Actions environment.
+    # Only workflows running in this environment can mint an OIDC token that
+    # npmjs.com will accept for publishing @ui5/webcomponents-geomap.
+    # Configure the environment at: Settings → Environments.
+    environment: 'npmjs:@ui5/webcomponents-geomap'
     permissions:
       # NB: contents/issues/pull-requests permissions below apply to the
       # default GITHUB_TOKEN. The real release push + tag + GitHub Release
@@ -68,7 +73,6 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
-          registry-url: 'https://registry.npmjs.org'
 
       # Node 22 ships npm 10.x; we need >=11 for both lockfile parity with the
       # repo (which was generated under npm 11) and npm trusted publishers,
@@ -104,7 +108,9 @@ jobs:
           GIT_AUTHOR_EMAIL:    ${{ secrets.UI5_WEBCOMP_BOT_EMAIL }}
           GIT_COMMITTER_NAME:  ${{ secrets.UI5_WEBCOMP_BOT_NAME }}
           GIT_COMMITTER_EMAIL: ${{ secrets.UI5_WEBCOMP_BOT_EMAIL }}
-          # NO NPM_TOKEN: npm OIDC trusted publisher is configured on
-          # npmjs.com for this repo + this workflow. Provenance is on
-          # via publishConfig.provenance=true in package.json.
+          # npm auth: none. @semantic-release/npm >=13.1.0 performs the OIDC
+          # token exchange natively — the job's `id-token: write` permission
+          # + `environment: npmjs:@ui5/webcomponents-geomap` are what npmjs
+          # verifies against the trusted-publisher config. Provenance is
+          # auto-generated for trusted-publisher releases.
         run: npx semantic-release --no-ci
