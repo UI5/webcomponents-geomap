@@ -27,12 +27,6 @@ Some of the main map features are:
 
 ![overview](images/overview.png)
 
-:::warning 
-The component is in an initial experimental state.
-
-The component API is not finalized yet. Some APIs may be changed or completely removed. Some modules may be renamed in the future and imports might change.
-:::
-
 ## Third-Party Software
 
 This project includes the following third-party open source software components. Each component is subject to its own license terms.

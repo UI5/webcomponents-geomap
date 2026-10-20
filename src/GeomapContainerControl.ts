@@ -20,7 +20,6 @@ import GeomapContainerControlTemplate from "./GeomapContainerControlTemplate.js"
  *
  * @constructor
  * @extends GeomapControlBase
- * @experimental
  * @public
  */
 @customElement({

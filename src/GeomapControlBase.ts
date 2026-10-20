@@ -10,7 +10,6 @@ import type GeomapMapControlPosition from "./types/GeomapMapControlPosition.js";
  *
  * @constructor
  * @extends GeomapElement
- * @experimental
  * @public
  */
 class GeomapControlBase<T extends IControl> extends GeomapElement {

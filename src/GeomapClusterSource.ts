@@ -25,7 +25,6 @@ interface Options{
  *
  * @constructor
  * @extends GeomapSource
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-cluster-source")

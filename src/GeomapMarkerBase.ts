@@ -15,7 +15,6 @@ import GeomapElement from "./GeomapElement.js";
  *
  * @constructor
  * @extends GeomapElement
- * @experimental
  * @public
  */
 class GeomapMarkerBase extends GeomapElement {

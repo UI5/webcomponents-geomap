@@ -47,7 +47,6 @@ type LegendItemClickEventDetail = {
  *
  * @constructor
  * @extends GeomapContainerControl
- * @experimental
  * @public
  */
 @customElement({
