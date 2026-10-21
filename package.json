@@ -19,19 +19,17 @@
     "url": "https://github.com/UI5/webcomponents-geomap.git"
   },
   "type": "module",
-  "main": "dist/Geomap.js",
-  "module": "dist/Geomap.js",
-  "types": "dist/Geomap.d.ts",
   "exports": {
-    ".": {
-      "types": "./dist/Geomap.d.ts",
-      "import": "./dist/Geomap.js"
-    },
+    "./src/*": "./src/*",
     "./dist/*": "./dist/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./bundle.esm.js": "./bundle.esm.js",
+    "./*": "./dist/*"
   },
   "files": [
     "dist",
+    "src",
+    "bundle.esm.js",
     "README.md",
     "LICENSE",
     "LICENSES",
