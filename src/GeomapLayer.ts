@@ -19,7 +19,6 @@ interface PropertyMetadata {
  * `import "@ui5/webcomponents-geomap/dist/GeomapLayer.js";`
  * @constructor
  * @extends GeomapLayerBase
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-layer")

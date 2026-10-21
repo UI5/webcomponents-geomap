@@ -23,7 +23,6 @@ const EMPTY_GEOJSON = {
  *
  * @constructor
  * @extends GeomapElement
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-source")

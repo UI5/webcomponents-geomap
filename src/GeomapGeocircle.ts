@@ -34,7 +34,6 @@ type GeocircleDragDropEndEventDetail = {
  *
  * @constructor
  * @extends GeomapShape
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-geocircle")

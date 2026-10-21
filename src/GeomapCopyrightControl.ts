@@ -19,7 +19,6 @@ import GeomapCopyrightControlTemplate from "./GeomapCopyrightControlTemplate.js"
  *
  * @constructor
  * @extends GeomapControlBase
- * @experimental
  * @public
  */
 @customElement({

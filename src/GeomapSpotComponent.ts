@@ -19,7 +19,6 @@ import "@ui5/webcomponents-icons/dist/map.js";
  *
  * @constructor
  * @extends UI5Element
- * @experimental
  * @public
  */
 @customElement({

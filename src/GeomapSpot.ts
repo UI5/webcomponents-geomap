@@ -20,7 +20,6 @@ import { PulseAnimationUtil } from "./utils/PulseAnimationUtil.js";
  *
  * @constructor
  * @extends GeomapMarkerBase
- * @experimental
  * @public
  */
 @customElement({

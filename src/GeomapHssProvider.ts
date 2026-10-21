@@ -35,7 +35,6 @@ type StyleRasterSource = {
  *
  * @constructor
  * @extends GeomapProviderBase
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-hss-provider")

@@ -8,7 +8,6 @@ import { customElement } from "@ui5/webcomponents-base/dist/decorators.js";
  *
  * @constructor
  * @extends GeomapLayerBase
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-shape")

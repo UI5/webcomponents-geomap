@@ -16,7 +16,6 @@ import geomapProperty from "./decorators/geomapProperty.js";
  *
  * @constructor
  * @extends UI5Element
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-fill-layer-state")

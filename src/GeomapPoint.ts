@@ -15,7 +15,6 @@ import property from "@ui5/webcomponents-base/dist/decorators/property.js";
  *
  * @constructor
  * @extends UI5Element
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-point")

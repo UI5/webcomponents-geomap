@@ -17,7 +17,6 @@ import GeomapNavigationControlWrapper from "./extensions/controls/GeomapNavigati
  *
  * @constructor
  * @extends GeomapControlBase
- * @experimental
  * @public
  */
 @customElement({
