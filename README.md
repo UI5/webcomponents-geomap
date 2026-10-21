@@ -19,10 +19,6 @@ Some of the main map features are:
 - Selection of objects
 - Various events to allow the app to implement context menu, act on pan/zoom, map rendering, etc.
 
-> [!IMPORTANT]
-> The component is in an initial experimental state.
-> The component API is not finalized yet. Some APIs may be changed or completely removed. Some modules may be renamed in the future and imports might change.
-
 ## Public APIs
 
 The Geomap provides a custom tag `<ui5-geomap />` which has several properties, slots and events:

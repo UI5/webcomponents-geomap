@@ -16,7 +16,6 @@ import type { InvalidationInfo } from "@ui5/webcomponents-base/dist/UI5Element.j
  *
  * @constructor
  * @extends GeomapProviderBase
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-provider")

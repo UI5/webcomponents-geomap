@@ -18,7 +18,6 @@ import GeomapLayerBase from "./GeomapLayerBase.js";
  *
  * @constructor
  * @extends GeomapLayerBase
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-image")

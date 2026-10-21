@@ -10,7 +10,6 @@ import { TerraDraw } from "terra-draw";
  *
  * @constructor
  * @extends UI5Element
- * @experimental
  * @public
  */
 class GeomapElement extends UI5Element {

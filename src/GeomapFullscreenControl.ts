@@ -15,7 +15,6 @@ import GeomapFullscreenControlWrapper from "./extensions/controls/GeomapFullscre
  *
  * @constructor
  * @extends GeomapControlBase
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-fullscreen-control")

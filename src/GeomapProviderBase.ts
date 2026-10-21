@@ -14,7 +14,6 @@ import GeomapElement from "./GeomapElement.js";
  *
  * @constructor
  * @extends GeomapElement
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-provider-base")

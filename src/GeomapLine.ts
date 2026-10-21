@@ -33,7 +33,6 @@ type LineDragDropEventDetail = {
  *
  * @constructor
  * @extends GeomapShape
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-line")

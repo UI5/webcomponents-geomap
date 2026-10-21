@@ -18,7 +18,6 @@ import type GeomapScaleControlUnits from "./types/GeomapScaleControlUnits.js";
  *
  * @constructor
  * @extends GeomapControlBase
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-scale-control")

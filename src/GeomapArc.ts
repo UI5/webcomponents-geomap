@@ -22,7 +22,6 @@ import type { LineStringFeatureType, MultiplePointsCoordinatesType } from "./geo
  *
  * @constructor
  * @extends GeomapShape
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-arc")

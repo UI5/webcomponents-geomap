@@ -21,7 +21,6 @@ import styles from "./generated/themes/GeomapNavigationControlComponent.css.js";
  *
  * @constructor
  * @extends UI5Element
- * @experimental
  * @public
  */
 @customElement({

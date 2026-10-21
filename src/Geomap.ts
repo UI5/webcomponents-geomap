@@ -117,7 +117,6 @@ const restrictedAreaProperties = [
  *
  * @constructor
  * @extends UI5Element
- * @experimental
  * @public
  */
 @customElement({

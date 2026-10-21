@@ -23,7 +23,6 @@ import type Map from "./extensions/Map.js";
  *
  * @constructor
  * @extends GeomapMarkerBase
- * @experimental
  * @public
  */
 @customElement({

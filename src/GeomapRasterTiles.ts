@@ -17,7 +17,6 @@ import { TerraDraw } from "terra-draw";
  *
  * @constructor
  * @extends GeomapLayerBase
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-raster-tiles")

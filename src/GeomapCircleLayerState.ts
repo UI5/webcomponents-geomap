@@ -17,7 +17,6 @@ import GeomapInteger from "./converters/GeomapInteger.js";
  *
  * @constructor
  * @extends UI5Element
- * @experimental
  * @public
  */
 @customElement("ui5-geomap-circle-layer-state")
