@@ -305,3 +305,7 @@ vs
 <ui5-geomap-circle-layer id="points_unclustered" source="data1" displayed-features="NotClustered" radius="20" fill-color="green"></ui5-geomap-circle-layer>
 <ui5-geomap-circle-layer id="points_clustered" source="data1" displayed-features="Clustered" fill-color="blue" radius="30"></ui5-geomap-circle-layer>
 ```
+
+## See Also
+
+- [Declarative API: Limitations and Performance](./02-declarative-limitations.md) — where the declarative API stops scaling and when to reach for the imperative paths
