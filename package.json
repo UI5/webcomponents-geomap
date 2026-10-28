@@ -44,7 +44,7 @@
     "provenance": true
   },
   "dependencies": {
-    "@ui5/webcomponents": "2.22.0",
+    "@ui5/webcomponents": "2.28.1",
     "@ui5/webcomponents-base": "2.22.0",
     "@ui5/webcomponents-icons": "2.22.0",
     "@ui5/webcomponents-icons-business-suite": "2.22.0",
