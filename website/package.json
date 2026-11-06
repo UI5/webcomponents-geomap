@@ -37,7 +37,7 @@
     "@docusaurus/types": "3.10.2",
     "npm-run-all": "^4.1.5",
     "raw-loader": "^4.0.2",
-    "rimraf": "^6.0.1",
+    "rimraf": "^6.1.4",
     "typescript": "~5.6.2"
   },
   "browserslist": {
