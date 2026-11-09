@@ -157,6 +157,8 @@ const config: Config = {
             {
               label: "Privacy",
               to: "/Privacy",
+              target: "_blank",
+              rel: "noopener noreferrer",
             },
             {
               label: "Legal Disclosure",
@@ -186,6 +188,7 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+      additionalLanguages: ['bash', 'json'],
     },
   } satisfies Preset.ThemeConfig,
 };
