@@ -140,6 +140,10 @@ const config: Config = {
               label: "Components",
               to: "/components/Geomap",
             },
+            {
+              label: "FAQ",
+              to: "/documentation/faq",
+            },
           ],
         },
       ],
