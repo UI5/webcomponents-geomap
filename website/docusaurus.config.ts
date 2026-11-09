@@ -8,13 +8,6 @@ import type * as Preset from '@docusaurus/preset-classic';
 const baseUrl = process.env.BASE_URL || "/webcomponents-geomap/";
 const siteUrl = process.env.SITE_URL || "https://ui5.github.io";
 
-// Mirrors the getFullURL() helper from the ui5-webcomponents website:
-// in development, use a root-relative path; otherwise, use the absolute site URL.
-const DEVELOPMENT_ENVIRONMENT = process.env.NODE_ENV === "development";
-const getFullURL = () => {
-  return DEVELOPMENT_ENVIRONMENT ? `${baseUrl}` : `${siteUrl}${baseUrl}`;
-};
-
 const config: Config = {
   title: "UI5 Geomap",
 	tagline: "",
@@ -163,7 +156,7 @@ const config: Config = {
           items: [
             {
               label: "Privacy",
-              href: `${getFullURL()}Privacy`,
+              to: "/Privacy",
             },
             {
               label: "Legal Disclosure",
@@ -176,6 +169,15 @@ const config: Config = {
             {
               label: "Trademark",
               href: "https://www.sap.com/trademark",
+            },
+          ],
+        },
+        {
+          title: "Contact Us",
+          items: [
+            {
+              label: "Report Issue",
+              href: "https://github.com/UI5/webcomponents-geomap/issues/new",
             },
           ],
         },
