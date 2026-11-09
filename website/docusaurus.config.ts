@@ -6,13 +6,21 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const baseUrl = process.env.BASE_URL || "/webcomponents-geomap/";
+const siteUrl = process.env.SITE_URL || "https://ui5.github.io";
+
+// Mirrors the getFullURL() helper from the ui5-webcomponents website:
+// in development, use a root-relative path; otherwise, use the absolute site URL.
+const DEVELOPMENT_ENVIRONMENT = process.env.NODE_ENV === "development";
+const getFullURL = () => {
+  return DEVELOPMENT_ENVIRONMENT ? `${baseUrl}` : `${siteUrl}${baseUrl}`;
+};
 
 const config: Config = {
   title: "UI5 Geomap",
 	tagline: "",
 	favicon: "img/favicon.ico",
 
-	url: process.env.SITE_URL || "https://ui5.github.io",
+	url: siteUrl,
 	baseUrl,
 
 	// GitHub pages deployment config.
@@ -137,12 +145,37 @@ const config: Config = {
           title: "Docs",
           items: [
             {
+              label: "Documentation",
+              to: "/documentation/getting-started/first-steps",
+            },
+            {
               label: "Components",
               to: "/components/Geomap",
             },
             {
               label: "FAQ",
               to: "/documentation/faq",
+            },
+          ],
+        },
+        {
+          title: "Legal & Privacy",
+          items: [
+            {
+              label: "Privacy",
+              href: `${getFullURL()}Privacy`,
+            },
+            {
+              label: "Legal Disclosure",
+              href: "https://www.sap.com/impressum",
+            },
+            {
+              label: "Terms of Use",
+              href: "https://www.sap.com/terms-of-use",
+            },
+            {
+              label: "Trademark",
+              href: "https://www.sap.com/trademark",
             },
           ],
         },
