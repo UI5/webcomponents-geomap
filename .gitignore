@@ -20,3 +20,6 @@ website/local-cdn
 website/docs/components
 website/.docusaurus
 website/node_modules
+
+.agents
+.claude
