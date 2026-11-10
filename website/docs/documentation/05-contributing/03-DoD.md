@@ -48,7 +48,7 @@ This page is a checklist of the common pitfalls contributors should run through 
 
 - **Am I handling large feature sets without re-rendering everything?**
 
-  When many `GeomapPoint`s or shapes live under `items`, do not reconcile the entire set on every property change. Update MapLibre sources incrementally, batch style updates, and avoid rebuilding a source from scratch when a single feature moved. The user-visible symptom of getting this wrong is pan/zoom jank with a few hundred features on screen.
+  When many `GeomapPoint`s or shapes live under `items`, do not reconcile the entire set on every property change. Update MapLibre sources incrementally, batch style updates, and avoid rebuilding a source from scratch when a single feature moved. The user-visible symptom of getting this wrong is pan/zoom jank well below the ~1,000-feature threshold documented in [Declarative API: Limitations and Performance](../advanced-concepts/declarative-limitations); above that threshold, apps are expected to switch to `<ui5-geomap-source>` + a layer element anyway.
 
 - **Have I explicitly imported every icon my sub-component uses?**
 

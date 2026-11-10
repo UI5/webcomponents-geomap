@@ -21,4 +21,4 @@ Includes backward compatible new features and increments the middle digit and re
 
 Includes changes that break backward compatibility and increments the first digit and resets the middle and last digits to zero, e.g. 2.0.0.
 
-**Note:** The changelog of all releases can be found on the [GitHub Releases](https://github.com/UI5/webcomponents-geomap/releases) page.
+The changelog of all releases can be found on the [GitHub Releases](https://github.com/UI5/webcomponents-geomap/releases) page.

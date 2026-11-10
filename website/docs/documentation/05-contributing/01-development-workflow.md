@@ -16,7 +16,7 @@ See how to clone a repo [here](https://docs.github.com/en/github/creating-clonin
 
 ## 3. Run the project
 
-**3.0.** Make sure you have [Node.js](https://nodejs.org/) installed (**version 18 or higher**).
+**3.0.** Make sure you have [Node.js](https://nodejs.org/) installed (**version 22 or higher**).
 
 **3.1.** Install all dependencies. This also installs the Git hooks (via `husky`) that lint your commit messages.
 
@@ -90,13 +90,9 @@ We recommend that you make changes in a topic branch (not in your local `main` b
 
 **5.1.** Find the "Pull requests" tab and press the "New pull request" button.
 
-**5.2.** Compare the `main` branch of the upstream repository with a branch from your fork.
+**5.2.** Compare the `main` branch of the upstream repository with a branch from your fork. The full guide on how to open a PR from a fork can be found [here](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork).
 
-**Note:** The full guide on how to open a PR from a fork can be found [here](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork).
-
-**5.3.** Once the PR is created, you will be asked to accept a Developer Certificate of Origin (DCO). Just follow the link posted in the PR by the CLA assistant.
-
-**Note:** This is required only for your first PR.
+**5.3.** Once the PR is created, you will be asked to accept a Developer Certificate of Origin (DCO). Just follow the link posted in the PR by the CLA assistant. This is required only for your first PR.
 
 **5.4.** Immediately after the PR is created, a central build process starts to verify the change by building the project and running all tests.
 
@@ -130,4 +126,4 @@ git checkout main
 git merge upstream/main
 ```
 
-**Note:** The full guide on how to sync a fork can be found [here](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork).
+The full guide on how to sync a fork can be found [here](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork).

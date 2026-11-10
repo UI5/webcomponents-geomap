@@ -49,7 +49,7 @@ BREAKING CHANGE: The <ui5-geomap> "layers" attribute has been
 renamed to "sources". Migration: s/layers=/sources=/.
 ```
 
-While the package is on `0.x`, breaking changes bump the **minor** version (per SemVer). From `1.0.0` onward they bump the **major**.
+While the package is on `0.x`, we follow the common convention that breaking changes bump the **minor** version. From `1.0.0` onward they bump the **major**, as prescribed by SemVer.
 
 ### Examples
 

@@ -23,7 +23,7 @@ cd website
 npm start
 ```
 
-**Note:** In case of issues with the second flow, most likely you need to run `npm run start:website` once so the generated assets (API reference and local CDN) are available.
+In case of issues with the second flow, most likely you need to run `npm run start:website` once so the generated assets (API reference and local CDN) are available.
 
 ## How Component Pages Are Generated
 
