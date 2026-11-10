@@ -130,7 +130,7 @@ Unlike imperative MapLibre usage, `ui5-geomap` provides a fully declarative API:
 
 ### Prerequisites
 
-- Node.js (LTS recommended)
+- Node.js (version 22 or higher)
 - npm
 
 ### Setup
