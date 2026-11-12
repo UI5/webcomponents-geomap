@@ -44,12 +44,13 @@
     "provenance": true
   },
   "dependencies": {
+    "@maplibre/maplibre-gl-style-spec": "^26.6.0",
     "@ui5/webcomponents": "2.22.0",
     "@ui5/webcomponents-base": "2.22.0",
     "@ui5/webcomponents-icons": "2.22.0",
     "@ui5/webcomponents-icons-business-suite": "2.22.0",
     "@ui5/webcomponents-theming": "2.22.0",
-    "maplibre-gl": "5.24.0",
+    "maplibre-gl": "6.18.0",
     "terra-draw": "^1.31.0",
     "terra-draw-maplibre-gl-adapter": "^1.4.1"
   },
@@ -57,7 +58,6 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@cypress/code-coverage": "^3.13.10",
-    "@maplibre/maplibre-gl-style-spec": "^24.8.5",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/git": "^10.0.1",

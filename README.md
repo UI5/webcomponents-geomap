@@ -87,18 +87,22 @@ If your environment allows Web Workers and child frames to be created from blob:
 ```text
 worker-src blob:;
 child-src blob:;
+script-src 'self' blob:;
 img-src data: blob:;
 ```
+> MapLibre v6 ships the worker as an ES module. Module-worker scripts (and the dynamic `import()` they perform) are governed by `script-src` in addition to `worker-src`, so `script-src blob:` is required even when workers are allowed from blob: sources.
 
 ### Strict CSP Environments
 
-For environments with strong Content Security Policies that disallow blob: workers, a CSP-safe bundle is provided:
+For environments with strong Content Security Policies that disallow blob: workers, a CSP-safe worker is provided:
 
-`maplibre-gl-csp-worker.js`
+`maplibre-gl-worker.js`
 
-Create `worker.js` in your application:
+> Although the file is named `.js`, its contents are ES-module code — the component instantiates it with `new Worker(url, { type: "module" })`, so the browser parses it as a module regardless of the extension. The `.js` name is used because it is universally served with the correct MIME type and plays well with downstream build tooling.
+
+Create `worker.js` in your application (MapLibre v6 ships the worker as an ES module, so the bridge must `import` instead of `importScripts`; the `.js` script is still parsed as a module because the Geomap component instantiates the worker with `{ type: "module" }`):
 ```js
-importScripts(new URLSearchParams(self.location.search).get("worker"));
+await import(new URLSearchParams(self.location.search).get("worker"));
 ```
 
 Provide the worker URL before initializing the component:
@@ -107,6 +111,14 @@ import { setWorkerPath } from "@ui5/webcomponents-geomap/dist/config/Config.js";
 
 setWorkerPath("<path-to-your-worker.js>");
 ```
+
+Example CSP for Strict Mode (replace `<worker-origin>` with the origin that serves `maplibre-gl-worker.js`; omit it if the worker is same-origin and `'self'` is sufficient):
+```text
+worker-src 'self';
+script-src 'self' <worker-origin>;
+img-src data: blob:;
+```
+> The dynamic `import()` inside `worker.js` is a script fetch inside the module worker, so the origin serving `maplibre-gl-worker.js` must be allowed by `script-src`. `worker-src blob:` and `child-src blob:` can be dropped in Strict Mode because the bridge no longer relies on blob: workers. `img-src blob:` is still required for raster tile rendering.
 
 ## Architecture
 

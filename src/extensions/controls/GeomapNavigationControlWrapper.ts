@@ -79,8 +79,8 @@ class GeomapNavigationControlWrapper implements IControl {
 		}
 
 		const rotate = this.options.visualizePitch
-			? `scale(${1 / Math.cos(this._map.transform.pitch * (Math.PI / 180)) ** 0.5}) rotateX(${this._map.transform.pitch}deg) rotateZ(${this._map.transform.bearing * (180 / Math.PI)}deg)`
-			: `rotate(${this._map.transform.bearing * (180 / Math.PI)}deg)`;
+			? `scale(${1 / Math.cos(this._map.getPitch() * (Math.PI / 180)) ** 0.5}) rotateX(${this._map.getPitch()}deg) rotateZ(${this._map.getBearing()}deg)`
+			: `rotate(${this._map.getBearing()}deg)`;
 
 		this._container._setCSSParams(rotate);
 	};

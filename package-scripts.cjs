@@ -32,12 +32,21 @@ scripts.prepare.default = scripts.prepare.default.replace("copyProps", "copy cop
 
 // Prepend 2 more jobs to the copy command (important to be before everything else)
 const oldCopyDefault = scripts.copy.default.split("nps ")[1]; // take whatever is after the opening "nps "
-scripts.copy.default = `nps copy.worker copy.css ${oldCopyDefault}`;
+scripts.copy.default = `nps copy.worker copy.workerToDist copy.css ${oldCopyDefault}`;
 
-// Copy the worker file locally so that it can be passed to the URL constructor
-const copyAndWatchPath = require.resolve("@ui5/webcomponents-tools/lib/copy-and-watch/index.js");
-const workerPath = require.resolve("maplibre-gl/dist/maplibre-gl-csp-worker.js");
-scripts.copy.worker = `node "${copyAndWatchPath}" --silent "${workerPath}" src/generated/`;
+// Copy the worker file locally so that it can be passed to the URL constructor.
+// maplibre-gl v6+ ships an ES module worker (maplibre-gl-worker.mjs); the old
+// classic/CSP worker (maplibre-gl-csp-worker.js) was removed with the UMD bundles.
+// We copy-and-rename to `.js` on the way out (see lib/copy-worker.js for the
+// reasoning). The source file stays `.mjs` because that's the filename
+// `maplibre-gl` ships in its own `dist/`.
+const workerPath = require.resolve("maplibre-gl/dist/maplibre-gl-worker.mjs");
+scripts.copy.worker = `node ./lib/copy-worker.js "${workerPath}" src/generated/`;
+
+// The default copy.src step only copies *.js / *.json from src/ to dist/, so the
+// worker file has to be propagated separately or runtime imports of
+// "./generated/maplibre-gl-worker.js" from dist/Geomap.js fail at load time.
+scripts.copy.workerToDist = `node ./lib/copy-worker.js "${workerPath}" dist/generated/`;
 
 scripts["lint:ci"] = `${scripts.lint} -f json -o reports/eslint.json`;
 scripts["test-cy"] = `${scripts["test-cy-ci"]}`;
