@@ -45,7 +45,7 @@ import type GeomapSpot from "./GeomapSpot.js";
 import type GeomapSelectionControl from "./GeomapSelectionControl.js";
 import { PulseAnimationUtil } from "./utils/PulseAnimationUtil.js";
 
-const workerUrl = new URL("./generated/maplibre-gl-csp-worker.js", import.meta.url);
+const workerUrl = new URL("./generated/maplibre-gl-worker.mjs", import.meta.url);
 
 type mapElementCoordsType = LngLatLike & {
 	item?: any;
@@ -623,7 +623,11 @@ class Geomap extends UI5Element {
 		if (!sPath) {
 			throw Error("No path provided.");
 		}
-		const worker = new Worker(sPath);
+		// maplibre-gl v6's worker ships as an ES module (.mjs), so the probe
+		// must also be constructed as a module worker — otherwise the browser
+		// parses `import` as classic-script syntax and throws
+		// "Cannot use import statement outside a module".
+		const worker = new Worker(sPath, { type: "module" });
 		return worker;
 	}
 
@@ -645,10 +649,13 @@ class Geomap extends UI5Element {
 		} catch (e) {
 			try {
 				// Direct worker is not allowed. Load the worker via Blob.
+				// maplibre-gl v6 ships an ES module worker, so the Blob must also be a module
+				// (maplibre instantiates it with { type: "module" }) — use `import()` instead of
+				// `importScripts()`, which is unavailable in module workers.
 				const sBase = workerUrl.origin;
 				const sPath = workerUrl.href;
-				const sBlobCode = `self.origin = "${sBase}"; importScripts("${sPath}");`;
-				const sWorkerUrl = window.URL.createObjectURL(new Blob([sBlobCode]));
+				const sBlobCode = `self.origin = "${sBase}"; import("${sPath}");`;
+				const sWorkerUrl = window.URL.createObjectURL(new Blob([sBlobCode], { type: "application/javascript" }));
 
 				this._checkWorkerAllowed(sWorkerUrl);
 				setWorkerUrl(sWorkerUrl);

@@ -1,16 +1,31 @@
+// Runtime values (classes / functions) exported from maplibre-gl v6
 import {
-	ControlPosition, Coordinates, Feature, FilterSpecification, FullscreenControl, FullscreenControlOptions,
-	GeoJSONSource, IControl, ImageSource, LngLat, LngLatBounds, LngLatBoundsLike, LngLatLike,
-	Map, MapGeoJSONFeature, MapLayerEventType, MapMouseEvent, MapOptions, MapTouchEvent, Marker,
-	MarkerOptions, Point2D, PointLike, RequestTransformFunction, ScaleControl, setWorkerUrl, Unit,
-} from "maplibre-gl/dist/maplibre-gl-csp.js";
+	FullscreenControl, GeoJSONSource, ImageSource, LngLat, LngLatBounds,
+	Map, MapMouseEvent, MapTouchEvent, Marker, ScaleControl, setWorkerUrl,
+} from "maplibre-gl";
+
+// Type-only exports in maplibre-gl v6 — must be imported with `import type`
+// so bundlers (Vite/esbuild) do not try to resolve them as runtime values.
+import type {
+	ControlPosition, Coordinates, FullscreenControlOptions, IControl,
+	LngLatBoundsLike, LngLatLike, MapGeoJSONFeature, MapLayerEventType,
+	MapOptions, MarkerOptions, PointLike, RequestTransformFunction, Unit,
+} from "maplibre-gl";
+
+// maplibre-gl v6 no longer re-exports these from its main entry; they live in the
+// style-spec package (which maplibre-gl depends on transitively and we declare directly).
+import type { Feature, FilterSpecification, Point2D } from "@maplibre/maplibre-gl-style-spec";
 
 import css from "./generated/maplibre-gl.css.js";
 
 export {
 	setWorkerUrl, css,
-	ControlPosition, Coordinates, Feature, FilterSpecification, FullscreenControl, FullscreenControlOptions,
-	GeoJSONSource, IControl, ImageSource, LngLat, LngLatBounds, LngLatBoundsLike, LngLatLike,
-	Map, MapGeoJSONFeature, MapLayerEventType, MapMouseEvent, MapOptions, MapTouchEvent, Marker,
-	MarkerOptions, Point2D, PointLike, RequestTransformFunction, ScaleControl, Unit,
+	FullscreenControl, GeoJSONSource, ImageSource, LngLat, LngLatBounds,
+	Map, MapMouseEvent, MapTouchEvent, Marker, ScaleControl,
+};
+
+export type {
+	ControlPosition, Coordinates, Feature, FilterSpecification, FullscreenControlOptions,
+	IControl, LngLatBoundsLike, LngLatLike, MapGeoJSONFeature, MapLayerEventType,
+	MapOptions, MarkerOptions, Point2D, PointLike, RequestTransformFunction, Unit,
 };

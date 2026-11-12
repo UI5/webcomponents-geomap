@@ -92,20 +92,20 @@ img-src data: blob:;
 
 ### Strict CSP Environments
 
-For environments with strong Content Security Policies that disallow blob: workers, a CSP-safe bundle is provided:
+For environments with strong Content Security Policies that disallow blob: workers, a CSP-safe worker is provided:
 
-`maplibre-gl-csp-worker.js`
+`maplibre-gl-worker.mjs`
 
-Create `worker.js` in your application:
+Create `worker.mjs` in your application (MapLibre v6 ships the worker as an ES module, so the bridge must `import` instead of `importScripts`):
 ```js
-importScripts(new URLSearchParams(self.location.search).get("worker"));
+await import(new URLSearchParams(self.location.search).get("worker"));
 ```
 
 Provide the worker URL before initializing the component:
 ```ts
 import { setWorkerPath } from "@ui5/webcomponents-geomap/dist/config/Config.js";
 
-setWorkerPath("<path-to-your-worker.js>");
+setWorkerPath("<path-to-your-worker.mjs>");
 ```
 
 ## Architecture

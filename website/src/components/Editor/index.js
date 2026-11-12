@@ -65,8 +65,8 @@ export default function Editor({html, js, css, mainFile = "main.js", canShare = 
     if (process.env.NODE_ENV === 'development' || siteConfig.customFields.ui5DeploymentType === "nightly") {
       return {
         "@ui5/webcomponents-geomap/": `${getHostBaseUrl()}local-cdn/geomap/`,
-        "mocked-samples-maplibre-gl": `${getHostBaseUrl()}local-cdn/maplibre-gl/dist/maplibre-gl.js`,
-        "maplibre-gl/dist/maplibre-gl-csp.js": `${getHostBaseUrl()}local-cdn/geomap/dist/MaplibreSamplesMock.js`,
+        "mocked-samples-maplibre-gl": `${getHostBaseUrl()}local-cdn/maplibre-gl/dist/maplibre-gl.mjs`,
+        "maplibre-gl": `${getHostBaseUrl()}local-cdn/geomap/dist/MaplibreSamplesMock.js`,
         "terra-draw/": `https://cdn.jsdelivr.net/npm/terra-draw@1.0.0/dist/`,
         "terra-draw": `https://cdn.jsdelivr.net/npm/terra-draw@1.0.0/dist/terra-draw.module.js`,
 		"terra-draw-maplibre-gl-adapter": `https://cdn.jsdelivr.net/npm/terra-draw-maplibre-gl-adapter@1.0.0/dist/terra-draw-maplibre-gl-adapter.module.js`,
@@ -87,8 +87,8 @@ export default function Editor({html, js, css, mainFile = "main.js", canShare = 
     } else {
       return {
         "@ui5/webcomponents-geomap/": `${getHostBaseUrl()}local-cdn/geomap/`,
-        "mocked-samples-maplibre-gl": `${getHostBaseUrl()}local-cdn/maplibre-gl/dist/maplibre-gl.js`,
-        "maplibre-gl/dist/maplibre-gl-csp.js": `${getHostBaseUrl()}local-cdn/geomap/dist/MaplibreSamplesMock.js`,
+        "mocked-samples-maplibre-gl": `${getHostBaseUrl()}local-cdn/maplibre-gl/dist/maplibre-gl.mjs`,
+        "maplibre-gl": `${getHostBaseUrl()}local-cdn/geomap/dist/MaplibreSamplesMock.js`,
         "terra-draw/": `https://cdn.jsdelivr.net/npm/terra-draw@1.0.0/dist/`,
         "terra-draw": `https://cdn.jsdelivr.net/npm/terra-draw@1.0.0/dist/terra-draw.module.js`,
         "terra-draw-maplibre-gl-adapter": `https://cdn.jsdelivr.net/npm/terra-draw-maplibre-gl-adapter@1.0.0/dist/terra-draw-maplibre-gl-adapter.module.js`,
