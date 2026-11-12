@@ -100,7 +100,7 @@ For environments with strong Content Security Policies that disallow blob: worke
 
 > Although the file is named `.js`, its contents are ES-module code — the component instantiates it with `new Worker(url, { type: "module" })`, so the browser parses it as a module regardless of the extension. The `.js` name is used because it is universally served with the correct MIME type and plays well with downstream build tooling.
 
-Create `worker.mjs` in your application (MapLibre v6 ships the worker as an ES module, so the bridge must `import` instead of `importScripts`):
+Create `worker.js` in your application (MapLibre v6 ships the worker as an ES module, so the bridge must `import` instead of `importScripts`; the `.js` script is still parsed as a module because the Geomap component instantiates the worker with `{ type: "module" }`):
 ```js
 await import(new URLSearchParams(self.location.search).get("worker"));
 ```
@@ -109,7 +109,7 @@ Provide the worker URL before initializing the component:
 ```ts
 import { setWorkerPath } from "@ui5/webcomponents-geomap/dist/config/Config.js";
 
-setWorkerPath("<path-to-your-worker.mjs>");
+setWorkerPath("<path-to-your-worker.js>");
 ```
 
 Example CSP for Strict Mode (replace `<worker-origin>` with the origin that serves `maplibre-gl-worker.js`; omit it if the worker is same-origin and `'self'` is sufficient):
@@ -118,7 +118,7 @@ worker-src 'self';
 script-src 'self' <worker-origin>;
 img-src data: blob:;
 ```
-> The dynamic `import()` inside `worker.mjs` is a script fetch inside the module worker, so the origin serving `maplibre-gl-worker.js` must be allowed by `script-src`. `worker-src blob:` and `child-src blob:` can be dropped in Strict Mode because the bridge no longer relies on blob: workers. `img-src blob:` is still required for raster tile rendering.
+> The dynamic `import()` inside `worker.js` is a script fetch inside the module worker, so the origin serving `maplibre-gl-worker.js` must be allowed by `script-src`. `worker-src blob:` and `child-src blob:` can be dropped in Strict Mode because the bridge no longer relies on blob: workers. `img-src blob:` is still required for raster tile rendering.
 
 ## Architecture
 
