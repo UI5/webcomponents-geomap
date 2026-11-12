@@ -45,7 +45,7 @@ import type GeomapSpot from "./GeomapSpot.js";
 import type GeomapSelectionControl from "./GeomapSelectionControl.js";
 import { PulseAnimationUtil } from "./utils/PulseAnimationUtil.js";
 
-const workerUrl = new URL("./generated/maplibre-gl-worker.mjs", import.meta.url);
+const workerUrl = new URL("./generated/maplibre-gl-worker.js", import.meta.url);
 
 type mapElementCoordsType = LngLatLike & {
 	item?: any;
