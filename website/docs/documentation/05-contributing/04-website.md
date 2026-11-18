@@ -16,14 +16,14 @@ npm run start:website
 
 This builds all the necessary assets (the components, the API reference, and the local CDN) and then starts a local server on your machine and opens the website in your browser.
 
-However, in most cases you already have the project built, so it is faster to just start the Docusaurus dev server:
+However, if you already have the project built, it is faster to start the Docusaurus dev server:
 
 ```bash
 cd website
 npm start
 ```
 
-In case of issues with the second flow, most likely you need to run `npm run start:website` once so the generated assets (API reference and local CDN) are available.
+If you encounter issues with the second flow, run `npm run start:website` once so the generated assets (API reference and local CDN) are available.
 
 ## How Component Pages Are Generated
 

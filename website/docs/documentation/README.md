@@ -3,7 +3,7 @@ sidebar_position: 0
 ---
 # Introduction
 
-**UI5 Geomap (`ui5-geomap`)** is a SAP Web Component leveraging the UI5 Web Components framework. It is built on top of [UI5 Web Components](https://github.com/SAP/ui5-webcomponents/) and is meant to serve as a tool for visualizing a map with vector tiles and geospatial data.
+**UI5 Geomap (`ui5-geomap`)** is a SAP Web Component leveraging the UI5 Web Components framework. It is built on top of [UI5 Web Components](https://github.com/SAP/ui5-webcomponents/) and serves as a tool for visualizing a map with vector tiles and geospatial data.
 
 ## Key Features of UI5 Geomap
 
@@ -15,14 +15,14 @@ It can mix the tiles provided by the map provider and GeoJSON describing feature
 coming from another source(s) and visualize the different layers to represent these features.
 Some of the main map features are:
 
-- **Map Interaction:** Visualize, pan, zoom, rotate, tilt the map
-- **Geometry Support:** Supports different features like point, line string, polygon, etc.
+- **Map Interaction:** Visualize, pan, zoom, rotate, and tilt the map
+- **Geometry Support:** Supports different features such as points, line strings, and polygons
 - **Custom Markers:** Highly customizable markers on the fly
-- **Clustering:** Clustering of objects on the map when zoom in/out
-- **Smooth Transition:** Fly to/perfect zoom
+- **Clustering:** Clustering of objects on the map when zooming in or out
+- **Smooth Transition:** Fly-to and perfect zoom
 - **Map Info:** Showing scale and copyright info
 - **Selection:** Selection of objects
-- **Rich Events:** Various events to allow the app to implement context menu, act on pan/zoom, map rendering, etc.
+- **Rich Events:** Various events to allow the app to implement context menus, act on pan and zoom, and map rendering.
 
 ![overview](images/overview.png)
 

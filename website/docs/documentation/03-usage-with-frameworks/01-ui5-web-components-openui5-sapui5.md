@@ -1,8 +1,8 @@
-# UI5 Geomap Web Component & OpenUI5/SAPUI5
+# UI5 Geomap Web Component and OpenUI5/SAPUI5
 
-UI5 Geomap is delivered to OpenUI5 and SAPUI5 as a generated wrapper library, `sap.ui.geomap`. It has been public since SAPUI5 1.155 and is generated directly from this repo's Custom Elements Manifest — each control is a thin `SapWebComponent.extend()` bridge around a `Ui5Geomap*` Web Component, so there is no hand-written glue code between the two worlds.
+UI5 Geomap is delivered to OpenUI5 and SAPUI5 as a generated wrapper library, `sap.ui.geomap`. It has been public since SAPUI5 1.155 and is generated directly from this repository's Custom Elements Manifest — each control is a thin `SapWebComponent.extend()` bridge around a `Ui5Geomap*` Web Component, so there is no handwritten glue code between the two worlds.
 
-This differs from the generic route for UI5 Web Components, which consumes components via `ui5-tooling-modules` and the npm package name as an XML namespace. For Geomap you do not need that setup — you consume the library the classic way, exactly like `sap.m` or `sap.ui.table`. If you are integrating other, non-Geomap Web Components into the same app, see the [upstream guide](https://ui5.github.io/webcomponents/docs/frameworks/SAPUI5/).
+This differs from the generic route for UI5 Web Components, which consumes components via `ui5-tooling-modules` and the npm package name as an XML namespace. For Geomap you do not need that setup — you consume the library the classic way, exactly like `sap.m` or `sap.ui.table`. If you are integrating other, non-Geomap Web Components into the same app, see the [UI5 Web Components in SAPUI5 and OpenUI5 guide](https://ui5.github.io/webcomponents/docs/frameworks/SAPUI5/).
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ This differs from the generic route for UI5 Web Components, which consumes compo
 
 The library is declared with `noLibraryCSS: true`: there is no separate `library.css` to load. The component ships its styles via the Shadow DOM.
 
-## Add the library to your app
+## Add the Library to Youe App
 
 Declare `sap.ui.geomap` as a library dependency so SAPUI5 loads it before your views instantiate.
 
@@ -44,7 +44,7 @@ Declare `sap.ui.geomap` as a library dependency so SAPUI5 loads it before your v
 ></script>
 ```
 
-## Use in XML views
+## Use in XML Views
 
 Add the `sap.ui.geomap` namespace to your view root and use the controls like any other SAPUI5 control. Properties bind, aggregations bind, and events wire up through the usual XML view syntax.
 
@@ -82,7 +82,7 @@ A few things to note from the snippet:
 - Event names from the Web Component are dashed (`map-click`); in the SAPUI5 wrapper they become camelCase, so the XML attribute is `mapClick`.
 - Every property is bindable with the standard `{model>path}` syntax — nothing special is needed on top of the normal SAPUI5 data-binding story.
 
-## Use in controllers
+## Use in Controllers
 
 Require the controls you work with directly, and call their APIs the same way as any SAPUI5 control.
 
@@ -130,23 +130,23 @@ sap.ui.define([
 
 The `sap.ui.geomap.GeomapControlPosition` enum (`TopLeft` / `TopRight` / `BottomLeft` / `BottomRight`) is exposed on the library object and is the type used by controls that accept a positioned-overlay slot.
 
-## API mapping
+## API Mapping
 
 The mapping between the Web Component surface and the `sap.ui.geomap` wrapper follows the same conventions used across UI5 Web Components:
 
-| UI5 Geomap Web Component | sap.ui.geomap | Notes |
-|---|---|---|
-| properties | properties | Standard UI5 getters/setters (`Geomap#getZoom()` / `Geomap#setZoom()`); all bindable with `{model>path}`. |
-| slots | aggregations | `items`, `mapControls` — accessed with the usual `add*` / `get*` / `remove*` methods. |
+| UI5 Geomap Web Component | sap.ui.geomap | Notes                                                                                                                   |
+|---|---|-------------------------------------------------------------------------------------------------------------------------|
+| properties | properties | Standard UI5 getters/setters (`Geomap#getZoom()` / `Geomap#setZoom()`); all bindable with `{model>path}`.               |
+| slots | aggregations | `items`, `mapControls` — accessed with the usual `add*` / `get*` / `remove*` methods.                                   |
 | events | events | Dashed Web Component names become camelCase in UI5 (`map-click` → `mapClick`, `map-bounds-change` → `mapBoundsChange`). |
-| methods | methods | Any Web Component method is callable directly, e.g. `Geomap#flyTo(lng, lat, zoom)`, `Geomap#getBounds()`. |
-| enums | types | Exposed on the library object, e.g. `sap.ui.geomap.GeomapControlPosition`. |
+| methods | methods | Any Web Component method is callable directly, for example, `Geomap#flyTo(lng, lat, zoom)`, `Geomap#getBounds()`.       |
+| enums | types | Exposed on the library object, for example, `sap.ui.geomap.GeomapControlPosition`.                                      |
 
-## Available controls
+## Available Controls
 
-All controls live flat under `sap.ui.geomap.*` — there are no sub-namespaces. The library ships 34 controls covering the map surface itself (`Geomap`), geometric features (points, lines, polygons, circles, rectangles), overlay and provider controls (`GeomapProvider`, legend, scale), and the layer/source primitives that back them. For the full per-control reference — properties, aggregations, events, methods — see the [Components](/components/Geomap) section of this site; the API documented there applies directly through the wrapper, modulo the mapping rules above.
+All controls live flat under `sap.ui.geomap.*` — there are no sub-namespaces. The library ships 34 controls covering the map surface itself (`Geomap`), geometric features (points, lines, polygons, circles, and rectangles), overlay and provider controls (`GeomapProvider`, legend, scale), and the layer and source primitives that back them. For the full per-control reference — properties, aggregations, events, and methods — see the [Components](/components/Geomap) section of this site; the API documented there applies directly through the wrapper, subject to the mapping rules above.
 
-## See also
+## See Also
 
 - [Generic UI5 Web Components in SAPUI5 (upstream)](https://ui5.github.io/webcomponents/docs/frameworks/SAPUI5/)
-- [SAPUI5 "Using Web Components" topic](https://ui5.sap.com/#/topic/1c80793df5bb424091954697fc0b2828)
+- [SAPUI5 Demo Kit: Using Web Components](https://ui5.sap.com/#/topic/1c80793df5bb424091954697fc0b2828)
