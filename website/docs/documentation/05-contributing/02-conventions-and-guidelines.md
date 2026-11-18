@@ -3,11 +3,11 @@
 ## Code Style
 
 We enforce code style rules using [ESLint](https://eslint.org). Run `npm run lint` to check your code for style issues, or `npm run lintfix` to automatically fix most of them.
-You can find an ESLint integration for your favorite IDE [here](https://eslint.org/docs/user-guide/integrations).
+For a list of ESLint IDE integrations, see [Integrations](https://eslint.org/docs/user-guide/integrations).
 
 ## Testing
 
-Tests are implemented with [Cypress](https://www.cypress.io/). Run `npm test` for the standard test suite, or `npm run test:cypress` to run the Cypress component/integration tests. If reasonable, take the time to write a test for the proposed change or fix.
+Tests are implemented with [Cypress](https://www.cypress.io/). Run `npm test` for the standard test suite, or `npm run test:cypress` to run the Cypress component and integration tests.  Where possible, write a test for your change or fix.
 
 ## Git Guidelines
 
@@ -49,7 +49,7 @@ BREAKING CHANGE: The <ui5-geomap> "layers" attribute has been
 renamed to "sources". Migration: s/layers=/sources=/.
 ```
 
-While the package is on `0.x`, we follow the common convention that breaking changes bump the **minor** version. From `1.0.0` onward they bump the **major**, as prescribed by SemVer.
+While the package is on `0.x`, breaking changes bump the minor version. From `1.0.0` onward they bump the major, as prescribed by [Semantic Versioning (SemVer)](https://semver.org/).
 
 ### Examples
 

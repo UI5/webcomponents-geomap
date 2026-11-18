@@ -1,6 +1,6 @@
 # Contributing
 
-Contributions to the UI5 Geomap project are welcome!
+Contributions to the UI5 Geomap project are welcome.
 
 This section explains our conventions, how to run the project locally, and how to run the documentation website.
 

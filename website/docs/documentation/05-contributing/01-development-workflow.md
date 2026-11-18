@@ -6,15 +6,15 @@ Before you start, please read and abide by the [SAP Open Source Code of Conduct]
 
 Before implementing a change, please create an issue that describes the problem you would like to solve or the enhancement you would like to make, and note that you are willing to work on it. The team will review the issue and, if accepted, assign it to you. See the repository's [CONTRIBUTING.md](https://github.com/UI5/webcomponents-geomap/blob/main/CONTRIBUTING.md) for the full contribution policy.
 
-## 1. Fork the UI5 Geomap repository
+## 1. Fork the UI5 Geomap Repository
 
-See how to fork a repo [here](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo).
+For more information, see [Fork a repository](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo)..
 
-## 2. Clone the UI5 Geomap repository
+## 2. Clone the UI5 Geomap Repository
 
-See how to clone a repo [here](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
+For more information, see [Cloning a repository](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
 
-## 3. Run the project
+## 3. Run the Project
 
 **3.0.** Make sure you have [Node.js](https://nodejs.org/) installed (**version 22 or higher**).
 
@@ -83,24 +83,24 @@ git commit -m "fix(cluster): avoid crash when source has zero features"
 
 See the [Git Guidelines](02-conventions-and-guidelines.md#git-guidelines) for the allowed commit types and full rules.
 
-## 5. Open a pull request (PR) from your fork
+## 5. Open a Pull Request (PR) from Your Fork
 
 You can open a pull request to the upstream repository from any branch or commit in your fork.
 We recommend that you make changes in a topic branch (not in your local `main` branch), so that you can push follow-up commits if you receive feedback on your pull request.
 
 **5.1.** Find the "Pull requests" tab and press the "New pull request" button.
 
-**5.2.** Compare the `main` branch of the upstream repository with a branch from your fork. The full guide on how to open a PR from a fork can be found [here](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork).
+**5.2.** Compare the `main` branch of the upstream repository with a branch from your fork. For more information, see [Creating a pull request from a fork](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request-from-a-fork).
 
-**5.3.** Once the PR is created, you will be asked to accept a Developer Certificate of Origin (DCO). Just follow the link posted in the PR by the CLA assistant. This is required only for your first PR.
+**5.3.** Once the PR is created, you are asked to accept a Developer Certificate of Origin (DCO). Follow the link posted in the PR by the CLA assistant. This is required only for your first PR.
 
 **5.4.** Immediately after the PR is created, a central build process starts to verify the change by building the project and running all tests.
 
 **5.5.** Wait for our code review and approval. After the PR is approved, the UI5 Geomap team will merge the change into the `main` branch.
 
-## 6. Sync your fork
+## 6. Sync Your Fork
 
-Over time your fork will get out of sync with the original repository and you will need to update it.
+Over time, your fork will get out of sync with the original repository and you need to update it.
 
 **6.1.** Specify the upstream repository that your fork will be synced with.
 
@@ -126,4 +126,4 @@ git checkout main
 git merge upstream/main
 ```
 
-The full guide on how to sync a fork can be found [here](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork).
+For more information, see [Syncing a fork](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork).

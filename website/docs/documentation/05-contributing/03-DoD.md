@@ -22,13 +22,13 @@ This page is a checklist of the common pitfalls contributors should run through 
 
   Every interaction must surface as an event so applications can react and update their models. On `<ui5-geomap>` that means: dragging the map fires `map-center`, scrolling/pinching fires `map-zoom`, rotating fires `map-rotate`, tilting fires `map-tilt`, clicking a feature produces `map-click` and (where applicable) `selection-set`. If you add a new interaction path, add the corresponding event.
 
-- **Do I allow the application to prevent the default behaviour?**
+- **Do I allow the application to prevent the default behavior?**
 
   Make an event preventable only when there is a sensible reason for the app to cancel it. In Geomap this is already the case for pointer-driven events — `map-click`, `map-dblclick`, `map-mouseup`, `map-contextmenu`, and `map-error` are declared with `cancelable: true`, and the firing site checks the return value of `fireDecoratorEvent(...)` before continuing. Lifecycle events such as `map-load` and `map-render` are not cancelable — there is nothing meaningful for the app to abort.
 
 - **Have I described my event's details?**
 
-  If an event carries payload, declare a TypeScript type for its detail, reference the type in `eventDetails`, use it with `fireDecoratorEvent`, and export it as a named type. Geomap already follows this — e.g. `MapCenterEventDetail`, `MapClickEventDetail`, and the `{ feature: GeoJSONFeature }` payload on `selection-set`. New events with a payload must do the same.
+  If an event carries payload, declare a TypeScript type for its detail, reference the type in `eventDetails`, use it with `fireDecoratorEvent`, and export it as a named type. Geomap already follows this — for example, `MapCenterEventDetail`, `MapClickEventDetail`, and the `{ feature: GeoJSONFeature }` payload on `selection-set`. New events with a payload must do the same.
 
 ## CSS
 
@@ -36,7 +36,7 @@ This page is a checklist of the common pitfalls contributors should run through 
 
   Style the `:host` rather than inner shadow DOM as much as possible — especially sizing, margins, borders, and the positioning of overlay controls — so applications can overstyle the component within reason. This matters more for Geomap than for the average Web Component: the `sap.ui.geomap` wrapper is declared with `noLibraryCSS: true`, so there is no library-wide stylesheet for apps to lean on. Everything an app can reasonably restyle flows through host-level CSS.
 
-## Map lifecycle & integration
+## Map lifecycle and Integration
 
 - **Am I cleaning up the MapLibre instance on disconnect?**
 
@@ -44,15 +44,15 @@ This page is a checklist of the common pitfalls contributors should run through 
 
 - **Am I leaking MapLibre internals through the public API?**
 
-  Public properties, events, slots, and method return types must be plain data — numbers, strings, enums, tuples, plain objects. Never a `maplibregl.Map`, `Source`, `Layer`, or raw `LngLat` on the public surface. The `sap.ui.geomap` wrapper is generated directly from this repo's Custom Elements Manifest, so a leaked MapLibre type crosses the public API boundary and ends up in OpenUI5 too. `getBounds()` currently returns `any` for this reason — treat that as technical debt, not as license to widen the surface further.
+  Public properties, events, slots, and method return types must be plain data — numbers, strings, enums, tuples, plain objects. Never a `maplibregl.Map`, `Source`, `Layer`, or raw `LngLat` on the public surface. The `sap.ui.geomap` wrapper is generated directly from this repository's Custom Elements Manifest, so a leaked MapLibre type crosses the public API boundary and ends up in OpenUI5 too. `getBounds()` currently returns `any` for this reason — treat that as technical debt, not as license to widen the surface further.
 
 - **Am I handling large feature sets without re-rendering everything?**
 
-  When many `GeomapPoint`s or shapes live under `items`, do not reconcile the entire set on every property change. Update MapLibre sources incrementally, batch style updates, and avoid rebuilding a source from scratch when a single feature moved. The user-visible symptom of getting this wrong is pan/zoom jank well below the ~1,000-feature threshold documented in [Declarative API: Limitations and Performance](../advanced-concepts/declarative-limitations); above that threshold, apps are expected to switch to `<ui5-geomap-source>` + a layer element anyway.
+  When many `GeomapPoint`s or shapes live under `items`, do not reconcile the entire set on every property change. Update MapLibre sources incrementally, batch style updates, and avoid rebuilding a source from scratch when a single feature moved. The user-visible symptom of getting this wrong is pan and zoom jank well below the ~1,000-feature threshold documented in [Declarative API: Limitations and Performance](../advanced-concepts/declarative-limitations); above that threshold, apps are expected to switch to `<ui5-geomap-source>` + a layer element anyway.
 
 - **Have I explicitly imported every icon my sub-component uses?**
 
-  Icons must be imported at the file that needs them — e.g. `import "@ui5/webcomponents-icons/dist/map.js";` in `GeomapSpotComponent.ts`, or the individual `add` / `less` / `expand` imports in `GeomapNavigationControlComponent.ts`. Do not depend on `Assets.ts` or `@ui5/webcomponents-icons/dist/AllIcons.js` to drag your icons in — that only works in the test bundle and when consumers happen to pull all icons.
+  Icons must be imported at the file that needs them, for example, `import "@ui5/webcomponents-icons/dist/map.js";` in `GeomapSpotComponent.ts`, or the individual `add` / `less` / `expand` imports in `GeomapNavigationControlComponent.ts`. Do not depend on `Assets.ts` or `@ui5/webcomponents-icons/dist/AllIcons.js` to drag your icons in — that only works in the test bundle and when consumers happen to pull all icons.
 
 ## Testing
 
@@ -62,4 +62,4 @@ This page is a checklist of the common pitfalls contributors should run through 
 
 - **Are my tests really testing my code?**
 
-  Tests that assert things like "setting a property creates an attribute" exercise the Web Components framework, not Geomap. Skip them and spend the budget on behaviour that is genuinely ours — map interaction flows, event payloads, bounds/zoom math, cleanup on disconnect.
+  Tests that assert things like "setting a property creates an attribute" exercise the Web Components framework, not Geomap. Skip them and spend the budget on behavior that is genuinely ours — map interaction flows, event payloads, bounds and zoom math, and cleanup on disconnect.
