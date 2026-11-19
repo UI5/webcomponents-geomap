@@ -1,6 +1,6 @@
 import type { BBox, FeatureCollection } from "geojson";
 import { Geometry, Position } from "geojson";
-import { Feature as MapLibreFeature } from "../MapLibre.js";
+import type { Feature as MapLibreFeature } from "../MapLibre.js";
 
 type Units = "meters" | "millimeters" | "centimeters" | "kilometers" | "acres" | "miles" | "nauticalmiles" | "inches" | "yards" | "feet" | "radians" | "degrees" | "hectares";
 

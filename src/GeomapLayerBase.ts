@@ -2,7 +2,7 @@ import property from "@ui5/webcomponents-base/dist/decorators/property.js";
 import event from "@ui5/webcomponents-base/dist/decorators/event-strict.js";
 import type UI5Element from "@ui5/webcomponents-base/dist/UI5Element.js";
 import type { InvalidationInfo } from "@ui5/webcomponents-base/dist/UI5Element.js";
-import type { AddLayerObject } from "maplibre-gl/dist/maplibre-gl-csp.js";
+import type { AddLayerObject } from "maplibre-gl";
 import type {
 	FilterSpecification,
 	LngLatLike,
@@ -304,11 +304,11 @@ class GeomapLayerBase extends GeomapElement {
 
 	updateLayerProperties() {
 		for (const [prop, value] of Object.entries(this.paintProperties)) { // eslint-disable-line
-			this.map?.setPaintProperty(this._id, prop, value === "" ? undefined : value); // "" is not accepted
+			this.map?.setPaintProperty(this._id, prop as any, value === "" ? undefined : value); // "" is not accepted
 		}
 
 		for (const [prop, value] of Object.entries(this.layoutProperties)) { // eslint-disable-line
-			this.map?.setLayoutProperty(this._id, prop, value === "" ? undefined : value);
+			this.map?.setLayoutProperty(this._id, prop as any, value === "" ? undefined : value);
 		}
 	}
 
@@ -329,10 +329,10 @@ class GeomapLayerBase extends GeomapElement {
 				this.map.moveLayer(this._id, this._getInsertBeforeLayerId());
 			} else if (propData.paint) {
 				const value = this._getPropertyValue(propName as keyof this, propData);
-				this.map.setPaintProperty(this._id, propData.paint, value === "" ? undefined : value); // "" is not accepted
+				this.map.setPaintProperty(this._id, propData.paint as any, value === "" ? undefined : value); // "" is not accepted
 			} else if (propData.layout) {
 				const value = this._getPropertyValue(propName as keyof this, propData) as keyof this;
-				this.map.setLayoutProperty(this._id, propData.layout, value === "" ? undefined : value); // "" is not accepted
+				this.map.setLayoutProperty(this._id, propData.layout as any, value === "" ? undefined : value); // "" is not accepted
 			}
 		}
 	}
@@ -404,12 +404,12 @@ class GeomapLayerBase extends GeomapElement {
 		const layer = this.__id;
 		const canvas = this.map!.getCanvasContainer();
 		this.map!.on("mouseenter", layer!, () => {
-			this.map!.setPaintProperty(layer!, sPaintProperty, `#${shapeColorHover}`);
+			this.map!.setPaintProperty(layer!, sPaintProperty as any, `#${shapeColorHover}`);
 			canvas.style.cursor = "move";
 		});
 
 		this.map!.on("mouseleave", layer!, () => {
-			this.map!.setPaintProperty(layer!, sPaintProperty, shapeColor);
+			this.map!.setPaintProperty(layer!, sPaintProperty as any, shapeColor);
 			canvas.style.cursor = "";
 		});
 
